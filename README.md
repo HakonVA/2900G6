@@ -25,6 +25,14 @@
 4. Install using pipenv:
   ```bash
   pipenv install -r requirements.txt
+  ```  
+5. Spawns a shell within the virtualenv:
+  ```bash
+  pipenv shell
+  ```
+6. For information about subcommands:   
+  ```bash
+  python manage.py
   ```
 
 ## License
