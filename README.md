@@ -28,20 +28,21 @@ Download and install the latest pip and pipenv versions in order to build the pr
   ```bash
   git clone https://github.com/HakonVA/2900G6.git
   ```
-3. Enter the repository: 
+2. Enter the repository: 
   ```bash
   cd 2900G6/
   ```
-4. Built project using pipenv:
+3. Built project using pipenv:
   ```bash
-  pipenv install -r requirements.txt
+  make install
   ```  
-5. Spawns a shell within the projects virtualenv:
+4. To activate this project's virtualenv, run pipenv shell:
   ```bash
   pipenv shell
   ```
-6. For information about subcommands:   
+5. For information about subcommands:   
   ```bash
+  make help
   python manage.py
   ```
 

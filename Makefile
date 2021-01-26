@@ -31,6 +31,10 @@ dev: build
 dbshell: build
 	python manage.py dbshell
 
+## Install the project dependencies and create virtual environment
+install:
+	@pipenv install -r requirements.txt
+
 ## Build a docker image [Docker]	
 docker-build: test
 	@echo "$$(tput bold)$$(tput setaf 1)Not implemented $$(tput sgr 0)"
