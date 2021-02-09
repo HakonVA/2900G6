@@ -1,9 +1,9 @@
 from django.test import TestCase
 
-class IngredientsModelTests(TestCase):
+class IngredientsViewsTests(TestCase):
     """[summary]
     
-        Creating/updating/deleting of models, model methods, model manager methods.
+        Viewing of data, changing of data, and custom class-based view methods.
 
     Args:
         TestCase ([type]): [description]
