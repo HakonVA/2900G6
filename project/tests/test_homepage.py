@@ -1,15 +1,36 @@
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
+from selenium import webdriver
 
-#sample test, will fail
-class SmokeTest(TestCase):
-    def test_bad_maths(self):
-        self.assertEqual(1 + 1, 3)
+homepage_title = "Homepage" #used to determine if homepage is built correctly
+
+#import info for tests, all methods need test_.. etc in the name
 
 class HomepageTest(TestCase):
-    def returns_homepage(self):
+    
+    #test for asserting that we are using the homepage template
+    def test_homepage(self):
+        response = self.client.get(f'')
+        self.assertTemplateUsed(response, 'pages/home.html')
 
-        pass
-    def returns_loginpage(self):
-        pass
-    def returns_ingredientpage(self):
-        pass
+class VisitPageTest(StaticLiveServerTestCase):
+    #test for asserting that the homepage title is correct
+    def test_homepage_title(self):
+
+        #running on ubuntu terminal, no display        
+        browser = webdriver.Firefox()
+
+        browser.get(f'{self.live_server_url}')
+
+        browser.quit()
+
+
+
+
+        
+
+#assert that homepage has title "homepage"
+#find title
+#with views?
+
+
