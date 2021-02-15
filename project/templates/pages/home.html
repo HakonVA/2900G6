@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
     <h1>Project fridge</h1>
@@ -6,6 +7,7 @@
      href="css/project.css"> -->
     <h5>Select the ingredients in your fridge, and chose from selected
         recipes based on your preferences</h5> 
+    <img src="{%static 'images/pexels-cottonbro-4068317.jpg' %}" width="900" height="1000" >  
 
     <button class = "button Login", onclick = "append_url('login')" > Login </button>
     
