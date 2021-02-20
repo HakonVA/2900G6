@@ -14,12 +14,11 @@
     <input type="text" name="q" id="foodItem" placeholder="Add ingredients">
     <button>Submit</button>
 
+    {% for object in object_list %}
     <ul class="ingredients-list">
-        <li>Egg</li>
-        <li>Rice</li>
-        <li>Bacon</li>
-        <li>Minced meat</li>
+        <li>{{ object.scientific_name }}</li>
     </ul>
+    {% endfor %}
 
 </body>
 </html>

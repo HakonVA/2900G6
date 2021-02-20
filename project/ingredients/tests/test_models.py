@@ -11,3 +11,21 @@ class IngredientsModelTests(TestCase):
     
     def setUp(self):
         pass    
+
+    def test_create_ingredient(self):
+        pass
+
+    def test_update_ingredient(self):
+        pass
+
+    def test_delete_ingredient(self):
+        pass
+
+    def test_list_ingredient(self):
+        pass
+
+    def test_empty_ingredient_invalid(self):
+        pass
+
+    def test_duplicate_ingredient_invalid(self):
+        pass
