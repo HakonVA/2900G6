@@ -8,14 +8,14 @@ class Food(models.Model):
         scientific_name     | The scientific name for the food
         description         | Description of the food
     """
-    fd_id = models.CharField(max_length=32, primary_key=True)  
+    fd_id = models.AutoField(primary_key=True)  
     fd_category_id = models.CharField(max_length=32)                        
     scientific_name = models.CharField(max_length=32)                       
     description = models.CharField(max_length=255)  
 
     def __str__(self):
         return "fd_id: %s name: %s" % (self.fd_id, self.scientific_name) 
-        
+
 class Food_nutrient(models.Model):
     """
     Food_nutrient

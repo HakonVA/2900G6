@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Name</title>
+    <title>ingredients</title>
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
     <link href="{% static 'css/ingredients.css' %}" rel="stylesheet">
@@ -11,14 +11,16 @@
 </head>
 <body>
     <h1>My ingredients</h1>
-    <input type="text" name="q" id="foodItem" placeholder="Add ingredients">
-    <button>Submit</button>
 
-    {% for object in object_list %}
-    <ul class="ingredients-list">
-        <li>{{ object.scientific_name }}</li>
-    </ul>
-    {% endfor %}
+    {% block ingredients-box %}
+    {% endblock %}
 
+    {% block ingredients-options %}
+    {% endblock %}
+
+
+    {% block ingredients-list %}
+    {% endblock %}
+    
 </body>
 </html>
