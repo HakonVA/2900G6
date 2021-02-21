@@ -10,17 +10,15 @@
     <!-- <script defer src="{% static 'js/project.js' %}"></script> -->
 </head>
 <body>
-    <h1>My ingredients</h1>
+    <div class="pandel-body">
+        {% block ingredients-options %}
+        {% endblock %}
 
-    {% block ingredients-box %}
-    {% endblock %}
+        {% block ingredients-box %}
+        {% endblock %}
 
-    {% block ingredients-options %}
-    {% endblock %}
-
-
-    {% block ingredients-list %}
-    {% endblock %}
-    
+        {% block ingredients-list %}
+        {% endblock %}
+    </div>
 </body>
 </html>
