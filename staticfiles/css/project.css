@@ -45,18 +45,21 @@ img{
 
 .container .project_title{
   position: absolute;
-  top: 4%;
-  left: 53%;
+  top: 7%;
+  left: 51.8%;
   transform: translate(-50%, -50%);
   font-size: 32px;
   color: #333;
+  word-spacing: 15px;
+  min-height:30px;
+  min-width:30px;
 }
 .container .project_info{
   position: absolute;
-  top: 15%;
+  top: 65%;
   left: 53%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
+  font-size: 18px;
   color: #333;
   word-break:normal;
 }
