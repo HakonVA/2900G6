@@ -3,7 +3,7 @@ from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-homepage_title = "Project Name" #the project name, update when changed
+homepage_title = "Fridge Friend" #the project name, update when changed
 
 class HomepageTest(TestCase):
     #test for asserting that we are using the homepage template
