@@ -1,29 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+        
+    <div class="container">
 
-    <h1>Project fridge</h1>
-    <!-- <link rel="stylesheet" type="text/css"
-     href="css/project.css"> -->
-    <h5>Select the ingredients in your fridge, and chose from selected
-        recipes based on your preferences</h5> 
-    <img src="{%static 'images/pexels-cottonbro-4068317.jpg' %}" width="900" height="1000" >  
+        <img src="{%static 'images/pexels-cottonbro-4068317.jpg' %}" width="900" height="1000" >  
+
+        <div class="project_title"> Fridge Friend </div>
+
+        <div class="project_info"> 
+            Select the ingredients in your fridge,
+            and choose from generated
+            recipes based on your preferences 
+        </div>
+
+        <button class = "button_test", onclick="append_url('test')"> Test button </button>
+
+        
+    </div>
 
     <button class = "button Login", onclick = "append_url('login')" > Login </button>
     
-    <button class = "button Ingredients", onclick="append_url('ingredients')"> Ingredients </button>
+    <button class = "button Ingredients", onclick="append_url('ingredients')"> Ingredients </button>  
 
-    <script>
-        function append_url(new_url){
-
-            var curr_page = window.location.href;
-            
-            var new_page = curr_page + new_url;
-
-            window.location.assign(new_page);
-        }
-    </script>
     
+
+
+
 {% endblock %}
 
 

@@ -34,11 +34,43 @@ body{
   border: 2px solid black;
 }
 
+.container{
+  position: relative;
+}
 
 img{
   max-width:100%;
   height: auto;
 }
+
+.container .project_title{
+  position: absolute;
+  top: 4%;
+  left: 53%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  color: #333;
+}
+.container .project_info{
+  position: absolute;
+  top: 15%;
+  left: 53%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #333;
+  word-break:normal;
+}
+.container .button_test{
+  position: absolute;
+  top: 25%;
+  left: 53%;
+  padding: 15px 32px;
+}
+
+
+
+
+
 
 /* Place the navbar at the bottom of the page, and make it stick */
 .navbar {
@@ -48,6 +80,9 @@ img{
   bottom: 0;
   width: 100%;
 }
+
+
+
 
 /* Style the links inside the navigation bar */
 .navbar a {
