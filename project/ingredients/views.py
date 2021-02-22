@@ -31,7 +31,8 @@ def ingredient_index_view(request):
     except obj.DoesNotExist:
         raise Http404
 
-    return render(request, 'ingredients/detail.html', {"objects": obj, "form": form})
+    return render(request, "pages/recipes.html", {"objects": obj, "form": form})
+    # return render(request, 'ingredients/detail.html', {"objects": obj, "form": form})
 
 def ingredient_update_view(request):
     pass

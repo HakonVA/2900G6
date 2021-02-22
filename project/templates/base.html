@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Name</title>
+    <title>{% block title %} Project Name {% endblock title %}</title>
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+    
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <script defer src="{% static 'js/project.js' %}"></script>
+    <!-- Insert css -->
+    {% block css %}<!-- <link href="{% static 'css/project.css' %}" rel="stylesheet"> -->{% endblock css%}
 
+    <!-- Insert js -->
+    {% block javascript %} <!-- <script defer src="{% static 'js/project.js' %}"></script> --> {% endblock javascript %}
 </head>
 <body>
-    <h1>Home page</h1>
+    <div class="header">
+        <a href="">Logo</a>
+    </div>
+    {% block content %}{% endblock content %}
 </body>
 </html>

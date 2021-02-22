@@ -1,0 +1,6 @@
+{% load static i18n %}
+
+{% for object in objects %}
+        <p>{{ object.scientific_name }}</p>
+        <button type="submit">Delete</button><br>
+{% endfor %} 

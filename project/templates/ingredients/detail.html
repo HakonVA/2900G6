@@ -1,10 +1,9 @@
 {% extends "pages/ingredient-index.html" %}
 
 {% block ingredients-box %}
-<form action="" method="post"> {% csrf_token %}
-    <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
-</form>
-
+    <form action="" method="post"> {% csrf_token %}
+        <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
+    </form>
 {% endblock%}
 
 {% block ingredients-list %}

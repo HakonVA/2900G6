@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %} <link href="{% static 'css/ingredients.css' %}" rel="stylesheet"> {% endblock css %} 
+
+{% block content %}
+    <div class="container">
+        <nav class="main-nav">Navbar</nav>
+        <main class="main-container">Main</main>
+        <div class="left-sidebar">
+            <nav><a href="deleteAll">Delete All</a><a href="">A-Z</a></nav>
+
+            <form action="" method="post"> 
+                {% csrf_token %}
+                <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
+            </form> 
+
+            {% for object in objects %}
+                <p>{{ object.scientific_name }}</p>
+                <button type="submit">Delete</button><br>
+            {% endfor %} 
+
+        </div>
+    </div>    
+{% endblock content %}
