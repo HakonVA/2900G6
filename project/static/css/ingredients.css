@@ -15,7 +15,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
     grid-template-areas:
-        "nav nav nav nav"
+        "hd hd hd hd"
         "left-sidebar main main main"
         "left-sidebar main main main"
         "left-sidebar main main main";
@@ -25,14 +25,26 @@ body {
     text-align: center;
 }
 
-.main-nav {
+.header {
     background: #84ffff;
-    grid-area: nav;
+    grid-area: hd;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
 }
 
-.main-container {
+.header-right {
+    color: red;
+}
+
+.header-nav {
+    color: red;
+}
+
+.header-left {
+    color: red;
+}
+
+main {
     background: #84ffff;
     grid-area: main;
     border-radius: var(--main-radius);
@@ -40,7 +52,7 @@ body {
 }
 
 .left-sidebar {
-    /* background: #18ffff; */
+    background: #18ffff;
     grid-area: left-sidebar;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);
