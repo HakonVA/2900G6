@@ -21,4 +21,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('project.dev_app.urls')),
+    path('ingredients/', include('project.ingredients.urls')),
 ]
