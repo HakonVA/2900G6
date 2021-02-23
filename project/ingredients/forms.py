@@ -8,7 +8,6 @@ class FoodCreateForm(ModelForm):
             'scientific_name',
         ]
 
-
 class FoodUpdateForm(ModelForm):
     pass
 

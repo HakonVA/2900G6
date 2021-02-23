@@ -18,8 +18,11 @@ from django.views.generic import TemplateView
 from django.urls import include, path
 
 urlpatterns = [
-    path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     path('admin/', admin.site.urls),
-    path('recipes/', include('project.ingredients.urls')),
-    # path('api/', include('project.dev_app.urls')),
+    # path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    # path('register/', user_views.register, name='register'),
+    # path('profile/', user_views.profile, name='profile'),
+    # path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path('ingredients/', include('project.ingredients.urls')),
 ]

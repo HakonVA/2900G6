@@ -16,12 +16,30 @@
         <div class="header-item header-item--full">
             <a class="header-link mr-20" href="{% url 'ingredients-home' %}">Recipes</a>
             <a class="header-link mr-20" href="{% url 'home' %}">Contact Us</a>
-            </div>
         </div>
 
         <!-- User/profile -->
         <div class="header-item"><a class="header-link" href="">Profile</a></div>
     </header>
 
-    <h1 style="background-color:red;">Recipes</h1>
+    <div class="main-container">
+        <div class="left-sidebar">
+            <div class="nav-item">
+                <a class="nav-link" href="{% url 'deleteAll' %}">Delete All</a>
+                <a class="nav-link" href="{% url 'home' %}">A-z</a>
+            </div>
+            
+            <form action="" method="post"> 
+                {% csrf_token %}
+                <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
+            </form>
+
+            <div>
+                {% for object in objects %}
+                    <p>{{ object.scientific_name }}</p>
+                    <button type="submit">Delete</button><br>
+                {% endfor %} 
+            </div>
+        </div>
+    </div>   
 {% endblock content %}
