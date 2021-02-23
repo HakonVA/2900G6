@@ -3,9 +3,12 @@
 :root {
     --main-radius: 5px;
     --main-padding: 5px;
+    --header-color-bg: #24292E;
+    --header-color-text: white;
 }
   
 body {
+    margin: 0;
 	font-family: Arial, sans-serif;
 }
 
@@ -26,22 +29,29 @@ body {
 }
 
 .header {
-    background: #84ffff;
-    grid-area: hd;
-    border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    color: var(--header-color-text);
+    background-color: var(--header-color-bg);
 }
 
-.header-right {
-    color: red;
+.header-item {
+    margin-right: 16px;
 }
 
-.header-nav {
-    color: red;
+.header-item--full {
+    flex: auto;
 }
 
-.header-left {
-    color: red;
+.header-link {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--header-color-text);
+}
+
+.mr-20 {
+    margin-right: 20px;
 }
 
 main {

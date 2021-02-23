@@ -8,5 +8,6 @@ from .views import (
 
 urlpatterns = [
     path('', view=ingredient_index_view, name='ingredients-home'),
+    # path('', view=ingredient_index_view, name='ingredients-home'),
     path('deleteAll', ingredient_deleteAll_view, name='deleteAll'),
 ]
