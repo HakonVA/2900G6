@@ -17,8 +17,15 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import include, path
 
+from django.conf.urls import url
+from project import dev_app
+from project.dev_app.views import homepage
+
 urlpatterns = [
     path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('project.dev_app.urls')),
+#    path("login", include(("dev_app.urls", "login"), namespace="login")),
+    path('login', dev_app.views.loginpage, name="login"),
+    path('signup', dev_app.views.signuppage)
 ]
