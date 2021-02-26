@@ -13,7 +13,7 @@
 }
 
 body{
-  background-color:#f8dc75;
+  background-color:#ffffff;
   color:#78828b;
 
   text-align: center;
@@ -45,14 +45,12 @@ img{
 
 .container .project_title{
   position: absolute;
-  top: 7%;
-  left: 51.8%;
+  top: 8%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 32px;
   color: #333;
   word-spacing: 15px;
-  min-height:30px;
-  min-width:30px;
 }
 .container .project_info{
   position: absolute;
@@ -61,7 +59,6 @@ img{
   transform: translate(-50%, -50%);
   font-size: 18px;
   color: #333;
-  word-break:normal;
 }
 .container .button_test{
   position: absolute;

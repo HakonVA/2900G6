@@ -6,20 +6,46 @@
     <title>Project Name</title>
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    
+    <!--set your own css file for your desired page-->
+    {% block css_file %}
+    {% endblock %}
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    
     <script defer src="{% static 'js/project.js' %}"></script>
 
 </head>
 <body>
 
-    <div class="topnav">
-        <a href="">Home</a>
-        <a href="username"> Profile </a>
-        <a href="recipies"> Recipies</a>
-        <a href="contactus"> Contact Us</a>
-    </div>
+<!-- header and footer is standard for all pages, keep it in base, and update it here -->
+    <div class ="containter">
 
-    {% block content %}
-    {% endblock %}
+        <!-- main navigation for all -->
+        <nav class="main-nav">
+            
+            <!-- always used -->
+            <a class="friend_logo" href="/" img><img class="header_img" 
+                src="{%static 'images/happy.png'%}">Fridge Friend</a>
+            
+            <!--all other items-->
+
+            <a class="nav_item_login" href="/login" img> 
+                <img src="{%static 'images/profile_pic.svg'%}"> 
+            </a>
+
+        </nav>
+        
+        <!--Everything within block content is the grid for other pages-->
+        {% block content %}
+        {% endblock %}
+
+        
+        <footer class="footer">
+
+            <p>Author: Friend<br>
+            <a href="mailto:friend@example.com">friend@example.com</a></p>
+
+        </footer>
+    </div>
 </body>
 </html>

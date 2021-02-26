@@ -1,0 +1,170 @@
+/* These styles are for ingredients.css */
+
+:root {
+    --main-radius: 5px;
+    --main-padding: 5px;
+}
+  
+body {
+	font-family: Arial, sans-serif;
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
+    grid-template-areas:
+        "nav nav nav nav"
+        "main main main main"
+        "main main main main"
+        "footer footer footer footer";
+    grid-gap: 0.2rem;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+}
+
+.nested_container{
+    
+    display:grid;
+    
+    grid-template-columns: 20% 1fr 1fr 20%;
+    grid-column-gap:100px;
+    
+    grid-template-rows: 200px 200px;
+    grid-row-gap:60px;
+
+    grid-template-areas: 
+    ". box-1 box-2 ."
+    ". box-3 box-4 ."
+    ". . . ."
+    ;
+
+}
+.box{
+    
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* since we are in grid, dont define width/height */
+
+}
+.box img{
+    width: 200px;
+    height: 200px;
+}
+
+.box-1{
+    grid-area: box-1;
+}
+
+.box-2{
+    grid-area: box-2;
+}
+
+.box-3{
+    grid-area: box-3;
+}
+
+.box-4{
+    grid-area: box-4;
+}
+
+.main-nav {
+    background: #ffffff;
+    grid-area: nav;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+    display: flex;
+}
+
+
+.main-nav .friend_logo{
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    text-decoration: none;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.main-nav .friend_logo img{
+    height: 100px;
+    width: 120px;
+}
+
+.main-nav .nav_item_login{
+    padding-left: 75%;
+}
+
+.main-nav .nav_item_login img{
+    height: 100px;
+    width: 120px;
+}
+
+.main-container {
+    background: #ffffff;
+    grid-area: main;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+
+
+footer {
+    text-align: center;
+    background-color:rgb(0,0,0);
+    color: white;
+    overflow: hidden;
+    bottom: 0;
+    padding: 25px;
+    font-size: 18px;
+    grid-area: footer;
+    border-radius: var(--main-radius);
+    padding-top: var(--main-padding);
+}
+
+
+@media only screen and (max-width: 550px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.2fr 0.4fr 2.2fr;
+        grid-template-areas:
+        "nav"
+        "left-sidebar"
+        "main"
+    }
+}
+  
+
+
+/* 
+.pandel-body {
+    margin: 0;
+    padding-top: 30px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+
+}
+
+.form__textbox {
+    padding-top: 15px;
+    padding-right: 50%;
+    padding-bottom: 0px;
+    padding-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 0;
+    border-bottom: 2px solid gray;
+    font-size: 26px;
+    background: transparent;
+    outline: 0;
+} */
+

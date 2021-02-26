@@ -1,27 +1,55 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
-        
-    <div class="container">
 
-        <img src="{%static 'images/pexels-cottonbro-4068317.jpg' %}" width="400" height="50" >  
+    <!--TODO: Add a nested grid in here-->
+    <main class="main-container">
 
-        <div class="project_title"> Fridge Friend </div>
+        <div class="nested_container">
 
-        <div class="project_info"> 
-            Select the ingredients in your fridge,
-            and choose from generated
-            recipes based on your preferences 
+            <!-- class to be box image -->            
+            <div class="box box-1">
+
+                <a class="recipies" href="/recipies" img>
+                    <img src="{%static 'images/Recipies.svg'%}">
+                    <p> Click to find new recipies </p>
+                </a>
+
+            </div>
+
+            <div class="box box-2">
+
+                <a class="ingredients" href="/ingredients" img>
+                    <img src="{%static 'images/ingredients_banner.svg'%}">
+                    <p> View your ingredients</p>
+                </a>
+
+
+            </div>
+
+            <div class="box box-3">
+                
+                <a class="social" href="/social" img>
+                    <img src="{%static 'images/share.svg'%}">
+                    <p> Social page </p>
+                </a>
+
+
+            </div>
+
+            <div class="box box-4">
+
+                <a class="carob" href="/carbon" img>
+                    <img src="{%static 'images/carbon.svg'%}">
+                    <p> View the carbon emission of your profile</p>
+                </a>
+            
+            </div>
+
         </div>
 
-    </div>
-
-    <footer>
-        <p>Author: Friend<br>
-        <a href="mailto:friend@example.com">friend@example.com</a></p>
-    </footer>
-
-
+    </main>
 
 {% endblock %}
 
