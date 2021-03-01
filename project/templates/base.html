@@ -32,6 +32,17 @@
             <a class="nav_item_login" href="/login" img> 
                 <img src="{%static 'images/profile_pic.svg'%}"> 
             </a>
+            
+            {% if not request.user.is_authenticated %}
+                <a href="login" class="login">Log In</a>
+                <a href="signup" class="button">Sign Up</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <p>Signed in as {{request.user.username}} </p>
+                <a href="logoutpage">Logout</a>
+            {% endif %}
+            
+            
 
         </nav>
         
