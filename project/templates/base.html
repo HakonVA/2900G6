@@ -3,60 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Name</title>
+    <title>Fridge Friend</title>
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
     
-    <!--set your own css file for your desired page-->
-    {% block css_file %}
-    {% endblock %}
-    <link href="{% static 'css/home.css' %}" rel="stylesheet">
-    
-    <script defer src="{% static 'js/project.js' %}"></script>
+    <!--<link href="{% static 'css/home.css' %}" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
+    
 </head>
 <body>
 
-<!-- header and footer is standard for all pages, keep it in base, and update it here -->
-    <div class ="containter">
-
-        <!-- main navigation for all -->
-        <nav class="main-nav">
-            
-            <!-- always used -->
-            <a class="friend_logo" href="/" img><img class="header_img" 
-                src="{%static 'images/happy.png'%}">Fridge Friend</a>
-            
-            <!--all other items-->
-
-            <a class="nav_item_login" href="/login" img> 
-                <img src="{%static 'images/profile_pic.svg'%}"> 
-            </a>
-            
-            {% if not request.user.is_authenticated %}
-                <a href="login" class="login">Log In</a>
-                <a href="signup" class="button">Sign Up</a>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-                <p>Signed in as {{request.user.username}} </p>
-                <a href="logoutpage">Logout</a>
-            {% endif %}
-            
-            
-
-        </nav>
-        
-        <!--Everything within block content is the grid for other pages-->
-        {% block content %}
-        {% endblock %}
-
-        
-        <footer class="footer">
-
-            <p>Author: Friend<br>
-            <a href="mailto:friend@example.com">friend@example.com</a></p>
-
-        </footer>
+<!--Header-->
+<nav class="navbar is-white has-shadow">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="">
+            <img src="{%static 'images/brand.png'%}" alt="brand-logo" style="max-height: 60px">
+        </a>
     </div>
+
+    <div class="navbar-menu">
+    
+        <div class="navbar-start">
+            <a href="/info" class="navbar-item"> Information </a>
+        </div>
+    
+        <div class="navbar-end mr-2">
+
+            <div class="navbar item">
+                
+                <div class="buttons">
+                    
+                    <a class="button is-primary" href="/signup">
+                        Sign up
+                    </a>
+                    
+                    <a class="button is-warning" href="/login"> 
+                        Login
+                    </a>
+                
+                </div>
+
+
+            </div>
+
+        </div>
+    
+    
+    
+    </div>
+
+
+
+
+
+</nav>
+    
+
+{% block content %}
+{% endblock %}
+
+
+<!--Footer-->
+
+<footer class="footer">
+
+    <div class="conent has-text-centered">
+        <p>
+            Fridge Friend: INF-2900 @ UiT, The University of Tromso
+        </p>
+
+    </div>
+</footer>
+
+
 </body>
 </html>
