@@ -1,23 +1,84 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block css %} 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+{% endblock css %} 
+
 {% block content %}
-        
-    <div class="container">
+<section class="section">
+    <div class="containter">
+        <div class="columns">
+            <div class="column is-half has-text-centered ">
+                <h2 class="is-size-6 mb-5 subtitile"> View all the currently avaliable recipies </h2>
+                <a href="/recipies" class="image is-5by3">
+                    <img src="{%static 'images/Recipies.svg'%}" alt="recipies image">  
+                </a>
+            </div>
 
-        <img src="{%static 'images/pexels-cottonbro-4068317.jpg' %}" width="400" height="50" >  
-
-        <div class="project_title"> Fridge Friend </div>
-
-        <div class="project_info"> 
-            Select the ingredients in your fridge,
-            and choose from generated
-            recipes based on your preferences 
+            <div class="column is-half has-text-centered">
+                <h2 class="is-size-6 mb-5 subtitile"> View your ingredients and recipies generated </h2>
+                <a href="/ingredients" class="image is-5by3">
+                    <img src="{%static 'images/ingredients_banner.svg'%}" alt="recipies image">
+                    
+                </a>
+            </div>
         </div>
+    </div>
+</section>
 
+<section class="section">
+    <div class="container">
+        <h3 class="title has-text-centered is-size-4 mb-6"> Possible features </h3>
+        <div class="columns is-vcentered is-vcentered ">
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-image has-text-centered image is-5by3 ">
+                        <img src="{%static 'images/profile_pic.svg'%}" alt="shopping cart image">
+                    </div>
+                    <div class="card-content has-text-centered">
+                        <p> Check what ingredients you are missing for certain recipies or similar </p>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                            <a class="has-text-grey" href="/shopping_cart"> View Cart </a>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-image has-text-centered image is-5by3">
+                        <img src="{%static 'images/share.svg'%}" alt="share image">
+                    </div>
+                    <div class="card-content has-text-centered">
+                        <p> Share content with others</p>
+                    </div>
+                    <footer class="card-footer mt-5">
+                        <p class="card-footer-item">
+                            <a class="has-text-grey" href="/share"> Share your fridge! </a>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-image has-text-centered image is-5by3">
+                        <img src="{%static 'images/carbon.svg'%}" alt="shopping cart">
+                    </div>
+                    <div class="card-content has-text-centered">
+                        <p> Check how your fridge ranks in the carbon emissions of your ingredients </p>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                            <a class="has-text-grey" href="/carbon"> Does it matter? </a>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-
+</section>
 {% endblock %}
-
-

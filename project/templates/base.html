@@ -3,23 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Name</title>
+    <title>{% block title %} Fridge Friend {% endblock title %}</title>
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <script defer src="{% static 'js/project.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 
+    <!-- Insert css -->
+    {% block css %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"> {% endblock css%}
+
+    <!-- Insert js -->
+    {% block javascript %} <!-- <script defer src="{% static 'js/project.js' %}"></script> --> {% endblock javascript %}
 </head>
 <body>
+    
+    <!--Header-->
+    <nav class="navbar is-white has-shadow">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="">
+                <img src="{%static 'images/brand.png'%}" alt="brand-logo" style="max-height: 60px">
+            </a>
+        </div>
+    
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/info" class="navbar-item"> Information </a>
+            </div>
+            <div class="navbar-end mr-2">
+                <div class="navbar item">
+                    <div class="buttons">
+                        
+                        <a class="button is-primary" href="/signup">
+                            Sign up
+                        </a>
+                        
+                        <a class="button is-warning" href="/login"> 
+                            Login
+                        </a>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% block content %}{% endblock content %}
+    
+    <!--Footer-->
+    <footer class="footer">
+        <div class="conent has-text-centered">
+            <p>
+                Fridge Friend: INF-2900 @ UiT, The University of Tromso
+            </p>
+        </div>
+    </footer>
 
-    <div class="topnav">
-        <a href="">Home</a>
-        <a href="username"> Profile </a>
-        <a href="recipies"> Recipies</a>
-        <a href="contactus"> Contact Us</a>
-    </div>
-
-    {% block content %}
-    {% endblock %}
 </body>
 </html>

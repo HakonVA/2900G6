@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %} <link href="{% static 'css/ingredients.css' %}" rel="stylesheet"> {% endblock css %} 
+
+{% block content %}
+    <header class="header">
+        <!-- Logo -->
+        <div class="header-item">
+            <a class="header-link" href="{% url 'home' %}">
+                <svg width="32" height="32"><circle cx="16" cy="16" r="16" fill="white" /></svg>
+            </a>
+        </div>
+
+        <!-- Navbar -->
+        <div class="header-item header-item--full">
+            <a class="header-link mr-20" href="{% url 'ingredients-home' %}">Recipes</a>
+            <a class="header-link mr-20" href="{% url 'home' %}">Contact Us</a>
+        </div>
+
+        <!-- User/profile -->
+        <div class="header-item"><a class="header-link" href="">Profile</a></div>
+    </header>
+
+    <div class="main-container">
+        <div class="left-sidebar">
+            <div class="nav-item">
+                <a class="nav-link" href="{% url 'deleteAll' %}">Delete All</a>
+                <a class="nav-link" href="{% url 'home' %}">A-z</a>
+            </div>
+            
+            <form action="" method="post"> 
+                {% csrf_token %}
+                <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
+            </form>
+
+            <div>
+                {% for object in objects %}
+                    <p>{{ object.scientific_name }}</p>
+                    <button type="submit">Delete</button><br>
+                {% endfor %} 
+            </div>
+        </div>
+    </div>   
+{% endblock content %}
