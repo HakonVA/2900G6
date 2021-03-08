@@ -17,12 +17,20 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import include, path
 
+from django.conf.urls import url
+from project import user
+#from project import user
+#import project.user
+
+from project.user.views import signuppage, loginpage, logmeout, logoutpage
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    # path('register/', user_views.register, name='register'),
-    # path('profile/', user_views.profile, name='profile'),
-    # path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    # path('api/', include('project.dev_app.urls')),
+    path('login', user.views.loginpage, name="login"),
+    path('signup', user.views.signuppage, name="signup"),
+    path('logoutpage', user.views.logoutpage, name='logoutpage'),
+    path('logmeout', user.views.logmeout, name="logmeout"),
     path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     path('ingredients/', include('project.ingredients.urls')),
 ]
