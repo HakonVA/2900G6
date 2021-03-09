@@ -1,0 +1,114 @@
+/* These styles are for ingredients.css */
+
+:root {
+    --main-radius: 5px;
+    --main-padding: 5px;
+    --header-color-bg: #24292E;
+    --header-color-text: white;
+}
+  
+body {
+    margin: 0;
+	font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    color: var(--header-color-text);
+    background-color: var(--header-color-bg);
+}
+
+.header-item {
+    margin-right: 16px;
+}
+
+.header-item--full {
+    flex: auto;
+}
+
+.header-link {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--header-color-text);
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+.main-container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+        "left-sidebar main main main"
+        "left-sidebar main main main"
+        "left-sidebar main main main";
+    grid-gap: 0.2rem;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    
+}
+
+
+.left-sidebar {
+    background-color: gray;
+    grid-area: left-sidebar;
+    padding-top: var(--main-padding);
+}
+
+.nav-item {
+    text-align: right;
+}
+
+.nav-link {
+    margin-right: 16px;
+    padding-top: var(--main-padding);
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+/* .left-sidebar input {
+    display: inline-block;
+    padding-top: var(--main-padding);
+    padding-right: var(--main-padding);
+    padding-bottom: var(--main-padding);
+    padding-left: var(--main-padding);
+    border: 0;
+    outline: 0;
+    text-align: center;
+    border-bottom: 2px solid white;
+    font-size: 26px;
+    background: transparent;
+} */
+
+
+.left-sidebar p {
+    display: inline-block;
+    text-align: left;
+    margin: 0px;
+    padding-top: 15px;
+    padding-right: var(--main-padding);
+    padding-bottom: var(--main-padding);
+    padding-left: var(--main-padding);
+    font-size: 16px;
+    width: 70%;
+    text-transform: capitalize;
+}
+
+
+@media only screen and (max-width: 375px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.4fr 2.2fr;
+        grid-template-areas:
+            "left-sidebar"
+            "main";
+    }
+}
