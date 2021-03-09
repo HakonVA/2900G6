@@ -25,19 +25,4 @@ class VisitPageTest(StaticLiveServerTestCase):
     def test_homepage_title(self):
         self.assertEqual(self.browser.title, homepage_title)
 
-    def test_button_login(self):
-        
-        login_button = self.browser.find_element_by_class_name("Login")
-        
-        login_button.send_keys(Keys.ENTER)
-
-        self.assertEqual(f'{self.homepage_url}/login', self.live_server_url)
-
-    def test_button_ingredients(self):
-        
-        ingredients_button = self.browser.find_element_by_class_name("Ingredients")
-
-        ingredients_button.send_keys(Keys.ENTER)
-
-        self.assertEqual(f'{self.homepage_url}/ingredients', self.live_server_url)
-
+    
