@@ -47,6 +47,16 @@
             </div>
         </div>
     </nav>
+    
+    <!--This is used to show information messages in a bar below the navbar-->
+    {% if messages %}
+        {% for message in messages %}
+            <nav class="infobar">
+                <p id="messages">{{message}}</p>
+            </nav>
+        {% endfor %}
+    {% endif %}
+    
     {% block content %}{% endblock content %}
     
     <!--Footer-->

@@ -1,32 +1,45 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Create your views here.
 
 def loginpage(request):
+
+    # If user is already logged in, redirect to logout page
+    if request.user.is_authenticated:
+        return redirect("logoutpage")
+
+    # User is trying to log in
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
 
+        # Login succesful
         if user is not None:
             login(request, user)
-            return redirect("login")
+            messages.info(request, "Successfully logged in as {}".format(username)) #TODO: Show this information to user?
+            return redirect("home")
+        
+        # Invalid login
         else:
-            # Invalid login. TODO: Tell user.
-            print("---LOGIN ATTEMPT FAILED ---")
             form = AuthenticationForm()
+            messages.error(request, "Login failed.")
             return render(request, 'pages/loginpage.html', {'form': form})
+    
+    # Handle GET request
     else:
-        if not request.user.is_authenticated:
-            form = AuthenticationForm()
-            return render(request, 'pages/loginpage.html', {'form': form})
-        else:
-            return redirect("logoutpage")
+        form = AuthenticationForm()
+        return render(request, 'pages/loginpage.html', {'form': form})
 
 def signuppage(request):
-    # This shows the user the sign-up page.
+    
+    # If user is already logged in, redirect to logout page
+    if request.user.is_authenticated:
+        return redirect("logoutpage")
+
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -35,12 +48,20 @@ def signuppage(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
+            messages.info(request, "Registred and logged in as {}".format(username))
             return redirect('home')
+        
+        else:
+            messages.error(request, "Signup failed")
+            form = UserCreationForm()
+            return render(request, 'pages/signuppage.html', {'form': form})
+
     else:
         form = UserCreationForm()
-    return render(request, 'pages/signuppage.html', {'form': form})
+        return render(request, 'pages/signuppage.html', {'form': form})
 
 def logoutpage(request):
+    # This is the "logout" resource
     # This just shows a page with a log-out button.
     # It does not actually log out the user.
     if not request.user.is_authenticated:
@@ -51,4 +72,5 @@ def logmeout(request):
     # This will log the user out, and redirect to log-in page.
     if request.user.is_authenticated:
         logout(request)
+        messages.info(request, "You were logged out.")
     return redirect("login")
