@@ -17,11 +17,14 @@
             </form>
 
             <div>
-                {% for object in objects %}
+                {% for object in food_list %}
                     <p>{{ object.scientific_name }}</p>
                     <button type="submit">Delete</button><br>
                 {% endfor %} 
             </div>
         </div>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.get_username }}</p>
+        {% endif %}
     </div>   
 {% endblock content %}
