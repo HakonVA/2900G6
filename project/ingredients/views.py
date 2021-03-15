@@ -8,9 +8,16 @@ from django.views.generic import (
     CreateView,
 )
 
-from .models import Food
+from .models import (
+    Food,
+    User_Food,
+)
 
-from .forms import FoodCreateForm
+from .forms import (
+    User_FoodCreateForm,
+    FoodCreateForm,
+)
+
 
 class IngredientIndexView(LoginRequiredMixin, View):
     template_name = "pages/ingredients.html"
@@ -31,37 +38,36 @@ class IngredientIndexView(LoginRequiredMixin, View):
 
         return redirect("ingredients-home")
 
-ingredient_index_view = IngredientIndexView.as_view()
+# ingredient_index_view = IngredientIndexView.as_view()
 
-
-class IngredientListView(LoginRequiredMixin, ListView):
-    model = Food
+class User_FoodListView(LoginRequiredMixin, ListView):
+    model = User_Food
     login_url = 'login'
     template_name = "pages/ingredients.html"
+    context_object_name = "food_list"
 
     def get_queryset(self):
-        return Food.objects.filter(user_id=self.request.user)
+        return User_Food.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        print()
         print(context)
-        
+        print()
         return context
+
+user_food_list_view = User_FoodListView.as_view()
 
 
 class IngredientCreateView(LoginRequiredMixin, CreateView):
-    model = Food
+    model = User_Food
     login_url = 'login'
     template_name = "pages/ingredients.html"
-    form_class = FoodCreateForm
-
-    def get_object(self):
-        return self.request.user
+    form_class = User_FoodCreateForm
 
     def form_valid(self, form):
         print(form.cleaned_data)
-        print(self.request.user)
+        # print(self.request.user)
         return super().form_valid()
 
 

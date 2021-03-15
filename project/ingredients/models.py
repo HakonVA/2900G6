@@ -3,40 +3,42 @@ from django.db import models
 
 class Food(models.Model):
     """
-    Food
+    Food                    | The known and accepted food items
         fd_id               | Unique permanent identifier of the food
-        fd_category_id      | Id of the food category the food belongs to
+        fd_category         | Food category the food belongs to (protein, fruit, vegetable, dairy, fat)
         scientific_name     | The scientific name for the food
         description         | Description of the food
     """
+    FOOD_CATEGORY = [
+        ("0", "protein"),
+        ("1", "fruit"),
+        ("2", "vegetable"),
+        ("3", "dairy"),
+        ("4", "fat"),
+    ]
+
     fd_id = models.AutoField(primary_key=True)  
-    fd_category_id = models.CharField(max_length=32)                        
+    fd_category = models.CharField(max_length=32, choices=FOOD_CATEGORY, default=None)                        
     scientific_name = models.CharField(max_length=32)                       
-    description = models.CharField(max_length=255)  
-    
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return "%s - {%s}" % (self.user_id, self.scientific_name) 
+        return "fd_id:%s fd_category%s scientific_name:%s" % (self.fd_id, self.fd_category, self.scientific_name) 
 
+class User_Food(models.Model):
+    """
+    User Food
+        amount              | The users amount in grams or unites
+        fd_id               | Unique permanent identifier of the food
+        user                | Unique permanent identifier for specific user
+    """
+                      
+    # amount = models.CharField(max_length=32, null=True)                   
+    # name = models.CharField(max_length=32)
+    fd_id = models.ForeignKey(Food, on_delete=models.CASCADE)  
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
-# class User_Food(models.Model):
-#     """
-#     Food
-#         fd_id               | Unique permanent identifier of the food
-#         fd_category_id      | Id of the food category the food belongs to
-#         scientific_name     | The scientific name for the food
-#         description         | Description of the food
-#     """
-#     fd_id = models.AutoField(primary_key=True)  
-#     fd_category_id = models.CharField(max_length=32)                        
-#     name = models.CharField(max_length=32)                       
-#     description = models.CharField(max_length=255)  
-
-#     def __str__(self):
-#         return "fd_id: %s name: %s" % (self.fd_id, self.scientific_name) 
-
+    def __str__(self):
+        return "%s %s" % (self.user, self.fd_id) 
 
 
 # class Food_nutrient(models.Model):
@@ -57,11 +59,3 @@ class Food(models.Model):
     
 #     def __str__(self):
 #         return "prot: %s fat: %s carb: %s" % (self.protein_value, self.fat_value, self.carbohydrate_value)
-
-
-
-
-
-
-
-
