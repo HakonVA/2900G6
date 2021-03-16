@@ -2,8 +2,6 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from config.urls import urlpatterns
-
 
 
 homepage_title = "Fridge Friend" #the project name, update when changed
@@ -16,7 +14,6 @@ class HomepageTest(TestCase):
 
 class VisitPageTest(StaticLiveServerTestCase):
     #tests for asserting that the homepage has the correct information
-    
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -29,29 +26,48 @@ class VisitPageTest(StaticLiveServerTestCase):
     def test_homepage_title(self):
         self.assertEqual(self.browser.title, homepage_title)
 
-    def test_homepage_visitor(self):
+    def page_on_id(self, id_name, html_page):
+        
+        element_found = self.browser.find_element_by_id(id_name)
+        
+        #click href
+        response = element_found.click()
+        
+        self.assertTemplateUsed(response, html_page)
+
+    def test_homepage_pages_standard(self):
 
         #currently supported pages from homepage:
-        self.supported_pages = [ "login", "signup", "ingredients", "recipes"]
-        self.supported_pages = [ "login", "signup", "ingredients", "recipes"]
+        homepage_standard = ["ingredients", "recipes", "home", "login",
+                            "signup"]
 
-        #fetch hrefs for these, and check if redirect or 404?
+        static_pages = {"ingredients": "pages/ingredients.html", 
+                        "recipes": "pages/recipes.html",
+                        "home": "pages/home.html",
+                        "login": "pages/loginpage.html",
+                        "signup": "pages/signuppage.html",}
 
-        for page in self.supported_pages:
-            try:
-                page_found = self.browser.find_element_by_id(page)
-                #press enter? check url to pages supported pages
-                print("did find:", page)
-                print(page_found)
-            except:
-                print("did not find:", page)
+        for page in homepage_standard:
+            self.browser.get(f'{self.homepage_url}')
+            self.page_on_id(page, static_pages[page])
 
-        #if we fetch something that is currently not supported, an error should apply
-        #if not the page is in development
+    def test_signup(self):
 
-    def test_homepage_user(self):
-        pass
+        username_ff = "EliasElias"
+        password_ff = "DN6T5DDMdi7m2ee"
 
+        self.browser.get(f'{self.homepage_url}/signup')
 
+        self.browser.find_element_by_id("id_username").send_keys(username_ff)
 
-    
+        self.browser.find_element_by_id("id_password1").send_keys(password_ff)
+
+        self.browser.find_element_by_id("id_password2").send_keys(password_ff)
+
+        self.browser.find_element_by_id("submit_signup").click()
+
+        logout_element = self.browser.find_element_by_id("logout")
+
+        response = logout_element.click()
+
+        self.assertTemplateUsed(response, "pages/logoutpage.html")
