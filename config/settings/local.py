@@ -54,6 +54,7 @@ LOCAL_APPS = [
     # Custom apps here
     'project.dev_app.apps.DevAppConfig',
     'project.ingredients.apps.IngredientsConfig',
+    'project.recipes.apps.RecipesConfig',
     'project.user',
 ]
 

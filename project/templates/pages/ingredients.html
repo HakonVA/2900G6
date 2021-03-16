@@ -19,9 +19,30 @@
             <div>
                 {% for object in objects %}
                     <p>{{ object.scientific_name }}</p>
-                    <button type="submit">Delete</button><br>
+                    <!-- <button type="submit" action="post" name="remove_items" value="object.scientific_name">Delete</button><br>
+                    <input type="submit" value="Add" name="add_object">
+                    <form action="" method="post"></form>
+                        <button type="submit" formmethod="post">Submit using POST</button>
+                    </form> -->
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="submit" name="remove_items" value= {{ object.scientific_name }}>
+                    </form>
                 {% endfor %} 
             </div>
+        </div>
+
+        <div class="left-sidebar2">
+            <div class="nav-item">
+                <b>Recipes</b>
+            </div>
+            
+            <div>
+                {% for object in recipes %}
+                    <p>{{ object }}</p>
+                {% endfor %} 
+            </div>
+
         </div>
     </div>   
 {% endblock content %}
