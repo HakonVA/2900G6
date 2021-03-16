@@ -6,6 +6,7 @@ from django.views.generic import (
     View,
     ListView,
     CreateView,
+    DeleteView,
 )
 
 from .models import (
@@ -18,28 +19,6 @@ from .forms import (
     FoodCreateForm,
 )
 
-
-class IngredientIndexView(LoginRequiredMixin, View):
-    template_name = "pages/ingredients.html"
-    login_url = 'login'
-    
-
-    def get(self, request, *args, **kwargs):
-        obj = Food.objects.all()
-        print(obj)
-        return render(request, self.template_name, {"objects": obj})
-
-    def post(self, request, *args, **kwargs):
-        form = FoodCreateForm(request.POST or None)
-
-        if form.is_valid():
-            food_name = form.cleaned_data.get("scientific_name")
-            Food.objects.create(scientific_name=food_name)
-
-        return redirect("ingredients-home")
-
-# ingredient_index_view = IngredientIndexView.as_view()
-
 class User_FoodListView(LoginRequiredMixin, ListView):
     model = User_Food
     login_url = 'login'
@@ -47,17 +26,18 @@ class User_FoodListView(LoginRequiredMixin, ListView):
     context_object_name = "food_list"
 
     def get_queryset(self):
-        return User_Food.objects.filter(user=self.request.user)
+        queryset = super().get_queryset()
+        print(queryset)
+        return queryset.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print()
-        print(context)
-        print()
+
+        context["food_list"] = [i.fd_id for i in self.object_list]
+
         return context
 
 user_food_list_view = User_FoodListView.as_view()
-
 
 class IngredientCreateView(LoginRequiredMixin, CreateView):
     model = User_Food
@@ -66,9 +46,13 @@ class IngredientCreateView(LoginRequiredMixin, CreateView):
     form_class = User_FoodCreateForm
 
     def form_valid(self, form):
+        print("ok")
         print(form.cleaned_data)
-        # print(self.request.user)
+        print(self.request.user)
         return super().form_valid()
+
+class IngredientDeleteView(LoginRequiredMixin, DeleteView):
+    pass
 
 
 def ingredient_deleteAll_view(request):
@@ -78,6 +62,26 @@ def ingredient_deleteAll_view(request):
         print("Error: ingredient_deleteAll_view")
     return redirect("ingredients-home")
 
+# class IngredientIndexView(LoginRequiredMixin, View):
+#     template_name = "pages/ingredients.html"
+#     login_url = 'login'
+    
+
+#     def get(self, request, *args, **kwargs):
+#         obj = Food.objects.all()
+#         print(obj)
+#         return render(request, self.template_name, {"objects": obj})
+
+#     def post(self, request, *args, **kwargs):
+#         form = FoodCreateForm(request.POST or None)
+
+#         if form.is_valid():
+#             food_name = form.cleaned_data.get("scientific_name")
+#             Food.objects.create(scientific_name=food_name)
+
+#         return redirect("ingredients-home")
+
+# ingredient_index_view = IngredientIndexView.as_view()
 
 # def ingredient_index_view(request):
 #     """[summary]

@@ -24,7 +24,7 @@ class User_FoodCreateForm(ModelForm):
     class Meta:
         model = User_Food
         fields = [
-            'fd_id',
+            'name',
         ]
 
 class User_FoodUpdateForm(ModelForm):

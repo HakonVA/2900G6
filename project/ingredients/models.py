@@ -33,7 +33,7 @@ class User_Food(models.Model):
     """
                       
     # amount = models.CharField(max_length=32, null=True)                   
-    # name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32)
     fd_id = models.ForeignKey(Food, on_delete=models.CASCADE)  
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
