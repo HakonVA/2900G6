@@ -1,8 +1,12 @@
 # TODOS
 
-- Bulma in order to prettify
-- User can only modify, add, delete etc to their own resources
-- User can delete
-- User can add
-- User can sort (not important)
-- User can only add ingredients with exists (car is not food)
+- [ ] Use bulma or css in order to prettify layout of page (low-priority)
+- [ ] Write test cases 
+
+## Pantry
+The users should only be able to modify, add, delete etc to their owned resources.
+- [x] User can add
+    - [x] References to Food database to check for valid input
+- [ ] User can delete
+- [x] User can delete all
+- [ ] User can sort ingredients alphabetically (low-priority)

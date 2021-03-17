@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.http import Http404
+from .models import Food, Pantry
+from .forms import PantryCreateForm
 
 from django.views.generic import (
     View,
@@ -9,105 +10,83 @@ from django.views.generic import (
     DeleteView,
 )
 
-from .models import (
-    Food,
-    User_Food,
-)
-
-from .forms import (
-    User_FoodCreateForm,
-    FoodCreateForm,
-)
-
-class User_FoodListView(LoginRequiredMixin, ListView):
-    model = User_Food
+class PantryIndexView(LoginRequiredMixin, View):
+    model = Pantry
     login_url = 'login'
+    http_method_names = ['get', 'post', 'delete']
+    
+    
     template_name = "pages/ingredients.html"
+    context = None
+    # context_object_name = None
+    # queryset = None
+
+    def get(self, request, *args, **kwargs):
+        object_list = self.model.objects.filter(user=self.request.user)
+
+        self.context = {
+            'food_list': object_list,
+        }
+        
+        return render(request, template_name=self.template_name, context=self.context)
+
+    def post(self, request, *args, **kwargs):
+        form = PantryCreateForm(request.POST or None)
+
+        if form.is_valid():
+            fd_item = form.cleaned_data.get("name").lower()
+            queryset = Food.objects.filter(scientific_name=fd_item)
+
+            if queryset.count() != 0:
+                model_instance = form.save(commit=False)
+                model_instance.user = self.request.user
+                model_instance.name = fd_item
+                model_instance.save()
+
+        return redirect("pantry-home")
+
+    def delete(self, request, *args, **kwargs):
+        pass
+
+pantry_index_view = PantryIndexView.as_view()
+
+class PantryListView(LoginRequiredMixin, ListView):
+    model = Pantry
+    login_url = 'login'
+    template_name = "ingredients/pantry_list_detail.html"
     context_object_name = "food_list"
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        print(queryset)
         return queryset.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context["food_list"] = [i.fd_id for i in self.object_list]
-
         return context
 
-user_food_list_view = User_FoodListView.as_view()
+pantry_list_view = PantryListView.as_view()
 
-class IngredientCreateView(LoginRequiredMixin, CreateView):
-    model = User_Food
+class PantryCreateView(LoginRequiredMixin, CreateView):
+    model = Pantry
     login_url = 'login'
     template_name = "pages/ingredients.html"
-    form_class = User_FoodCreateForm
+    success_url = "/ingredients/"
+    form_class = PantryCreateForm
 
     def form_valid(self, form):
-        print("ok")
-        print(form.cleaned_data)
-        print(self.request.user)
-        return super().form_valid()
+        form.instance.user = self.request.user
+        return super(PantryCreateView, self).form_valid(form)
 
-class IngredientDeleteView(LoginRequiredMixin, DeleteView):
+pantry_create_view = PantryCreateView.as_view()
+
+class PantryDeleteView(LoginRequiredMixin, DeleteView):
     pass
 
+pantry_create_view = PantryDeleteView.as_view()
 
-def ingredient_deleteAll_view(request):
+def pantry_DeleteAll_view(request):
     try:
-        Food.objects.all().delete()
+        Pantry.objects.filter(user=request.user).delete()
     except:
         print("Error: ingredient_deleteAll_view")
-    return redirect("ingredients-home")
-
-# class IngredientIndexView(LoginRequiredMixin, View):
-#     template_name = "pages/ingredients.html"
-#     login_url = 'login'
-    
-
-#     def get(self, request, *args, **kwargs):
-#         obj = Food.objects.all()
-#         print(obj)
-#         return render(request, self.template_name, {"objects": obj})
-
-#     def post(self, request, *args, **kwargs):
-#         form = FoodCreateForm(request.POST or None)
-
-#         if form.is_valid():
-#             food_name = form.cleaned_data.get("scientific_name")
-#             Food.objects.create(scientific_name=food_name)
-
-#         return redirect("ingredients-home")
-
-# ingredient_index_view = IngredientIndexView.as_view()
-
-# def ingredient_index_view(request):
-#     """[summary]
-
-#     Args:
-#         request ([type]): [description]
-
-#     Raises:
-#         Http404: [description]
-
-#     Returns:
-#         [type]: [description]
-#     """
-    
-#     form = None
-#     obj = None
-
-#     try:
-#         obj = Food.objects.all()
-
-#         form = FoodCreateForm(request.POST or None)
-#         if form.is_valid():
-#             food_name = form.cleaned_data.get("scientific_name")
-#             Food.objects.create(scientific_name=food_name)
-
-#     except obj.DoesNotExist:
-#         raise Http404
-
-#     return render(request, "pages/ingredients.html", {"objects": obj, "form": form})
+    return redirect("pantry-home")

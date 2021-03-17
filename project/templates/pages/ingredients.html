@@ -7,18 +7,17 @@
     <div class="main-container">
         <div class="left-sidebar">
             <div class="nav-item">
-                <a class="nav-link" href="{% url 'deleteAll' %}">Delete All</a>
+                <a class="nav-link" href="{% url 'Delete-all' %}">Delete All</a>
                 <a class="nav-link" href="{% url 'home' %}">A-z</a>
             </div>
-            
-            <form action="" method="post"> 
-                {% csrf_token %}
-                <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
+
+            <form action="" method="post">{% csrf_token %}
+                <input type="text" name="name" id="name" placeholder="Add ingredients">
             </form>
 
             <div>
                 {% for object in food_list %}
-                    <p>{{ object.scientific_name }}</p>
+                    <p>{{ object.name }}</p>
                     <button type="submit">Delete</button><br>
                 {% endfor %} 
             </div>

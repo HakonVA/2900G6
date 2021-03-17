@@ -1,22 +1,13 @@
 from django.urls import include, path
 
-# from .views import (
-#     ingredient_index_view,
-#     ingredient_deleteAll_view,
-#     IngredientListView,
-# )
-
 from .views import (
-    user_food_list_view,
-    # IngredientCreateView,
-    # IngredientDeleteView,
-
-    ingredient_deleteAll_view,
+    pantry_index_view,
+    pantry_DeleteAll_view,
+    # pantry_list_view,
+    # pantry_create_view,
 )
 
 urlpatterns = [
-    path('', view=user_food_list_view, name='ingredients-list'),
-
-    # path('', view=ingredient_index_view, name='ingredients-home'),
-    path('deleteAll', ingredient_deleteAll_view, name='deleteAll'),
+    path('', view=pantry_index_view, name='pantry-home'),
+    path('deleteAll', view=pantry_DeleteAll_view, name='Delete-all'),
 ]

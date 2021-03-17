@@ -2,21 +2,22 @@ from django.contrib import admin
 
 from .models import (
     Food,
-    User_Food,
+    Pantry,
 )
 
 @admin.register(Food)
 class FoodAdmin(admin.ModelAdmin):
     list_display = [
         "fd_id",
-        "fd_category",
         "scientific_name",
+        "category",
     ]
 
 
-@admin.register(User_Food)
-class User_FoodAdmin(admin.ModelAdmin):
+@admin.register(Pantry)
+class PantryAdmin(admin.ModelAdmin):
     list_display = [
-        "fd_id",
+        "py_id",
+        "name",
         "user",
     ]
