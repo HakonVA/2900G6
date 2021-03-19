@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from .models import Food, Pantry
-from .forms import PantryCreateForm
+from .forms import PantryForm
 
 from django.views.generic import (
     View,
@@ -14,6 +14,7 @@ class PantryIndexView(LoginRequiredMixin, View):
     model = Pantry
     login_url = 'login'
     http_method_names = ['get', 'post', 'delete']
+    success_url = 'pantry-home'
     
     
     template_name = "pages/ingredients.html"
@@ -21,32 +22,47 @@ class PantryIndexView(LoginRequiredMixin, View):
     # context_object_name = None
     # queryset = None
 
-    def get(self, request, *args, **kwargs):
-        object_list = self.model.objects.filter(user=self.request.user)
+    def get_queryset(self):
+        """ Get the pantry queryset for the current user that is logged into website.
+        """
+        try:
+            obj = Pantry.objects.filter(user=self.request.user)
+        except Pantry.DoesNotExist():
+            """The requested model field does not exist"""
+            return -1
+        return obj
 
+
+    def get(self, request, *args, **kwargs):
+
+        queryset = self.get_queryset()
         self.context = {
-            'food_list': object_list,
+            'food_list': queryset,
         }
         
         return render(request, template_name=self.template_name, context=self.context)
 
     def post(self, request, *args, **kwargs):
-        form = PantryCreateForm(request.POST or None)
 
-        if form.is_valid():
-            fd_item = form.cleaned_data.get("name").lower()
-            queryset = Food.objects.filter(scientific_name=fd_item)
+        form = PantryForm(request.POST or None)
+        if "add-item" in request.POST:
+            if form.is_valid():  
+                fd_name = form.cleaned_data.get("name").lower()
+                queryset = Food.objects.filter(scientific_name=fd_name)
 
-            if queryset.count() != 0:
-                model_instance = form.save(commit=False)
-                model_instance.user = self.request.user
-                model_instance.name = fd_item
-                model_instance.save()
-
-        return redirect("pantry-home")
-
-    def delete(self, request, *args, **kwargs):
-        pass
+                if queryset.count() != 0:
+                    model_instance = form.save(commit=False)
+                    model_instance.user = self.request.user
+                    model_instance.name = fd_name
+                    model_instance.save()
+        
+        if "delete-item" in request.POST:
+            if form.is_valid():
+                py_id = form.cleaned_data.get("name")
+                queryset = self.get_queryset()
+                queryset.filter(py_id=py_id).delete()
+       
+        return redirect(self.success_url)
 
 pantry_index_view = PantryIndexView.as_view()
 
@@ -71,7 +87,7 @@ class PantryCreateView(LoginRequiredMixin, CreateView):
     login_url = 'login'
     template_name = "pages/ingredients.html"
     success_url = "/ingredients/"
-    form_class = PantryCreateForm
+    form_class = PantryForm
 
     def form_valid(self, form):
         form.instance.user = self.request.user

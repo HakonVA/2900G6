@@ -5,18 +5,9 @@ from .models import (
     Pantry,
 )
 
-class PantryCreateForm(ModelForm):
+class PantryForm(ModelForm):
     class Meta:
         model = Pantry
         fields = [
             'name',
         ]
-
-class PantryDeleteForm(ModelForm):
-    class Meta:
-        model = Pantry
-        fields = [
-            'name',
-        ]
-
-

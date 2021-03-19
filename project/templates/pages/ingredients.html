@@ -11,14 +11,20 @@
                 <a class="nav-link" href="{% url 'home' %}">A-z</a>
             </div>
 
-            <form action="" method="post">{% csrf_token %}
-                <input type="text" name="name" id="name" placeholder="Add ingredients">
+            <form method="post">{% csrf_token %}
+                <input type="hidden" name="add-item">
+                <input type="text" name="name" id="{{ object.py_id }}" placeholder="Add ingredients">
             </form>
 
             <div>
                 {% for object in food_list %}
                     <p>{{ object.name }}</p>
-                    <button type="submit">Delete</button><br>
+                    <form action="" method="post">{% csrf_token %}
+                        <input type="hidden" name="name" value="{{ object.py_id }}">
+                        <input type="submit" name="delete-item" value="Delete">
+                    </form>
+
+
                 {% endfor %} 
             </div>
         </div>
