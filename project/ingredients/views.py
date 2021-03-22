@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from .models import Food, Pantry
 from .forms import PantryForm
 
+from django.contrib import messages
+
 from django.views.generic import (
     View,
     ListView,
@@ -50,17 +52,29 @@ class PantryIndexView(LoginRequiredMixin, View):
                 fd_name = form.cleaned_data.get("name").lower()
                 queryset = Food.objects.filter(scientific_name=fd_name)
 
+                # Checking if queryset is empty; queyrset is not found in the food database.
                 if queryset.count() != 0:
                     model_instance = form.save(commit=False)
                     model_instance.user = self.request.user
                     model_instance.name = fd_name
-                    model_instance.save()
         
+                    # Checking for duplicates entries into users pantry item
+                    user_pantry_list = [obj.name for obj in self.get_queryset()] 
+                    if model_instance.name in user_pantry_list:
+                        messages.warning(request, '{} is present in your pantry!'.format(fd_name.capitalize()))
+                        return redirect(self.success_url)
+
+                    messages.success(request, 'Your pantry was updated successfully!')
+                    model_instance.save()
+                    return redirect(self.success_url)
+            messages.warning(request, '{} is not present in our database!'.format(fd_name.capitalize()))
+
         if "delete-item" in request.POST:
             if form.is_valid():
                 py_id = form.cleaned_data.get("name")
                 queryset = self.get_queryset()
                 queryset.filter(py_id=py_id).delete()
+                messages.success(request, 'Pantry item was deleted successfully!')
        
         return redirect(self.success_url)
 

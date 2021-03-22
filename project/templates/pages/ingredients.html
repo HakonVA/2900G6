@@ -16,6 +16,14 @@
                 <input type="text" name="name" id="{{ object.py_id }}" placeholder="Add ingredients">
             </form>
 
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            
+            {% endif %}
             <div>
                 {% for object in food_list %}
                     <p>{{ object.name }}</p>
