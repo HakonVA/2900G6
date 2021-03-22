@@ -24,20 +24,36 @@ class PantryIndexView(LoginRequiredMixin, View):
     # context_object_name = None
     # queryset = None
 
-    def get_queryset(self):
+    @property
+    def get_user_queryset(self):
         """ Get the pantry queryset for the current user that is logged into website.
         """
         try:
-            obj = Pantry.objects.filter(user=self.request.user)
+            queryset = Pantry.objects.filter(user=self.request.user)
         except Pantry.DoesNotExist():
-            """The requested model field does not exist"""
-            return -1
-        return obj
+            print("The requested model field does not exist")
+        return queryset
 
+    def addItem_is_valid(self, request, fd_name):
+        queryset = Food.objects.filter(scientific_name=fd_name)
 
+        # Check if queryset is empty; queyrset is not found in the food database.
+        if queryset.count() == 0:
+            messages.warning(request, '{} is not present in our food database!'.format(fd_name.capitalize()))
+            return 0
+    
+        # Check for duplicates entries into users pantry list
+        pantry_list = [obj.name for obj in self.get_user_queryset]
+        if fd_name in pantry_list:
+            messages.warning(request, '{} is present in your pantry!'.format(fd_name.capitalize()))
+            return 0
+
+        messages.success(request, 'Your pantry was updated successfully!')
+        return 1
+         
     def get(self, request, *args, **kwargs):
 
-        queryset = self.get_queryset()
+        queryset = self.get_user_queryset
         self.context = {
             'food_list': queryset,
         }
@@ -50,32 +66,23 @@ class PantryIndexView(LoginRequiredMixin, View):
         if "add-item" in request.POST:
             if form.is_valid():  
                 fd_name = form.cleaned_data.get("name").lower()
-                queryset = Food.objects.filter(scientific_name=fd_name)
 
-                # Checking if queryset is empty; queyrset is not found in the food database.
-                if queryset.count() != 0:
+                if self.addItem_is_valid(request, fd_name):
                     model_instance = form.save(commit=False)
                     model_instance.user = self.request.user
                     model_instance.name = fd_name
-        
-                    # Checking for duplicates entries into users pantry item
-                    user_pantry_list = [obj.name for obj in self.get_queryset()] 
-                    if model_instance.name in user_pantry_list:
-                        messages.warning(request, '{} is present in your pantry!'.format(fd_name.capitalize()))
-                        return redirect(self.success_url)
-
-                    messages.success(request, 'Your pantry was updated successfully!')
                     model_instance.save()
                     return redirect(self.success_url)
-            messages.warning(request, '{} is not present in our database!'.format(fd_name.capitalize()))
 
         if "delete-item" in request.POST:
             if form.is_valid():
                 py_id = form.cleaned_data.get("name")
-                queryset = self.get_queryset()
+                queryset = self.get_user_queryset
                 queryset.filter(py_id=py_id).delete()
                 messages.success(request, 'Pantry item was deleted successfully!')
+                return redirect(self.success_url)
        
+        # Should have an redirect to unsuccessful url???
         return redirect(self.success_url)
 
 pantry_index_view = PantryIndexView.as_view()
