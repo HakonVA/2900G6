@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.contrib import messages
 
 
@@ -22,10 +22,12 @@ def ingredient_index_view(request):
     """
 
     if request.method == "POST":
+
         if "remove_items" in request.POST:
+            
             try:
-                ingredient_to_remove_name = request.POST['remove_items']
-                ing = Food.objects.filter(scientific_name=ingredient_to_remove_name).first()
+                ingredient_to_remove_id = request.POST['remove_items']
+                ing = Food.objects.filter(fd_id=ingredient_to_remove_id).first()
                 ing.users.remove(request.user.id).save()
             except:
                 pass
@@ -58,6 +60,18 @@ def get_recipes(ingredients):
     compl_ingredients = Food.objects.exclude(fd_id__in=ingredients)
     test = Recipe.objects.exclude(req_ingredients__in=compl_ingredients)
     return test
+
+def autocomplete(request):
+    print("auto")
+    if "term" in request.GET:
+        query_res = Food.objects.filter(scientific_name__istartswith=request.GET.get("term"))
+        ingredient_list = []
+        for i in query_res:
+            ingredient_list.append(i.scientific_name)
+        
+        return JsonResponse(ingredient_list, safe=False)
+    
+    return redirect(ingredient_index_view)
 
 
 def ingredient_update_view(request):

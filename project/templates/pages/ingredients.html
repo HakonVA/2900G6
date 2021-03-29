@@ -10,23 +10,27 @@
                 <!--<a class="nav-link" href="{% url 'deleteAll' %}">Delete All</a> -->
                 <a class="nav-link" href="{% url 'home' %}">A-z</a>
             </div>
-            
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <form action="" method="post"> 
                 {% csrf_token %}
                 <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
             </form>
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script>
+                $( function() {
+                  $( "#scientific_name" ).autocomplete({
+                    source: '{% url 'autocomplete' %}' 
+                  });
+                } );
+                </script>
 
             <div>
                 {% for object in objects %}
                     <p>{{ object.scientific_name }}</p>
-                    <!-- <button type="submit" action="post" name="remove_items" value="object.scientific_name">Delete</button><br>
-                    <input type="submit" value="Add" name="add_object">
-                    <form action="" method="post"></form>
-                        <button type="submit" formmethod="post">Submit using POST</button>
-                    </form> -->
                     <form action="" method="post">
                         {% csrf_token %}
-                        <input type="submit" name="remove_items" value= {{ object.scientific_name }}>
+                        <button name="remove_items" type="submit" value={{ object.fd_id }}>Remove</button>
                     </form>
                 {% endfor %} 
             </div>
