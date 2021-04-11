@@ -1,49 +1,46 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import Food, Pantry
 from .forms import PantryForm
-
-from django.contrib import messages
 
 from django.views.generic import (
     View,
     ListView,
     CreateView,
-    DeleteView,
 )
 
 class PantryIndexView(LoginRequiredMixin, View):
     model = Pantry
-    login_url = 'login'
     http_method_names = ['get', 'post', 'delete']
+    login_url = 'login'
     success_url = 'pantry-home'
     
-    
     template_name = "pages/ingredients.html"
-    context = None
-    # context_object_name = None
-    # queryset = None
 
     @property
-    def get_user_queryset(self):
-        """ Get the pantry queryset for the current user that is logged into website.
+    def get_user_object(self):
+        """ 
+        Get the pantry object for the current user that is logged into website.
         """
         try:
             queryset = Pantry.objects.filter(user=self.request.user)
         except Pantry.DoesNotExist():
-            print("The requested model field does not exist")
+            messages.warning(self.request, "The requested model field does not exist")
         return queryset
 
-    def addItem_is_valid(self, request, fd_name):
+    def is_valid_addItem(self, request, fd_name):
         queryset = Food.objects.filter(scientific_name=fd_name)
 
-        # Check if queryset is empty; queyrset is not found in the food database.
+        # Check if queryset is empty; queryset is not found in the food database.
         if queryset.count() == 0:
             messages.warning(request, '{} is not present in our food database!'.format(fd_name.capitalize()))
             return 0
     
-        # Check for duplicates entries into users pantry list
-        pantry_list = [obj.name for obj in self.get_user_queryset]
+        # Check for duplicates entries in users pantry list
+        pantry_list = [obj.name for obj in self.get_user_object]
         if fd_name in pantry_list:
             messages.warning(request, '{} is present in your pantry!'.format(fd_name.capitalize()))
             return 0
@@ -53,12 +50,12 @@ class PantryIndexView(LoginRequiredMixin, View):
          
     def get(self, request, *args, **kwargs):
 
-        queryset = self.get_user_queryset
-        self.context = {
+        queryset = self.get_user_object
+        context = {
             'food_list': queryset,
         }
         
-        return render(request, template_name=self.template_name, context=self.context)
+        return render(request, template_name=self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
 
@@ -67,7 +64,7 @@ class PantryIndexView(LoginRequiredMixin, View):
             if form.is_valid():  
                 fd_name = form.cleaned_data.get("name").lower()
 
-                if self.addItem_is_valid(request, fd_name):
+                if self.is_valid_addItem(request, fd_name):
                     model_instance = form.save(commit=False)
                     model_instance.user = self.request.user
                     model_instance.name = fd_name
@@ -77,7 +74,7 @@ class PantryIndexView(LoginRequiredMixin, View):
         if "delete-item" in request.POST:
             if form.is_valid():
                 py_id = form.cleaned_data.get("name")
-                queryset = self.get_user_queryset
+                queryset = self.get_user_object
                 queryset.filter(py_id=py_id).delete()
                 messages.success(request, 'Pantry item was deleted successfully!')
                 return redirect(self.success_url)
@@ -86,6 +83,13 @@ class PantryIndexView(LoginRequiredMixin, View):
         return redirect(self.success_url)
 
 pantry_index_view = PantryIndexView.as_view()
+
+def pantry_delete_all_view(request):
+    try:
+        Pantry.objects.filter(user=request.user).delete()
+    except:
+        print("Error: ingredient_deleteAll_view")
+    return redirect("pantry-home")
 
 class PantryListView(LoginRequiredMixin, ListView):
     model = Pantry
@@ -115,15 +119,3 @@ class PantryCreateView(LoginRequiredMixin, CreateView):
         return super(PantryCreateView, self).form_valid(form)
 
 pantry_create_view = PantryCreateView.as_view()
-
-class PantryDeleteView(LoginRequiredMixin, DeleteView):
-    pass
-
-pantry_create_view = PantryDeleteView.as_view()
-
-def pantry_DeleteAll_view(request):
-    try:
-        Pantry.objects.filter(user=request.user).delete()
-    except:
-        print("Error: ingredient_deleteAll_view")
-    return redirect("pantry-home")

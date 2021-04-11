@@ -4,10 +4,11 @@
 {% block css %} <link href="{% static 'css/ingredients.css' %}" rel="stylesheet"> {% endblock css %} 
 
 {% block content %}
+
     <div class="main-container">
         <div class="left-sidebar">
             <div class="nav-item">
-                <a class="nav-link" href="{% url 'Delete-all' %}">Delete All</a>
+                <a class="nav-link" href="{% url 'delete-all' %}">Delete All</a>
                 <a class="nav-link" href="{% url 'home' %}">A-z</a>
             </div>
 

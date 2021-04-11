@@ -19,39 +19,51 @@
     <!--Header-->
     <nav class="navbar is-white has-shadow">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{% url 'home' %}">
+            <a class="navbar-item" href="{% url 'home' %}", id="home">
                 <img src="{%static 'images/brand.png'%}" alt="brand-logo" style="max-height: 60px">
             </a>
         </div>
     
         <div class="navbar-menu">
             <div class="navbar-start">
-                <a href="/info" class="navbar-item"> Information </a>
+                <a href="/info" class="navbar-item", id="info"> Information </a>
             </div>
             <div class="navbar-end mr-2">
                 <div class="navbar item">
                     <div class="buttons">
                         
-                        <a class="button is-primary" href="/signup">
-                            Sign up
-                        </a>
+                        {% if not request.user.is_authenticated %}
+                            <a class="button is-warning" href="/login" id="login">Login</a>
+                            <a class="button is-primary" href="/signup" id="signup">Sign up</a>
+                        {% endif %}
                         
-                        <a class="button is-warning" href="/login"> 
-                            Login
-                        </a>
+                        {% if request.user.is_authenticated %}
+                            <a class="button is-success" href="/myprofile" id="myprofile">My Profile: {{request.user.username}}</a>
+                            <a class="button is-danger" href="/logoutpage" id="logout">Logout</a>
+                        {% endif %}
     
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+    
+    <!--This is used to show information messages in a bar below the navbar-->
+    {% if messages %}
+        {% for message in messages %}
+            <nav class="infobar">
+                <p id="messages">{{message}}</p>
+            </nav>
+        {% endfor %}
+    {% endif %}
+    
     {% block content %}{% endblock content %}
     
     <!--Footer-->
     <footer class="footer">
-        <div class="conent has-text-centered">
+        <div class="content has-text-centered">
             <p>
-                Fridge Friend: INF-2900 @ UiT, The University of Tromso
+                Fridge Friend: INF-2900 @ UiT, University of Tromso
             </p>
         </div>
     </footer>
