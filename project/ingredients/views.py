@@ -24,11 +24,15 @@ def ingredient_index_view(request):
     if request.method == "POST":
 
         if "remove_items" in request.POST:
-            
             try:
                 ingredient_to_remove_id = request.POST['remove_items']
-                ing = Food.objects.filter(fd_id=ingredient_to_remove_id).first()
-                ing.users.remove(request.user.id).save()
+                if ingredient_to_remove_id == "RemoveAll":
+                    ingobjs = Food.objects.all()
+                    for ingobj in ingobjs:
+                        ingobj.users.remove(request.user.id)
+                else: 
+                    ing = Food.objects.filter(fd_id=ingredient_to_remove_id).first()
+                    ing.users.remove(request.user.id).save()
             except:
                 pass
         

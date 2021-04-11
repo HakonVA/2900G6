@@ -7,7 +7,10 @@
     <div class="main-container">
         <div class="left-sidebar">
             <div class="nav-item">
-                <!--<a class="nav-link" href="{% url 'deleteAll' %}">Delete All</a> -->
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button name="remove_items" value="RemoveAll" type="submit">Remove All</button>
+                </form>
                 <a class="nav-link" href="{% url 'home' %}">A-z</a>
             </div>
             <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -15,6 +18,7 @@
                 {% csrf_token %}
                 <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
             </form>
+
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script>
@@ -23,13 +27,14 @@
                     source: '{% url 'autocomplete' %}' 
                   });
                 } );
-                </script>
+            </script>
 
             <div>
                 {% for object in objects %}
-                    <p>{{ object.scientific_name }}</p>
+
                     <form action="" method="post">
                         {% csrf_token %}
+                        <p>{{ object.scientific_name }}</p>
                         <button name="remove_items" type="submit" value={{ object.fd_id }}>Remove</button>
                     </form>
                 {% endfor %} 
