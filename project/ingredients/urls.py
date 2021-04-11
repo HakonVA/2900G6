@@ -1,12 +1,11 @@
 from django.urls import include, path
-from django.views.generic import TemplateView
 
 from .views import (
-    ingredient_index_view,
-    ingredient_deleteAll_view,
+    pantry_index_view,
+    pantry_delete_all_view,
 )
 
 urlpatterns = [
-    path('', ingredient_index_view, name='ingredients-home'),
-    path('deleteAll', ingredient_deleteAll_view, name='deleteAll'),
+    path('', view=pantry_index_view, name='pantry-home'),
+    path('delete-all', view=pantry_delete_all_view, name='delete-all'),
 ]

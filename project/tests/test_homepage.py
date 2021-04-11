@@ -2,6 +2,9 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from config.urls import urlpatterns
+
+
 
 homepage_title = "Fridge Friend" #the project name, update when changed
 
@@ -14,6 +17,7 @@ class HomepageTest(TestCase):
 class VisitPageTest(StaticLiveServerTestCase):
     #tests for asserting that the homepage has the correct information
     
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.get(f'{self.live_server_url}')
@@ -25,19 +29,29 @@ class VisitPageTest(StaticLiveServerTestCase):
     def test_homepage_title(self):
         self.assertEqual(self.browser.title, homepage_title)
 
-    def test_button_login(self):
-        
-        login_button = self.browser.find_element_by_class_name("Login")
-        
-        login_button.send_keys(Keys.ENTER)
+    def test_homepage_visitor(self):
 
-        self.assertEqual(f'{self.homepage_url}/login', self.live_server_url)
+        #currently supported pages from homepage:
+        self.supported_pages = [ "login", "signup", "ingredients", "recipes"]
+        self.supported_pages = [ "login", "signup", "ingredients", "recipes"]
 
-    def test_button_ingredients(self):
-        
-        ingredients_button = self.browser.find_element_by_class_name("Ingredients")
+        #fetch hrefs for these, and check if redirect or 404?
 
-        ingredients_button.send_keys(Keys.ENTER)
+        for page in self.supported_pages:
+            try:
+                page_found = self.browser.find_element_by_id(page)
+                #press enter? check url to pages supported pages
+                print("did find:", page)
+                print(page_found)
+            except:
+                print("did not find:", page)
 
-        self.assertEqual(f'{self.homepage_url}/ingredients', self.live_server_url)
+        #if we fetch something that is currently not supported, an error should apply
+        #if not the page is in development
 
+    def test_homepage_user(self):
+        pass
+
+
+
+    
