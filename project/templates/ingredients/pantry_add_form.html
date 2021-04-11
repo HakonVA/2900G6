@@ -1,0 +1,9 @@
+{% extends "pages/ingredients.html" %}
+{% load static %}
+
+{% block add-form %}
+    {% for object in food_list %}
+        <p>{{ object.name }}</p>
+        <button type="submit">Delete</button><br>
+    {% endfor %} 
+{% endblock %}
