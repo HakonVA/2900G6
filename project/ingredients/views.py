@@ -36,8 +36,8 @@ def ingredient_index_view(request):
             except:
                 pass
         
-        if "scientific_name" in request.POST:
-            food_name = request.POST["scientific_name"]
+        if "add_items" in request.POST:
+            food_name = request.POST["add_items"]
             if food_name is not None:
                 food_obj = Food.objects.filter(scientific_name=food_name)
                 if food_obj is not None:
