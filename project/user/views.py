@@ -31,6 +31,10 @@ def loginpage(request):
     
     # Handle GET request
     else:
+        next_url = request.GET.get('next')
+        if next_url:
+            messages.error(request, "You need to be logged in to view that page.")
+        
         form = AuthenticationForm()
         return render(request, 'pages/loginpage.html', {'form': form})
 

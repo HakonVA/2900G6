@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include('project.dev_app.urls')),
     path('login', user.views.loginpage, name="login"),
+    path('accounts/login/', user.views.loginpage, name="login"),
     path('signup', user.views.signuppage, name="signup"),
     path('logoutpage', user.views.logoutpage, name='logoutpage'),
     path('logmeout', user.views.logmeout, name="logmeout"),

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import Http404, JsonResponse
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 from .models import Food
 
 from project.recipes.models import Recipe
 from .forms import FoodCreateForm
 
+@login_required
 def ingredient_index_view(request):
     """[summary]
 
