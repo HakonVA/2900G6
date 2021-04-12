@@ -49,10 +49,10 @@ class PantryIndexView(LoginRequiredMixin, View):
         return 1
          
     def get(self, request, *args, **kwargs):
-
         queryset = self.get_user_object
+
         context = {
-            'food_list': queryset,
+            'pantry_list': queryset,
         }
         
         return render(request, template_name=self.template_name, context=context)

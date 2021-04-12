@@ -26,7 +26,7 @@
             {% endif %}
 
             <div>
-                {% for object in food_list %}
+                {% for object in pantry_list %}
                     <p>{{ object.name }}</p>
                     <form action="" method="post">{% csrf_token %}
                         <input type="hidden" name="name" value="{{ object.py_id }}">
@@ -37,8 +37,5 @@
                 {% endfor %} 
             </div>
         </div>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.get_username }}</p>
-        {% endif %}
     </div>   
 {% endblock content %}

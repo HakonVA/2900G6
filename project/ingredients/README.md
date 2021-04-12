@@ -11,4 +11,4 @@ The users should only be able to modify, add, delete etc to their owned resource
 - [x] User can delete pantry item 
 - [x] User can delete all pantry items
 - [ ] User can sort ingredients alphabetically (low-priority)
-- [ ] Add messages (error, sucess, etc) for the user convenience
+- [x] Add messages (error, sucess, etc) for the user convenience
