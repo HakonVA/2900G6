@@ -35,6 +35,8 @@ urlpatterns = [
     path('logmeout', user.views.logmeout, name="logmeout"),
     
     path('ingredients/', include('project.ingredients.urls')),
+
+    path('recipes/', include('project.recipes.urls')),
     
-    path(r'recipes/', TemplateView.as_view(template_name='pages/recipes.html'), name='recipes'),
+    # path(r'recipes/', TemplateView.as_view(template_name='pages/recipes.html'), name='recipes'),
 ]
