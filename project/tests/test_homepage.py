@@ -3,8 +3,7 @@ from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-
-homepage_title = "Fridge Friend" #the project name, update when changed
+homepage_title = "Fridge Friend" 
 
 class HomepageTest(TestCase):
     #test for asserting that we are using the homepage template
@@ -34,25 +33,29 @@ class VisitPageTest(StaticLiveServerTestCase):
         
         #click href
         response = element_found.click()
-        
+
         self.assertTemplateUsed(response, html_page)
 
+    #tests to check if we can retrieve the html pages for all features
     def test_homepage_pages_standard(self):
 
         #currently supported pages from homepage:
         homepage_standard = ["ingredients", "recipes", "home", "login",
-                            "signup"]
+                            "signup", "info"]
 
         static_pages = {"ingredients": "pages/ingredients.html", 
                         "recipes": "pages/recipes.html",
                         "home": "pages/home.html",
                         "login": "pages/loginpage.html",
-                        "signup": "pages/signuppage.html",}
+                        "signup": "pages/signuppage.html",
+                        "info": "pages/info.html"}
 
         for page in homepage_standard:
             self.browser.get(f'{self.homepage_url}')
             self.page_on_id(page, static_pages[page])
 
+    #test for signing in, and checking if correct logout page
+    #asser logout works?
     def test_signup(self):
 
         username_ff = "EliasElias"
@@ -73,3 +76,5 @@ class VisitPageTest(StaticLiveServerTestCase):
         response = logout_element.click()
 
         self.assertTemplateUsed(response, "pages/logoutpage.html")
+
+

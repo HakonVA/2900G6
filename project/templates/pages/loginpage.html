@@ -2,6 +2,13 @@
 
 {% block content %}
 
+<!--css_add is used to change the form css-->
+{%load css_add%}
+
+{% block css %} 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+{% endblock css %} 
+
 
 {% if next %}
     {% if user.is_authenticated %}
@@ -14,10 +21,18 @@
 
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
+
+<!--
+
+    
+-->
 <table>
 <tr>
+    
     <td>{{ form.username.label_tag }}</td>
     <td id="username">{{ form.username }}</td>
+
+
 </tr>
 <tr>
     <td>{{ form.password.label_tag }}</td>

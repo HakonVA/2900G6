@@ -5,6 +5,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Create your views here.
 
+
+
+
 def loginpage(request):
 
     # If user is already logged in, redirect to logout page
