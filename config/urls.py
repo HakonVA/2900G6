@@ -32,6 +32,7 @@ urlpatterns = [
     path('logoutpage', user.views.logoutpage, name='logoutpage'),
     path('logmeout', user.views.logmeout, name="logmeout"),
     path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path(r'info', TemplateView.as_view(template_name='pages/info.html'), name='info'),
     path('ingredients/', include('project.ingredients.urls')),
     path(r'recipes/', TemplateView.as_view(template_name='pages/recipes.html'), name='recipes'),
 ]
