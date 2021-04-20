@@ -16,7 +16,9 @@ class VisitPageTest(StaticLiveServerTestCase):
     #tests for asserting that the homepage has the correct information
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        ffox_options = webdriver.FirefoxOptions()
+        ffox_options.set_headless()
+        self.browser = webdriver.Firefox(firefox_options = ffox_options)
         self.browser.get(f'{self.live_server_url}')
         self.homepage_url = self.live_server_url
 
