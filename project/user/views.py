@@ -5,9 +5,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Create your views here.
 
-
-
-
 def loginpage(request):
 
     # If user is already logged in, redirect to logout page
@@ -55,8 +52,10 @@ def signuppage(request):
             return redirect('home')
         
         else:
+            print(form)
+            #check errors in form here, and return the form with the information that is incorrect
             messages.error(request, "Signup failed")
-            form = UserCreationForm()
+            #form = UserCreationForm()
             return render(request, 'pages/signuppage.html', {'form': form})
 
     else:

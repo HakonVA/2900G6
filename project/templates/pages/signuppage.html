@@ -19,21 +19,46 @@
     {% csrf_token %}
     
 
-    <!--{{ form.as_p }} -->
     <div class="columns is-centered">
       <div class="column is-one-fifth">
         <div class="field">
           <label class="label">Username</label>
-            {{form.username|addcss:"input is-primary"}}
+
+          <!--
+            {% if form.username.errors %}
+              <p>username error</p>
+            {% endif %}
+
+          -->
+            <div id="signup_username">{{form.username|addcss:"input"}} </div>
+            {% if form.password2.errors %}
+            
+            <p>password error</p>
+              
+              {% if form.username.errors %}
+                <p>username error</p>
+
+              {% endif %}
+
+                {{form.username|addcss:"input is-primary"}}
+
+            {% endif %}
+
         </div>
       </div>
     </div>
-    <!--password 1 and 2 left-->
+
     <div class="columns is-centered">
       <div class="column is-one-fifth">
         <div class="field">
           <label class="label">Password</label>
-            {{form.password1|addcss:"input is-danger"}}
+          
+          {{form.password1|addcss:"input"}}
+          
+          <div class="content is-small">
+            {{form.password1.help_text}}
+          </div>
+
         </div>
       </div>
     </div>
@@ -42,14 +67,14 @@
       <div class="column is-one-fifth">
         <div class="field">
           <label class="label">Confirm password</label>
-            {{form.password2|addcss:"input is-danger"}}
+            {{form.password2|addcss:"input"}}
         </div>
       </div>
     </div>
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-one-fifth mb-5">
-        <a class="button is-warning" type="submit" id="submit_signup">Create account</a>
+        <button class="button is-warning" type="submit" id = "submit_signup">Sign up</button>
       </div>
     </div>
 

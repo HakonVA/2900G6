@@ -7,4 +7,5 @@ function append_url(new_url){
     var new_page = curr_page + new_url;
 
     window.location.assign(new_page);
+    
 }
