@@ -30,6 +30,8 @@ class Recipe(models.Model):
         servings        | The servings size of the recipe (number of people)
         image           | The recipe image 
         link            | The recipe link∕URL if fetched from a website 
+        ingredients     | A ManyToManyField to recipe ingredients
+        data_created    | The date/time the recipe was created
     
     """
 
@@ -41,9 +43,7 @@ class Recipe(models.Model):
     servings = models.IntegerField(default=1)
     image = models.ImageField(upload_to='recipes/', null=True, blank=True)
     link = models.URLField(null=True, blank=True)
-
     ingredients = models.ManyToManyField(Ingredient)
-
     data_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):

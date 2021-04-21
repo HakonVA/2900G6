@@ -48,6 +48,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     # Third party apps here
+    'django_extensions',
 ]
 
 LOCAL_APPS = [
@@ -148,4 +149,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
