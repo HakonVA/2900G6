@@ -22,26 +22,34 @@
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<!--
+<div class="columns is-centered">
+    <div class="column is-one-fifth mt-6">
+      <div class="field">
+        <label class="label">Username</label>
+          {{form.username|addcss:"input is-primary"}}
+      </div>
+    </div>
+  </div>
 
-    
--->
-<table>
-<tr>
-    
-    <td>{{ form.username.label_tag }}</td>
-    <td id="username">{{ form.username }}</td>
+  <div class="columns is-centered">
+    <div class="column is-one-fifth">
+      <div class="field">
+        <label class="label">Password</label>
+            {{form.password|addcss:"input is-danger"}}
+      </div>
+    </div>
+  </div>
+
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-one-fifth mb-5">
+      <a class="button is-warning" type="submit" id="submit_login" value="login">Login</a>
+    </div>
+  </div>
 
 
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td id="password">{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login" id = "submit_login">
 <input type="hidden" name="next" value="{{ next }}">
+
+
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
