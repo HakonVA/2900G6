@@ -41,6 +41,6 @@ urlpatterns = [
     path('ingredients/', include('project.ingredients.urls')),
 
     path('', include('project.recipes.urls')),
+    path('', include('project.pantrys.urls')),
     
-    # path(r'recipes/', TemplateView.as_view(template_name='pages/recipes.html'), name='recipes'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

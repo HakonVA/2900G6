@@ -18,6 +18,7 @@ coverage = "*"
 django-coverage-plugin = "*"
 pytest-cov = "*"
 pillow = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.8"
