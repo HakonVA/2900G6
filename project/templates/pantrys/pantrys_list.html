@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for object in object_list %}
+        <p>{{ object.food.name }}</p>
+    {% endfor %} 
+    <br>
+
+    {% for object in recipes_list %}
+        <p>{{ object.name }}</p>
+        <p>{{ object.description }}</p>
+        <p>{{ object.rating }}</p>
+        <p>{{ object.prep_time }}</p>
+        <p>{{ object.instruction }}</p>
+        <p>{{ object.servings }}</p>
+        <a href="{% url 'recipes-detail' object.id %}">
+            <img src="{{ object.image.url }}" alt="{{ object.name }}">
+        </a>
+        <p>{{ object.link }}</p>
+        {% for object in object.ingredients.all %}
+            <p>{{ object.food.name }}</p>
+            <p>{{ object.amount }}</p>
+            <p>{{ object.unit }}</p>
+        {% endfor %} 
+        <p>{{ object.data_created }}</p>
+        <br>
+    {% endfor %} 
+{% endblock content %}
