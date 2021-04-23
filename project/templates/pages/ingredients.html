@@ -17,6 +17,8 @@
             <form action="" method="post"> 
                 {% csrf_token %}
                 <input type="text" name="add_items" id="scientific_name" placeholder="Add ingredients">
+                <input name="add_items_qty" id="number" type="number" min="1" value="100">
+                <button name="noval" type="submit" value="noval">Add</button>
             </form>
 
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -30,12 +32,19 @@
             </script>
 
             <div>
-                {% for object in objects %}
+                {% for obj in objects %}
+                    <p>{{ obj.0.scientific_name}}</p>
+                    <p>{{ obj.1.qty }}</p>
+                    
+                    <form action="" method="post"> 
+                        {% csrf_token %}
+                        <input type="hidden" name="adjust_qty_food" value={{ obj.0.fd_id }} />
+                        <input name="adjust_qty" id="number" type="number" value={{ obj.1.qty }}>
+                    </form>
 
                     <form action="" method="post">
                         {% csrf_token %}
-                        <p>{{ object.scientific_name }}</p>
-                        <button name="remove_items" type="submit" value={{ object.fd_id }}>Remove</button>
+                        <button name="remove_items" type="submit" value={{ obj.0.fd_id }}>Remove</button>
                     </form>
                 {% endfor %} 
             </div>

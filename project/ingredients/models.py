@@ -12,27 +12,22 @@ class Food(models.Model):
     fd_id = models.AutoField(primary_key=True)  
     fd_category_id = models.CharField(max_length=32)                        
     scientific_name = models.CharField(max_length=32, unique=True)                       
-    description = models.CharField(max_length=255)  
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    description = models.CharField(max_length=255)
+
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, through="UserFood")
 
     def __str__(self):
-        return "fd_id: %s name: %s" % (self.fd_id, self.scientific_name) 
+        return "Food %s: %s" % (self.fd_id, self.scientific_name) 
 
-class Food_nutrient(models.Model):
-    """
-    Food_nutrient
-        id                  
-        fd_id               | ID of the food this food nutrient pertains to
-        amount/unit         | Amount of the nutrient per 100g of food. Specified in unit defined in the nutrient table.
-        protein_value       | The factor for protein
-        fat_value           | The factor for fat
-        carbohydrate_value  | The factor for carbohydrates
-    """
-    fd_id = models.ForeignKey(Food, on_delete=models.CASCADE)
-    amount = models.CharField(max_length=32)
-    protein_value = models.CharField(max_length=32)
-    fat_value = models.CharField(max_length=32)
-    carbohydrate_value = models.CharField(max_length=32)
+class UserFood(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=1)
+    in_pantry = models.BooleanField(default=True)
     
     def __str__(self):
-        return "prot: %s fat: %s carb: %s" % (self.protein_value, self.fat_value, self.carbohydrate_value)
+        return "%s has %sx %s" % (self.user.username, self.qty, self.food.scientific_name)
+    
+    class Meta:
+        unique_together = [["user", "food", "in_pantry"]]
+
