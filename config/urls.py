@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
+
+from django.views.generic import TemplateView
 from django.urls import include, path
 
 from django.conf.urls import url
@@ -26,13 +30,22 @@ from project.user.views import signuppage, loginpage, logmeout, logoutpage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/', include('project.dev_app.urls')),
+
+    path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+
     path('login', user.views.loginpage, name="login"),
     path('signup', user.views.signuppage, name="signup"),
     path('logoutpage', user.views.logoutpage, name='logoutpage'),
     path('logmeout', user.views.logmeout, name="logmeout"),
+<<<<<<< HEAD
     path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     path(r'info', TemplateView.as_view(template_name='pages/info.html'), name='info'),
+=======
+    
+>>>>>>> origin/recipes
     path('ingredients/', include('project.ingredients.urls')),
-    path(r'recipes/', TemplateView.as_view(template_name='pages/recipes.html'), name='recipes'),
-]
+
+    path('', include('project.recipes.urls')),
+    path('', include('project.pantrys.urls')),
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,11 +1,16 @@
 from django.forms import ModelForm
-from .models import Food
 
-class FoodCreateForm(ModelForm):
+from .models import (
+    Food,
+    Pantry,
+)
+
+class PantryForm(ModelForm):
     class Meta:
-        model = Food
+        model = Pantry
         fields = [
             'name',
+<<<<<<< HEAD
         ]
 
 class FoodUpdateForm(ModelForm):
@@ -13,3 +18,6 @@ class FoodUpdateForm(ModelForm):
 
 class FoodDeleteForm(ModelForm):
     pass
+=======
+        ]
+>>>>>>> origin/recipes

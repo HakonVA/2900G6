@@ -4,22 +4,36 @@
 {% block css %} <link href="{% static 'css/ingredients.css' %}" rel="stylesheet"> {% endblock css %} 
 
 {% block content %}
+
     <div class="main-container">
         <div class="left-sidebar">
             <div class="nav-item">
-                <a class="nav-link" href="{% url 'deleteAll' %}">Delete All</a>
+                <a class="nav-link" href="{% url 'delete-all' %}">Delete All</a>
                 <a class="nav-link" href="{% url 'home' %}">A-z</a>
             </div>
-            
-            <form action="" method="post"> 
-                {% csrf_token %}
-                <input type="text" name="scientific_name" id="scientific_name" placeholder="Add ingredients">
+
+            <form method="post">{% csrf_token %}
+                <input type="hidden" name="add-item">
+                <input type="text" name="name" id="{{ object.py_id }}" placeholder="Add ingredients">
             </form>
 
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
             <div>
-                {% for object in objects %}
-                    <p>{{ object.scientific_name }}</p>
-                    <button type="submit">Delete</button><br>
+                {% for object in pantry_list %}
+                    <p>{{ object.name }}</p>
+                    <form action="" method="post">{% csrf_token %}
+                        <input type="hidden" name="name" value="{{ object.py_id }}">
+                        <input type="submit" name="delete-item" value="Delete">
+                    </form>
+
+
                 {% endfor %} 
             </div>
         </div>

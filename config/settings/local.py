@@ -48,12 +48,17 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     # Third party apps here
+    'django_extensions',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOCAL_APPS = [
     # Custom apps here
-    'project.dev_app.apps.DevAppConfig',
     'project.ingredients.apps.IngredientsConfig',
+    'project.recipes.apps.RecipesConfig',
+    'project.pantrys.apps.PantrysConfig',
     'project.user',
 ]
 
@@ -148,4 +153,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
