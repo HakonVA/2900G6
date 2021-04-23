@@ -5,7 +5,7 @@ class FoodCreateForm(ModelForm):
     class Meta:
         model = Food
         fields = [
-            'scientific_name',
+            'name',
         ]
 
 class FoodUpdateForm(ModelForm):

@@ -25,8 +25,8 @@ def ingredient_index_view(request):
 
         form = FoodCreateForm(request.POST or None)
         if form.is_valid():
-            food_name = form.cleaned_data.get("scientific_name")
-            Food.objects.create(scientific_name=food_name)
+            food_name = form.cleaned_data.get("name")
+            Food.objects.create(name=food_name)
 
     except obj.DoesNotExist:
         raise Http404
