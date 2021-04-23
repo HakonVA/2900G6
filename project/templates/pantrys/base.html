@@ -11,6 +11,11 @@
  
     {% for object in object_list %}
         <a href="{% url 'pantrys-update' object.id %}"><p>{{ object.amount }} {{ object.unit }} {{ object.food.name }}</p></a>
+        <a href="{% url 'pantrys-delete' object.id %}">
+            <span class="material-icons">
+            delete
+            </span>
+        </a>
     {% endfor %} 
 
     <br>
