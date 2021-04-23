@@ -23,27 +23,21 @@
       <div class="column is-one-fifth">
         <div class="field">
           <label class="label">Username</label>
+          
+          {{form.username.errors}}
 
-          <!--
-            {% if form.username.errors %}
-              <p>username error</p>
-            {% endif %}
+          {% if form.username.data is None%}
+            {{form.username|addcss:"input"}} 
+          {% endif %}
+          
+          {% if form.username.errors %}
+            {{form.username|addcss:"input is-danger"}}
+          {% endif %}
 
-          -->
-            <div id="signup_username">{{form.username|addcss:"input"}} </div>
-            {% if form.password2.errors %}
-            
-            <p>password error</p>
-              
-              {% if form.username.errors %}
-                <p>username error</p>
-
-              {% endif %}
-
-                {{form.username|addcss:"input is-primary"}}
-
-            {% endif %}
-
+          {% if form.username.data is not None and not form.username.errors %}
+            {{form.username|addcss:"input is-primary"}}
+          {% endif %}
+          
         </div>
       </div>
     </div>
@@ -53,8 +47,16 @@
         <div class="field">
           <label class="label">Password</label>
           
-          {{form.password1|addcss:"input"}}
+          {{form.password2.errors}}          
           
+          {% if form.password1.data is None %}
+            {{form.password1|addcss:"input"}}
+          {% endif %}
+
+          {% if form.password2.errors %}
+            {{form.password1|addcss:"input is-danger"}}
+          {% endif %}
+
           <div class="content is-small">
             {{form.password1.help_text}}
           </div>
@@ -67,7 +69,15 @@
       <div class="column is-one-fifth">
         <div class="field">
           <label class="label">Confirm password</label>
-            {{form.password2|addcss:"input"}}
+            {% if form.password1.data is None %}
+              {{form.password2|addcss:"input"}}
+              <!-- {{form.password1|addcss:"input"}} -->
+            {% endif %}
+
+            {% if form.password2.errors %}
+              {{form.password2|addcss:"input is-danger"}}
+            {% endif %}
+  
         </div>
       </div>
     </div>

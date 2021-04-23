@@ -42,6 +42,7 @@ def signuppage(request):
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -52,10 +53,7 @@ def signuppage(request):
             return redirect('home')
         
         else:
-            print(form)
-            #check errors in form here, and return the form with the information that is incorrect
-            messages.error(request, "Signup failed")
-            #form = UserCreationForm()
+            messages.error(request, "")
             return render(request, 'pages/signuppage.html', {'form': form})
 
     else:
