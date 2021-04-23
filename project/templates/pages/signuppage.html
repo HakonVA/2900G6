@@ -1,10 +1,92 @@
 {% extends "base.html" %}
 
+<!--css_add is used to change the form css-->
+{%load css_add%}
+
+{% block css %} 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+{% endblock css %} 
+
+
 {% block content %}
-  <h2>Sign up</h2>
+  <div class="columns is-centered">
+    <div class="column is-half has-text-centered mt-6">
+      <h5 class="title is-5 has-text-grey-light">Sign up for Fridge Friend</h5>
+
+    </div>
+  </div>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
+    
+
+    <div class="columns is-centered">
+      <div class="column is-one-fifth">
+        <div class="field">
+          <label class="label">Username</label>
+          
+          {{form.username.errors}}
+
+          {% if form.username.data is None%}
+            {{form.username|addcss:"input"}} 
+          {% endif %}
+          
+          {% if form.username.errors %}
+            {{form.username|addcss:"input is-danger"}}
+          {% endif %}
+
+          {% if form.username.data is not None and not form.username.errors %}
+            {{form.username|addcss:"input is-primary"}}
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-one-fifth">
+        <div class="field">
+          <label class="label">Password</label>
+          
+          {{form.password2.errors}}          
+          
+          {% if form.password1.data is None %}
+            {{form.password1|addcss:"input"}}
+          {% endif %}
+
+          {% if form.password2.errors %}
+            {{form.password1|addcss:"input is-danger"}}
+          {% endif %}
+
+          <div class="content is-small">
+            {{form.password1.help_text}}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-one-fifth">
+        <div class="field">
+          <label class="label">Confirm password</label>
+            {% if form.password1.data is None %}
+              {{form.password2|addcss:"input"}}
+              <!-- {{form.password1|addcss:"input"}} -->
+            {% endif %}
+
+            {% if form.password2.errors %}
+              {{form.password2|addcss:"input is-danger"}}
+            {% endif %}
+  
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-one-fifth mb-5">
+        <button class="button is-warning" type="submit" id = "submit_signup">Sign up</button>
+      </div>
+    </div>
+
   </form>
 {% endblock %}
