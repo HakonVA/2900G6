@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <a href="{% url 'pantrys-create' %}">
+        <span class="material-icons">
+            add_circle_outline
+        </span>
+    </a>
+ 
+    {% for object in object_list %}
+        <a href="{% url 'pantrys-update' object.id %}"><p>{{ object.amount }} {{ object.unit }} {{ object.food.name }}</p></a>
+    {% endfor %} 
+
+    <br>
+    {% for object in recipes_list %}
+        <p>{{ object.name }}</p>
+        <p>{{ object.description }}</p>
+        <p>{{ object.rating }}</p>
+        <p>{{ object.prep_time }}</p>
+        <p>{{ object.instruction }}</p>
+        <p>{{ object.servings }}</p>
+        <a href="{% url 'recipes-detail' object.id %}">
+            <img src="{{ object.image.url }}" alt="{{ object.name }}">
+        </a>
+        <p>{{ object.link }}</p>
+
+        {% for object in object.ingredients.all %}
+            <p>{{ object.amount }} {{ object.unit }} {{ object.food.name }}</p>
+        {% endfor %} 
+
+        <p>{{ object.data_created }}</p>
+        <br>
+    {% endfor %} 
+
+{% endblock %}

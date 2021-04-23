@@ -49,7 +49,10 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     # Third party apps here
     'django_extensions',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOCAL_APPS = [
     # Custom apps here
