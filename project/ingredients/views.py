@@ -18,7 +18,7 @@ class PantryIndexView(LoginRequiredMixin, View):
     login_url = 'login'
     success_url = 'pantry-home'
     
-    template_name = "pages/ingredients.html"
+    template_name = "ingredients/base.html"
 
     @property
     def get_user_object(self):
@@ -51,18 +51,11 @@ class PantryIndexView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         queryset = self.get_user_object
 
-<<<<<<< HEAD
-        form = FoodCreateForm(request.POST or None)
-        if form.is_valid():
-            food_name = form.cleaned_data.get("name")
-            Food.objects.create(name=food_name)
-=======
         context = {
             'pantry_list': queryset,
         }
         
         return render(request, template_name=self.template_name, context=context)
->>>>>>> origin/recipes
 
     def post(self, request, *args, **kwargs):
 
@@ -117,7 +110,7 @@ pantry_list_view = PantryListView.as_view()
 class PantryCreateView(LoginRequiredMixin, CreateView):
     model = Pantry
     login_url = 'login'
-    template_name = "pages/ingredients.html"
+    template_name = "ingredients/ingredients.html"
     success_url = "/ingredients/"
     form_class = PantryForm
 

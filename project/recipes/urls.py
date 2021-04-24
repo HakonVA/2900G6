@@ -5,7 +5,8 @@ from .views import (
     recipe_detail_view,
 )
 
+app_name = "recipes"
 urlpatterns = [
-    path('recipes/', view=recipe_list_view, name='recipes-list'),
-    path('recipes/<int:pk>', view=recipe_detail_view, name='recipes-detail'),
+    path('', view=recipe_list_view, name='list'),
+    path('<int:pk>/', view=recipe_detail_view, name='detail'),
 ]   

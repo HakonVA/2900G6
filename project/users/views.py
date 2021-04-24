@@ -27,12 +27,12 @@ def loginpage(request):
         else:
             form = AuthenticationForm()
             messages.error(request, "Login failed.")
-            return render(request, 'pages/loginpage.html', {'form': form})
+            return render(request, 'users/loginpage.html', {'form': form})
     
     # Handle GET request
     else:
         form = AuthenticationForm()
-        return render(request, 'pages/loginpage.html', {'form': form})
+        return render(request, 'users/loginpage.html', {'form': form})
 
 def signuppage(request):
     
@@ -54,11 +54,11 @@ def signuppage(request):
         
         else:
             messages.error(request, "")
-            return render(request, 'pages/signuppage.html', {'form': form})
+            return render(request, 'users/signuppage.html', {'form': form})
 
     else:
         form = UserCreationForm()
-        return render(request, 'pages/signuppage.html', {'form': form})
+        return render(request, 'users/signuppage.html', {'form': form})
 
 def logoutpage(request):
     # This is the "logout" resource
@@ -66,7 +66,7 @@ def logoutpage(request):
     # It does not actually log out the user.
     if not request.user.is_authenticated:
         return redirect("login")
-    return render(request, 'pages/logoutpage.html')
+    return render(request, 'users/logoutpage.html')
 
 def logmeout(request):
     # This will log the user out, and redirect to log-in page.

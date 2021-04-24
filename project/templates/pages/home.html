@@ -11,16 +11,15 @@
         <div class="columns">
             <div class="column is-half has-text-centered ">
                 <h2 class="is-size-6 mb-5 subtitle"> View all the currently avaliable recipies </h2>
-                <a href="/recipes" class="image is-5by3" id ="recipes">
+                <a href="{% url 'recipes:list' %}" class="image is-5by3" id ="recipes">
                     <img src="{%static 'images/Recipies.svg'%}" alt="recipies image">  
                 </a>
             </div>
 
             <div class="column is-half has-text-centered">
                 <h2 class="is-size-6 mb-5 subtitle"> View your ingredients and recipies generated </h2>
-                <a href="/ingredients" class="image is-5by3" id = "ingredients">
+                <a href="{% url 'pantrys:list' %}" class="image is-5by3" id="ingredients">
                     <img src="{%static 'images/ingredients_banner.svg'%}" alt="recipies image">
-                    
                 </a>
             </div>
         </div>

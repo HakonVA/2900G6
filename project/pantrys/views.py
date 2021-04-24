@@ -37,7 +37,7 @@ class UserIngredientCreateView(LoginRequiredMixin, CreateView):
     form_class = PantryCreateForm
     login_url = 'login'
     template_name = "pantrys/pantrys_create.html"
-    success_url = reverse_lazy('pantrys-list')
+    success_url = reverse_lazy('pantrys:list')
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -50,7 +50,7 @@ class UserIngredientUpdateView(LoginRequiredMixin, UpdateView):
     form_class = PantryCreateForm
     login_url = 'login'
     template_name = "pantrys/pantrys_update.html"
-    success_url = reverse_lazy('pantrys-list')
+    success_url = reverse_lazy('pantrys:list')
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -66,7 +66,7 @@ class UserIngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = UserIngredient
     login_url = 'login'
     template_name = "pantrys/pantrys_delete.html"
-    success_url = reverse_lazy('pantrys-list')
+    success_url = reverse_lazy('pantrys:list')
 
     def get_queryset(self):
         queryset = super().get_queryset()

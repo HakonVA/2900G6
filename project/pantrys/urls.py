@@ -6,10 +6,10 @@ from .views import (
    user_ingredient_update_view,
    user_ingredient_delete_view,
 )
-
+app_name = "pantrys"
 urlpatterns = [
-    path('pantrys/', view=user_ingredient_list_view, name='pantrys-list'),
-    path('pantrys/create', view=user_ingredient_create_view, name='pantrys-create'),
-    path('pantrys/update/<int:pk>', view=user_ingredient_update_view, name='pantrys-update'),
-    path('pantrys/delete/<int:pk>', view=user_ingredient_delete_view, name='pantrys-delete'),
+    path('', view=user_ingredient_list_view, name='list'),
+    path('create/', view=user_ingredient_create_view, name='create'),
+    path('update/<int:pk>/', view=user_ingredient_update_view, name='update'),
+    path('delete/<int:pk>/', view=user_ingredient_delete_view, name='delete'),
 ]   
