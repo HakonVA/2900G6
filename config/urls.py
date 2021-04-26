@@ -23,25 +23,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-
-    path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-
-    path('login', user.views.loginpage, name="login"),
-    path('signup', user.views.signuppage, name="signup"),
-    path('logoutpage', user.views.logoutpage, name='logoutpage'),
-    path('logmeout', user.views.logmeout, name="logmeout"),
-    path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    path(r'info', TemplateView.as_view(template_name='pages/info.html'), name='info'),
-    
-    path('ingredients/', include('project.ingredients.urls')),
-
-    path('', include('project.recipes.urls')),
-    path('', include('project.pantrys.urls')),
-=======
     path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     path('info/', TemplateView.as_view(template_name='pages/info.html'), name='info'),
->>>>>>> origin/main
     
     path('', include('project.users.urls')),                                       
     path('recipes/', include('project.recipes.urls', namespace="recipes")),
