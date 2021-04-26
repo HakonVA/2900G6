@@ -9,7 +9,7 @@
         <p>{{ object.prep_time }}</p>
         <p>{{ object.instruction }}</p>
         <p>{{ object.servings }}</p>
-        <a href="{% url 'recipes-detail' object.id %}">
+        <a href="{% url 'recipes:detail' object.id %}">
             <img src="{{ object.image.url }}" alt="{{ object.name }}">
         </a>
         <p>{{ object.link }}</p>

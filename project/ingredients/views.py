@@ -18,7 +18,7 @@ class PantryIndexView(LoginRequiredMixin, View):
     login_url = 'login'
     success_url = 'pantry-home'
     
-    template_name = "pages/ingredients.html"
+    template_name = "ingredients/base.html"
 
     @property
     def get_user_object(self):
@@ -114,7 +114,7 @@ pantry_list_view = PantryListView.as_view()
 class PantryCreateView(LoginRequiredMixin, CreateView):
     model = Pantry
     login_url = 'login'
-    template_name = "pages/ingredients.html"
+    template_name = "ingredients/ingredients.html"
     success_url = "/ingredients/"
     form_class = PantryForm
 

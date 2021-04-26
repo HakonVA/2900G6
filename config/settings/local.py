@@ -56,10 +56,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOCAL_APPS = [
     # Custom apps here
-    'project.ingredients.apps.IngredientsConfig',
+    # 'project.ingredients.apps.IngredientsConfig',
     'project.recipes.apps.RecipesConfig',
     'project.pantrys.apps.PantrysConfig',
-    'project.user',
+    'project.users.apps.UsersConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

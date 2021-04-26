@@ -10,8 +10,8 @@ from .forms import PantryCreateForm
 from django.views.generic import (
     ListView,
     CreateView,
-    DetailView,
     UpdateView,
+    DeleteView,
 )
 
 class UserIngredientListView(LoginRequiredMixin, ListView):
@@ -37,7 +37,7 @@ class UserIngredientCreateView(LoginRequiredMixin, CreateView):
     form_class = PantryCreateForm
     login_url = 'login'
     template_name = "pantrys/pantrys_create.html"
-    success_url = reverse_lazy('pantrys-list')
+    success_url = reverse_lazy('pantrys:list')
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -50,7 +50,7 @@ class UserIngredientUpdateView(LoginRequiredMixin, UpdateView):
     form_class = PantryCreateForm
     login_url = 'login'
     template_name = "pantrys/pantrys_update.html"
-    success_url = reverse_lazy('pantrys-list')
+    success_url = reverse_lazy('pantrys:list')
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -58,8 +58,22 @@ class UserIngredientUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
         return context
 
-
 user_ingredient_update_view = UserIngredientUpdateView.as_view()
+
+class UserIngredientDeleteView(LoginRequiredMixin, DeleteView):
+    model = UserIngredient
+    login_url = 'login'
+    template_name = "pantrys/pantrys_delete.html"
+    success_url = reverse_lazy('pantrys:list')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+user_ingredient_delete_view = UserIngredientDeleteView.as_view()

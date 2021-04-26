@@ -14,22 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.views.generic import TemplateView
-from django.conf import settings
-from django.conf.urls.static import static
-
-from django.views.generic import TemplateView
-from django.urls import include, path
-
 from django.conf.urls import url
-from project import user
-#from project import user
-#import project.user
-
-from project.user.views import signuppage, loginpage, logmeout, logoutpage
+from django.urls import include, path
+from django.views.generic import TemplateView
+from django.conf.urls.static import static
+from django.conf import settings
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
 
     path(r'', TemplateView.as_view(template_name='pages/home.html'), name='home'),
 
@@ -44,5 +38,13 @@ urlpatterns = [
 
     path('', include('project.recipes.urls')),
     path('', include('project.pantrys.urls')),
+=======
+    path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path('info/', TemplateView.as_view(template_name='pages/info.html'), name='info'),
+>>>>>>> origin/main
     
+    path('', include('project.users.urls')),                                       
+    path('recipes/', include('project.recipes.urls', namespace="recipes")),
+    path('pantrys/', include('project.pantrys.urls', namespace="pantrys")),
+    # path('ingredients/', include('project.ingredients.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
