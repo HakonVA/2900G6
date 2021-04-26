@@ -10,7 +10,6 @@ class PantryForm(ModelForm):
         model = Pantry
         fields = [
             'name',
-<<<<<<< HEAD
         ]
 
 class FoodUpdateForm(ModelForm):
@@ -18,6 +17,4 @@ class FoodUpdateForm(ModelForm):
 
 class FoodDeleteForm(ModelForm):
     pass
-=======
-        ]
->>>>>>> origin/recipes
+        

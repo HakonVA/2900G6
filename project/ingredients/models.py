@@ -18,7 +18,6 @@ class Food(models.Model):
     ]
 
     fd_id = models.AutoField(primary_key=True)  
-<<<<<<< HEAD
     fd_category_id = models.CharField(max_length=32)                        
     name = models.CharField(max_length=32)                       
     # description = models.CharField(max_length=255)  
@@ -44,7 +43,6 @@ class Food(models.Model):
     
 #     def __str__(self):
 #         return "prot: %s fat: %s carb: %s" % (self.protein_value, self.fat_value, self.carbohydrate_value)
-=======
     scientific_name = models.CharField(max_length=32)                       
     category = models.CharField(max_length=32, choices=FOOD_CATEGORY, default=None)                        
 
@@ -67,4 +65,3 @@ class Pantry(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.user, self.name) 
->>>>>>> origin/recipes
