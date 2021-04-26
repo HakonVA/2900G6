@@ -55,6 +55,10 @@
 
           {% if form.password2.errors %}
             {{form.password1|addcss:"input is-danger"}}
+
+            {% elif form.password1.data is not None and form.username.errors %}
+              {{form.password1|addcss:"input"}}
+
           {% endif %}
 
           <div class="content is-small">
@@ -69,13 +73,17 @@
       <div class="column is-one-fifth">
         <div class="field">
           <label class="label">Confirm password</label>
+
             {% if form.password1.data is None %}
               {{form.password2|addcss:"input"}}
-              <!-- {{form.password1|addcss:"input"}} -->
             {% endif %}
 
             {% if form.password2.errors %}
               {{form.password2|addcss:"input is-danger"}}
+
+              {% elif form.password2.data is not None and form.username.errors %}
+                {{form.password2|addcss:"input"}}
+
             {% endif %}
   
         </div>
