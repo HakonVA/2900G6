@@ -38,13 +38,13 @@
                     
                     <form action="" method="post"> 
                         {% csrf_token %}
-                        <input type="hidden" name="adjust_qty_food" value={{ obj.0.fd_id }} />
+                        <input type="hidden" name="adjust_qty_food" value={{ obj.1.id }} />
                         <input name="adjust_qty" id="number" type="number" value={{ obj.1.qty }}>
                     </form>
 
                     <form action="" method="post">
                         {% csrf_token %}
-                        <button name="remove_items" type="submit" value={{ obj.0.fd_id }}>Remove</button>
+                        <button name="remove_items" type="submit" value={{ obj.1.id }} >Remove</button>
                     </form>
                 {% endfor %} 
             </div>

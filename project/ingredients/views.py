@@ -33,41 +33,37 @@ def ingredient_index_view(request):
                 food_obj = Food.objects.filter(scientific_name=food_name).first()
                 if food_obj is not None:
                     try:
-                        uf = UserFood.objects.create(user=request.user, food=food_obj, qty=qty_to_add)
+                        uf = UserFood.objects.create(user=request.user, food=food_obj, qty=qty_to_add, in_pantry=True)
                         uf.save()
                     except:
                         messages.error(request, "%s does not exist in our database" % food_name)
     
         # User adjusts ingredient quantity
         if "adjust_qty_food" in request.POST:
-            print(request.POST["adjust_qty_food"])
-            food_id = int(request.POST["adjust_qty_food"])
-            print(food_id)
-            food_qty = int(request.POST["adjust_qty"])
-            food_obj = Food.objects.filter(fd_id=food_id).first()
-            user_food_obj = UserFood.objects.filter(user=request.user, food=food_obj).first()
-            user_food_obj.qty = food_qty
+
+            userfood_id = int(request.POST["adjust_qty_food"])
+            userfood_qty = int(request.POST["adjust_qty"])
+
+            user_food_obj = UserFood.objects.filter(id=userfood_id).first()
+            user_food_obj.qty = userfood_qty
             user_food_obj.save()
 
         # User removes ingredient(s)
         if "remove_items" in request.POST:
-            try:
-                ingredient_to_remove_id = request.POST['remove_items']
-                if ingredient_to_remove_id == "RemoveAll":
-                    ingobjs = Food.objects.filter(users=request.user)
-                    for ingobj in ingobjs:
-                        ingobj.users.remove(request.user)
-                else:
-                    food_obj = Food.objects.filter(fd_id=ingredient_to_remove_id).first()
-                    food_obj.users.remove(request.user).save()
-            except:
-                pass
-        
-    
+            
+            userfood_id = request.POST['remove_items']
+            if userfood_id == "RemoveAll":
+                userfood_objs = UserFood.objects.filter(user=request.user, in_pantry=True)
+                userfood_objs.all().delete()
+            else:
+                userfood_obj = UserFood.objects.filter(id=int(userfood_id))
+                userfood_obj.all().delete()
+
+
     form = None
 
-    obj = Food.objects.filter(users=request.user).order_by("fd_id")
-    obj2 = UserFood.objects.filter(user=request.user).order_by("food")
+    obj2 = UserFood.objects.filter(user=request.user, in_pantry=True).order_by("food")
+    obj = Food.objects.filter(userfood__in=obj2).order_by("fd_id")
 
     recipes = get_recipes(obj2)
 
@@ -76,14 +72,19 @@ def ingredient_index_view(request):
 def get_recipes(userfoods):
 
     # First, deselect all recipes for which the user doesn't have the ingredient.
-    compliment_ingredients = Food.objects.exclude(userfood__in=userfoods)
-    available_recipes = Recipe.objects.exclude(foods__in=compliment_ingredients)
+    complement_ingredients = Food.objects.exclude(userfood__in=userfoods)
+    available_recipes = Recipe.objects.exclude(foods__in=complement_ingredients)
+
+    if available_recipes.first() is None:
+        return [] 
 
     # Then deselect the recipes for which the user has the ingredient, but not the necessary quantity.
     recipe_ids_to_remove = []
     for recipe in available_recipes:
         # check if the user has all ingredients in required amount
         for recipefood in RecipeFood.objects.filter(food__in=recipe.foods.all()):
+            if userfoods.filter(food=recipefood.food, in_pantry=True).first() is None:
+                break
             if recipefood.qty > userfoods.filter(food=recipefood.food, in_pantry=True).first().qty:
                 recipe_ids_to_remove.append(recipefood.recipe.rc_id)
                 break

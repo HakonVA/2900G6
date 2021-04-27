@@ -4,7 +4,7 @@
 {% block css %} <link href="{% static 'css/ingredients.css' %}" rel="stylesheet"> {% endblock css %} 
 
 {% block content %}
-<h1>These recipes require ingredients you don't have in pantry nor shopping list.</h1>
+<h1>These are the additional recipes you can make after buying everything in your shopping list.</h1>
 <div class="main-container">
     <div class="left-sidebar">
 
@@ -19,7 +19,9 @@
             </form>
         </div>
 
+
         <p>Shopping list:</p>
+
         <div>
             {% for item in shopping_list %}
                 <p>{{ item.0.scientific_name }}</p>
@@ -40,6 +42,7 @@
                     <button name="remove_items" type="submit" value={{ item.1.id }}>Remove from shopping list</button>
                 </form>
 
+
             {% endfor %} 
         </div>
     </div>
@@ -49,11 +52,6 @@
             <b>Recipes</b>
             {% for recipe in recipes %}
                 <p>{{ recipe.name }}</p>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <button name="add_recipe" type="submit" value={{ recipe.rc_id }}>Add necessary ingredients to shopping list</button>
-
-                </form>
             {% endfor %} 
         </div>
         
