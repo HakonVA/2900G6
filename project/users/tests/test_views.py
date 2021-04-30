@@ -1,14 +1,14 @@
 from django.test import TestCase
 from django.test import Client #no running server needed
 
-#test to create user
-
+#method to create a user with given name and password for a client
 def createUser(client, name, passwd):
     login_attempt = client.post('/signup', {'username': name, 'password1':passwd, 'password2':passwd })
     return login_attempt.status_code
 
 class CreateUserTest(TestCase):
     
+    #signup
     def test_regular_user(self):
         username_signup = "TestUser"
         password_signup = "Hallo123@"
