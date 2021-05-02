@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Recipe, RecipeFood
 from project.ingredients.models import Food, UserFood
-from project.shoppinglist.views import mark_userfood_bought
+from project.ingredients.views import get_ingredients_recipe_list
+from project.shoppinglist.views import mark_userfood_bought, get_shoppinglist_recipe_list
+
 
 # This page should show the user the recipes that they cannot make, even after buying the entire shopping list.
 # It should allow them to add the necessary ingredients to their shopping list.
@@ -61,41 +63,13 @@ def recipe_view(request):
 
 
 
-
-
 def get_recipe_list(request):
-    # Find every recipe that the user cannot make, even considering the shopping list
 
-    recipes = Recipe.objects.all()
-    print(recipes)
-
-    for recipe in recipes:
-        # for each ingredient in recipe
-        recipe_ingredients = recipe.foods.all()
-
-        for ingredient in recipe_ingredients:
-            recipefood = RecipeFood.objects.filter(recipe=recipe, food=ingredient).first()
-            required_qty = recipefood.qty
-
-            pantry_qty = UserFood.objects.filter(user=request.user, food=ingredient, in_pantry=True).first()
-            if pantry_qty is None:
-                pantry_qty = 0
-            else:
-                pantry_qty = pantry_qty.qty
-
-            shopping_list_qty = UserFood.objects.filter(user=request.user, food=ingredient, in_pantry=False).first()
-            if shopping_list_qty is None:
-                shopping_list_qty = 0
-            else:
-                shopping_list_qty = shopping_list_qty.qty
-            
-            print("%s, %s, %s" % (pantry_qty, shopping_list_qty, required_qty))
-            if pantry_qty + shopping_list_qty >= required_qty:
-                recipes = recipes.exclude(name=recipe.name)
-
-    print(recipes)
-    return recipes
-
+    l1 = get_ingredients_recipe_list(request)
+    l2 = get_shoppinglist_recipe_list(request)
+    ret_list = Recipe.objects.exclude(rc_id__in=l1)
+    ret_list = ret_list.exclude(rc_id__in=l2)
+    return ret_list
 
 
 def add_recipe_to_shopping_list(rc_id, request):

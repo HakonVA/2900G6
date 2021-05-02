@@ -53,7 +53,7 @@ def shoppinglist_view(request):
     food_list = Food.objects.filter(userfood__in=userfood_list).order_by("fd_id")
     shopping_list = list(zip(food_list, userfood_list))
 
-    recipe_list = get_recipe_list(request)
+    recipe_list = get_shoppinglist_recipe_list(request)
 
     return render(request, "pages/shoppinglist.html", {"recipes": recipe_list, "shopping_list": shopping_list})
 
@@ -81,29 +81,9 @@ def mark_userfood_bought(userfood_id, request):
     userfood_shoppinglist_obj.delete()
 
 
-    # Add pantry entry
-
-def update_user_food_qty(user, food, qty, in_pantry):
-    userfood_obj = UserFood.objects.filter(user=user, food=food, in_pantry=in_pantry).first()
-    userfood_obj.qty = qty
-    userfood_obj.save()
-
-
-def update_userfood_qty(userfood_id, qty):
-    userfood_obj = UserFood.objects.filter(id=userfood_id).first()
-    userfood_obj.qty = qty
-    userfood_obj.save()
-
-
-
-def get_shopping_list(request):
-    shopping_list = UserFood.objects.filter(user=request.user, in_pantry=False)
-    return shopping_list
-
-
 # Return all recipes that the user cannot make with their ingredients.
 # But can make after buying everything on the shopping list.
-def get_recipe_list(request):
+def get_shoppinglist_recipe_list(request):
 
     all_recipes = Recipe.objects.all()
     # For each recipe
@@ -129,7 +109,7 @@ def get_recipe_list(request):
             
             # If user is already able to make this recipe,
             # or if user cannot make it even after buying the entire shopping list, remove it.
-            if not pantry_qty <= required_qty <= pantry_qty + shopping_list_qty:
+            if not pantry_qty < required_qty <= pantry_qty + shopping_list_qty:
                 # Remove recipe
                 all_recipes = all_recipes.exclude(name=recipe.name)
 

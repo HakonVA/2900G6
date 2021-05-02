@@ -65,11 +65,13 @@ def ingredient_index_view(request):
     obj2 = UserFood.objects.filter(user=request.user, in_pantry=True).order_by("food")
     obj = Food.objects.filter(userfood__in=obj2).order_by("fd_id")
 
-    recipes = get_recipes(obj2)
+    recipes = get_ingredients_recipe_list(request)
 
     return render(request, "pages/ingredients.html", {"objects": list(zip(obj, obj2)), "form": form, "recipes": recipes})
 
-def get_recipes(userfoods):
+def get_ingredients_recipe_list(request):
+
+    userfoods = UserFood.objects.filter(user=request.user, in_pantry=True).order_by("food")
 
     # First, deselect all recipes for which the user doesn't have the ingredient.
     complement_ingredients = Food.objects.exclude(userfood__in=userfoods)
