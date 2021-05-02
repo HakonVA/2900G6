@@ -28,6 +28,7 @@ class UserIngredientListView(LoginRequiredMixin, ListView):
         ingredient_list = context['object_list']
         user_food_id = [obj.food.id for obj in ingredient_list]
         context['recipes_list'] = Recipe.objects.filter(ingredients__food_id__in=user_food_id)
+        print(context)
         return context
 
 user_ingredient_list_view = UserIngredientListView.as_view()

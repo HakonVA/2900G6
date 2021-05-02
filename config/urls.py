@@ -29,5 +29,7 @@ urlpatterns = [
     path('', include('project.users.urls')),                                       
     path('recipes/', include('project.recipes.urls', namespace="recipes")),
     path('pantrys/', include('project.pantrys.urls', namespace="pantrys")),
+    path('shopping/', include('project.shoppinglists.urls', namespace='shopping')),
+    
     # path('ingredients/', include('project.ingredients.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

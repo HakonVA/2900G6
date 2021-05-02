@@ -60,6 +60,7 @@ LOCAL_APPS = [
     'project.recipes.apps.RecipesConfig',
     'project.pantrys.apps.PantrysConfig',
     'project.users.apps.UsersConfig',
+    'project.shoppinglists.apps.ShoppinglistsConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
