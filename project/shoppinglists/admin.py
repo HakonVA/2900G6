@@ -17,7 +17,8 @@ class ShoppingEntryAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'name',
-        'food',
+        'recipes',
+        'food', 
         'unit',
         'amount',
         'checked',

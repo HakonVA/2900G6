@@ -10,14 +10,14 @@ class ShoppingListView(LoginRequiredMixin, ListView):
     model = ShoppingList
     login_url = 'login'
     template_name = "shoppinglists/base.html"
+    # context_object_name = 'ok'
 
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(context)
+        context = super().get_context_data(**kwargs) 
         return context
 
 shopping_list_view = ShoppingListView.as_view()
