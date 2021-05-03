@@ -50,6 +50,7 @@ THIRD_PARTY_APPS = [
     # Third party apps here
     'django_extensions',
     'crispy_forms',
+    'fontawesome-free',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

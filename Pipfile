@@ -27,6 +27,7 @@ pyparsing = "==2.4.7"
 six = "==1.15.0"
 toml = "==0.10.2"
 Pillow = "==8.2.0"
+fontawesome-free = "*"
 
 [requires]
 python_version = "3.8"

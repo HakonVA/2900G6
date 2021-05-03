@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from .models import UserIngredient
-from project.recipes.models import Recipe
+from project.recipes.models import Recipe, Food
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 

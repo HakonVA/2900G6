@@ -10,7 +10,7 @@
                 <div class="align-items-start">
                     <h3>My Pantry</h3>
                 </div>
-                <div class="align-self-center ms-auto">
+                <div class="align-self-center p-2">
                     <a href="{% url 'pantrys:create' %}">
                         <span class="material-icons">
                             add_circle_outline
@@ -18,27 +18,24 @@
                     </a>
                 </div>
             </div>
-            <div class="row">
-                <div class="table">
-                    {% for object in object_list %}
-                        <div class="d-flex">
-                            <tr>
-                                <td>{{ object.amount }}</td>
-                                <td>{{ object.unit }}</td>
-                                <td>{{ object.food.name }}</td>
-                                <div class="align-self-center ms-auto">
-                                    <a href="{% url 'pantrys:update' object.id %}">
-                                        <span class="material-icons">build</span>
-                                    </a>
-                                    <a href="{% url 'pantrys:delete' object.id %}">
-                                        <span class="material-icons">delete</span>
-                                    </a>
-                                </div>
-                            </tr>
-                        </div>
-                    {% endfor %} 
-                </div>
-            </div>
+            <table class="table table-borderless">
+                {% for object in object_list %}
+                    <tr>
+                        <td class="col-sm-1">{{ object.amount }}</td>
+                        <td class="col-sm-1">{{ object.unit }}</td>
+                        <td>{{ object.food.name }}</td>
+                        <td class="col-sm-1">
+                            <div class="dropdown">
+                                <button class="btn fas fa-ellipsis-v px-2" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                  <li><a class="dropdown-item" href="{% url 'pantrys:update' object.id%}"><i class="fas fa-edit p-2"></i>Edit</a></li>
+                                  <li><a class="dropdown-item" href="{% url 'pantrys:delete' object.id%}"><i class="far fa-trash-alt p-2"></i>Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %} 
+            </table>
         </div>
         <div class="col-xl-8 col-12">
             <h3>My Recipes</h3>
