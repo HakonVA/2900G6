@@ -1,3 +1,17 @@
+------------- pantrys_ingredient_list.html -------------
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for object in object_list %}
+        <p>{{ object.amount }} {{ object.unit }} {{ object.food.name }}</p>
+    {% endfor %} 
+{% endblock content %}
+
+
+------------- pantrys_recipes_list.html -------------
+
 {% extends 'base.html' %}
 {% load static %}
 

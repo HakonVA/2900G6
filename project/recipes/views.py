@@ -14,6 +14,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print(context)
         return context
 
 recipe_detail_view = RecipeDetailView.as_view()
@@ -28,3 +29,6 @@ class RecipeListView(LoginRequiredMixin, ListView):
         return context
 
 recipe_list_view = RecipeListView.as_view()
+
+def recipe_to_json(request, pk=0):
+    pass

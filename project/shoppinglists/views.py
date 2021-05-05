@@ -1,7 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
+from django.contrib.auth.models import User
+from project.pantrys.models import UserIngredient
+from project.recipes.models import Food
 from .models import ShoppingList, Shopping
 from .forms import ShoppingForm
 from django.views.generic import (
@@ -22,7 +26,6 @@ class ShoppingListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context) 
         return context
 
 shopping_list_view = ShoppingListView.as_view()
@@ -36,10 +39,10 @@ class ShoppingCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        print(form)
         return super().form_valid(form)
 
 shopping_create_view = ShoppingCreateView.as_view()
-
 
 class ShoppingUpdateView(LoginRequiredMixin, UpdateView):
     model = Shopping
@@ -58,7 +61,6 @@ class ShoppingUpdateView(LoginRequiredMixin, UpdateView):
 
 shopping_update_view = ShoppingUpdateView.as_view()
 
-
 class ShoppingDeleteView(LoginRequiredMixin, DeleteView):
     model = Shopping
     login_url = 'login'
@@ -74,3 +76,30 @@ class ShoppingDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 shopping_delete_view = ShoppingDeleteView.as_view()
+
+@login_required(login_url='login')
+def shopping_checkout(request):
+    shopping_list = Shopping.objects.filter(user=request.user)
+
+    # Check shopping list is empty 
+    if shopping_list.exists():
+        food = Food.objects.all()
+        ingredients = shopping_list.filter(name__in=food.values('name'))
+
+        # Check if allowed ingredients exists
+        if ingredients.exists():
+            for i in ingredients:
+                obj, created = UserIngredient.objects.get_or_create(
+                    food=Food.objects.filter(name=i.name).get(),
+                    user=User.objects.get(pk=request.user.id),
+                )
+
+                obj.amount += i.amount
+                # TODO: Should have a unit check safe
+                obj.unit = i.unit           
+                # Save object changes                
+                obj.save()
+
+    # Delete users shopping list 
+    shopping_list.delete()
+    return redirect("pantrys:index")

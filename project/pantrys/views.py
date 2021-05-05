@@ -18,7 +18,6 @@ class PantryIndexView(LoginRequiredMixin, ListView):
     template_name = "pantrys/base.html"
 
     def get_queryset(self):
-        print(self.request)
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
 

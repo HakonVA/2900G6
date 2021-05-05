@@ -31,5 +31,9 @@ class Shopping(models.Model):
     class Meta:
        ordering = ['user',]
 
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower()
+        return super(Shopping, self).save(*args, **kwargs)
+
     def __str__(self):
         return "{} {}".format(self.name, self.user)
