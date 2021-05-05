@@ -51,6 +51,53 @@
         <div class="col-xl-2 d-none d-xl-block"></div>
     </div>
 </div>
-
 {% endblock %}
 
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-2 d-none d-xl-block"></div>
+        <div class="col-xl-8 col-12">
+            <h3>Shopping list</h3>
+            <table class="table table-borderless">
+                {% for object in object_list %}
+                    {% for object in object.entries.all %}
+                        <tr>
+                        {% if object.name is not None%}
+                            <td class="col-sm-1"><input type="checkbox" name="" id=""></td>
+                            <td class="col-sm-1">{{ object.amount }}</td>
+                            <td class="col-sm-1">{{ object.unit }}</td>
+                            <td>{{ object.name }}</td>
+                        {% endif %}
+                        
+                        {% if object.food is not None%}
+                            <td class="col-sm-1"><input type="checkbox" name="" id=""></td>
+                            <td class="col-sm-1">{{ object.amount }}</td>
+                            <td class="col-sm-1">{{ object.unit }}</td>
+                            <td>{{ object.food.name }}</td>
+                        {% endif %} 
+                        
+                        {% if object.recipes is not None%}
+                            {% for ingredient in object.recipes.ingredients.all %}
+                                <tr>
+                                    <td class="col-sm-1"><input type="checkbox" name="" id=""></td>
+                                    <td class="col-sm-1">{{ ingredient.amount }}</td>
+                                    <td class="col-sm-1">{{ ingredient.unit }}</td>
+                                    <td>{{ ingredient.food.name }} ({{ object.recipes.name }})</td> 
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-xl-2 d-none d-xl-block"></div>
+    </div>
+</div>
+{% endblock %}

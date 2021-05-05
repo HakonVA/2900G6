@@ -1,10 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
+
 from .models import ShoppingList, Shopping
-
-from .forms import CreateForm
-
+from .forms import ShoppingForm
 from django.views.generic import (
     ListView,
     CreateView,
@@ -13,24 +12,9 @@ from django.views.generic import (
 )
 
 class ShoppingListView(LoginRequiredMixin, ListView):
-    model = ShoppingList
-    login_url = 'login'
-    template_name = "shoppinglists/base.html"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(user=self.request.user)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs) 
-        return context
-
-shopping_list_view = ShoppingListView.as_view()
-
-class ShoppingtestListView(LoginRequiredMixin, ListView):
     model = Shopping
     login_url = 'login'
-    template_name = "shoppinglists/basetest.html"
+    template_name = "shoppinglists/base.html"
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -41,27 +25,27 @@ class ShoppingtestListView(LoginRequiredMixin, ListView):
         print(context) 
         return context
 
-shopping_test_list_view = ShoppingtestListView.as_view()
+shopping_list_view = ShoppingListView.as_view()
 
-class ShoppingtestCreateView(LoginRequiredMixin, CreateView):
+class ShoppingCreateView(LoginRequiredMixin, CreateView):
     model = Shopping
-    form_class = CreateForm
+    form_class = ShoppingForm
     login_url = 'login'
-    template_name = "shoppinglists/create_view.html"
+    template_name = "shoppinglists/create_form.html"
     success_url = reverse_lazy('shopping:list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-shopping_test_create_view = ShoppingtestCreateView.as_view()
+shopping_create_view = ShoppingCreateView.as_view()
 
 
-class ShoppingtestUpdateView(LoginRequiredMixin, UpdateView):
+class ShoppingUpdateView(LoginRequiredMixin, UpdateView):
     model = Shopping
-    form_class = CreateForm
+    form_class = ShoppingForm
     login_url = 'login'
-    template_name = "shoppinglists/update_view.html"
+    template_name = "shoppinglists/update_form.html"
     success_url = reverse_lazy('shopping:list')
 
     def get_queryset(self):
@@ -72,13 +56,13 @@ class ShoppingtestUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return context
 
-shopping_test_update_view = ShoppingtestUpdateView.as_view()
+shopping_update_view = ShoppingUpdateView.as_view()
 
 
-class ShoppingtestDeleteView(LoginRequiredMixin, DeleteView):
+class ShoppingDeleteView(LoginRequiredMixin, DeleteView):
     model = Shopping
     login_url = 'login'
-    template_name = "shoppinglists/delete_view.html"
+    template_name = "shoppinglists/delete_form.html"
     success_url = reverse_lazy('shopping:list')
 
     def get_queryset(self):
@@ -89,4 +73,4 @@ class ShoppingtestDeleteView(LoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         return context
 
-shopping_test_delete_view = ShoppingtestDeleteView.as_view()
+shopping_delete_view = ShoppingDeleteView.as_view()

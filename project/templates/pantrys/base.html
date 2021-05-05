@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-2 d-none d-xl-block">
+        <div class="col-xl-2 d-none d-xl-block mr-5">
             <div class="d-flex">
                 <div class="align-items-start">
                     <h3>My Pantry</h3>
@@ -18,7 +18,7 @@
                     </a>
                 </div>
             </div>
-            <table class="table table-borderless">
+            <table class="table table-borderless ">
                 {% for object in object_list %}
                     <tr>
                         <td class="col-sm-1">{{ object.amount }}</td>
@@ -34,11 +34,13 @@
                             </div>
                         </td>
                     </tr>
+                {% empty %}
+                    <p>You have not added any ingredients yet!</p>
                 {% endfor %} 
             </table>
         </div>
         <div class="col-xl-8 col-12">
-            <h3>My Recipes</h3>
+            <h3>You can make</h3>
             <div class="row">
                 {% for object in recipes_list %}
                     <div class="col-sm-4">

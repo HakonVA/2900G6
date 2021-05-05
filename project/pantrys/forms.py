@@ -5,7 +5,7 @@ from .models import (
     UserIngredient,
 )
 
-class PantryCreateForm(forms.ModelForm):
+class PantryForm(forms.ModelForm):
     class Meta:
         model = UserIngredient
         fields = [

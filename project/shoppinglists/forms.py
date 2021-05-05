@@ -4,7 +4,7 @@ from .models import (
     Shopping,
 )
 
-class CreateForm(forms.ModelForm):
+class ShoppingForm(forms.ModelForm):
     class Meta:
         model = Shopping
         fields = (
