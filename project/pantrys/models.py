@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from project.recipes.models import Food
+from django.contrib.auth.models import User
 
 class UserIngredient(models.Model):
     food = models.ForeignKey(Food, on_delete=models.RESTRICT)

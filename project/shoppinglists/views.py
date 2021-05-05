@@ -1,13 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-
+from .forms import ShoppingForm
 from django.contrib.auth.models import User
+from .models import Shopping
 from project.pantrys.models import UserIngredient
 from project.recipes.models import Food
-from .models import ShoppingList, Shopping
-from .forms import ShoppingForm
+
 from django.views.generic import (
     ListView,
     CreateView,

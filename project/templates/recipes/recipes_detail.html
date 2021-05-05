@@ -5,6 +5,7 @@
 <div class="container">
     <div class="text-center">
         <img src="{{ object.image.url }}" alt="{{ object.name }}" width="1000" height="650">
+        <a class="btn btn-primary btn-lg align-top" href="{% url 'recipes:shopping' object.id %}"><i class="fas fa-cart-plus"></i>Add to shopping</a>
         <h1 class="text-center mt-3">{{ object.name }}</h1>
         <div class="d-flex flex-row justify-content-center">
             <div class="p-2">
@@ -54,9 +55,9 @@
                     <p class="mt-4">{{ object.instruction }}</p>
                 </div>
             </div>
+            <a href="{{ object.link }}">{{ object.link }}</a>
+            <p>{{ object.data_created }}</p>
         </div>
-        <a href="{{ object.link }}">{{ object.link }}</a>
-        <p>{{ object.data_created }}</p>
     </div>
 </div>
 {% endblock %}

@@ -8,7 +8,6 @@ function determine_error(username_error, password_error){
     print(username_error);
     print(password_error);
 
-
     
 }
 
