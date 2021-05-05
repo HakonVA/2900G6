@@ -36,9 +36,13 @@ install:
 	@pipenv install -r requirements.txt
 
 ## Build a docker image [Docker]	
-docker-build: test
-	@echo "$$(tput bold)$$(tput setaf 1)Not implemented $$(tput sgr 0)"
-	
+docker-build: 
+	sudo docker build -t app .
+
+## Run the docker image [Docker]
+docker-run: 
+	sudo docker run --name app -p 8000:8000 -d app
+
 ## Build and deploy to production server [Heroku]
 heroku-build: test 
 	@echo "$$(tput bold)$$(tput setaf 1)Not implemented $$(tput sgr 0)"	
