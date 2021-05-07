@@ -30,6 +30,8 @@ Pillow = "==8.2.0"
 fontawesome-free = "==5.15.3"
 crispy-bootstrap5 = "==0.3.1"
 urllib3 = "==1.26.4"
+gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"

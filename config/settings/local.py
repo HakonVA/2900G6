@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -77,19 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-# ---------------------------- STATIC ----------------------------
-# Static files (CSS, JavaScript, Images)                                # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_ROOT = str(BASE_DIR / 'staticfiles')                             # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_URL = '/static/'                                                 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-STATICFILES_DIRS = [str(APPS_DIR / 'static')]                           # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-
-# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # ---------------------------- MEDIA ----------------------------
@@ -158,3 +146,21 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# ---------------------------- STATIC ----------------------------
+# Static files (CSS, JavaScript, Images)                                # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')                     # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [
+    # str(BASE_DIR / 'staticfiles'),
+    os.path.join(APPS_DIR, 'static'),
+]                          
+
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATIC_URL = '/static/'                                                 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url

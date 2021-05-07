@@ -36,7 +36,6 @@ class UserIngredientListView(LoginRequiredMixin, ListView):
     template_name = "pantrys/user_ingredients.html"
 
     def get_queryset(self):
-        print(self.request)
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
 
