@@ -17,7 +17,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 APPS_DIR = BASE_DIR / 'project'
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -27,14 +26,9 @@ SECRET_KEY = 'wezrwe(2nmj-hbt07r63i3@#-hh+s2u1h$$xam#l2zxnj+aa%h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', '0.0.0.0']
 
-ROOT_URLCONF = 'config.urls'
-
-WSGI_APPLICATION = 'config.wsgi.application'
-
-
-# ---------------------------- APPLICATION DEFINITION ----------------------------
+# Application definition
 
 DJANGO_APPS = [
     # Django apps here
@@ -55,7 +49,6 @@ THIRD_PARTY_APPS = [
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOCAL_APPS = [
@@ -77,15 +70,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
-# ---------------------------- MEDIA ----------------------------
-
-MEDIA_ROOT = str(APPS_DIR / 'media')                                    # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_URL = '/media/'                                                   # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-
-# ---------------------------- TEMPLATES ----------------------------
+                                            
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -105,7 +92,9 @@ TEMPLATES = [
     },
 ]
 
-# ---------------------------- DATABASES ----------------------------
+WSGI_APPLICATION = 'config.wsgi.application'
+
+# Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
@@ -114,7 +103,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+ 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -133,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -147,13 +135,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-# ---------------------------- STATIC ----------------------------
-# Static files (CSS, JavaScript, Images)                                # https://docs.djangoproject.com/en/3.1/howto/static-files/
+# Static files (CSS, JavaScript, Images)                                
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')                     # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')     
+STATIC_URL = '/static/'                      
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
-    # str(BASE_DIR / 'staticfiles'),
     os.path.join(APPS_DIR, 'static'),
 ]                          
 
@@ -162,5 +151,12 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+                            
+# Media
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 
-STATIC_URL = '/static/'                                                 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+MEDIA_ROOT = str(APPS_DIR / 'media')                                    
+MEDIA_URL = '/media/'  
+
+import django_heroku
+django_heroku.settings(locals())
