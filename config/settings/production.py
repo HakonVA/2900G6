@@ -70,7 +70,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
                                             
 ROOT_URLCONF = 'config.urls'
@@ -104,7 +103,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
- 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -158,3 +157,7 @@ STATICFILES_FINDERS = [
 
 MEDIA_ROOT = str(APPS_DIR / 'media')                                    
 MEDIA_URL = '/media/'  
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
