@@ -45,7 +45,7 @@ class Recipe(models.Model):
     prep_time = models.IntegerField(default=0)
     instruction = models.TextField(default='', blank=True) 
     servings = models.IntegerField(default=1)
-    image = models.ImageField(upload_to='recipes/', null=True, blank=True)
+    image = models.ImageField(upload_to='recipes/', null=True, blank=True, default='default.png')
     link = models.URLField(null=True, blank=True)
     ingredients = models.ManyToManyField(Ingredient)
     data_created = models.DateTimeField(auto_now_add=True, null=True)
