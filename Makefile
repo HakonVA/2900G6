@@ -41,7 +41,7 @@ docker-build:
 
 ## Run the docker image [Docker]
 docker-run: 
-	sudo docker run --name app -p 8000:8000 -d app
+	sudo docker run --rm --name app -p 8000:8000 app
 
 ## Build and deploy to production server [Heroku]
 heroku-build: test 
