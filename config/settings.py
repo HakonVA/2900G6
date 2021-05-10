@@ -53,7 +53,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOCAL_APPS = [
     # Custom apps here
-    # 'project.ingredients.apps.IngredientsConfig',
     'project.recipes.apps.RecipesConfig',
     'project.pantrys.apps.PantrysConfig',
     'project.users.apps.UsersConfig',

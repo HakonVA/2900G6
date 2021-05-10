@@ -2,47 +2,50 @@
 
 SHELL := /bin/bash
 
-.PHONY: all help build test clean dev dbshell install docker-build heroku-build
+.PHONY: help all migrate test run coverage clean clean-pyc clean-test clean-db install dev-install docker-build docker-run
 
 help:
-	@echo "$$(tput bold)Available subcommands:$$(tput sgr0)";echo;sed -ne"/^## /{h;s/.*//;:d" -e"H;n;s/^## //;td" -e"s/:.*//;G;s/\\n## /---/;s/\\n/ /g;p;}" ${MAKEFILE_LIST}|LC_ALL='C' sort -f|awk -F --- -v n=$$(tput cols) -v i=29 -v a="$$(tput setaf 6)" -v z="$$(tput sgr0)" '{printf"%s%*s%s ",a,-i,$$1,z;m=split($$2,w," ");l=n-i;for(j=1;j<=m;j++){l-=length(w[j])+1;if(l<= 0){l=n-i-length(w[j])-1;printf"\n%*s ",-i," ";}printf"%s ",w[j];}printf"\n";}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-## Building, testing, and deploy to development server
-all: test dev
+all: migrate test run ## Make, migrate, test, and deploy to dev server
 
-## Build the project  
-build:
+migrate: ## Make and run migrations 
 	python manage.py makemigrations
 	python manage.py migrate
-# python manage.py collectstatic
 
-## Run all unit tests
-test: build
+test: ## Run unit tests
 	python manage.py test
 
-clean:
-	rm db.sqlite3
-
-## Build and run the project on development server
-dev: build 
+run: migrate ## Build and deploy to dev server
 	python manage.py runserver
 
-## Update database and spawn a dbshell 
-dbshell: build
-	python manage.py dbshell
+coverage: ## Make a coverage report html
+	pytest --cov=project --cov-report=html
 
-## Install the project dependencies and create virtual environment
-install:
-	@pipenv install -r requirements.txt
+clean: clean-pyc clean-test clean-db ## Remove test, coverage, db, and Python artifacts
 
-## Build a docker image [Docker]	
-docker-build: 
-	sudo docker build -t app .
+clean-pyc: 
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
 
-## Run the docker image [Docker]
-docker-run: 
-	sudo docker run --rm --name app -p 8000:8000 app
+clean-test:
+	rm -fr .pytest_cache
+	rm -rf .coverage
+	rm -rf htmlcov
 
-## Build and deploy to production server [Heroku]
-heroku-build: test 
-	@echo "$$(tput bold)$$(tput setaf 1)Not implemented $$(tput sgr 0)"	
+clean-db:
+	rm db.sqlite3
+
+install: ## Install dependencies into a virtual environment
+	pipenv install -r requirements.txt
+
+dev-install: ## Install dev dependencies into a virtual environment
+	pipenv install -r dev-requirements.txt
+
+docker-build: ## Build source to a docker image [Docker]	
+	docker build -t app .
+
+docker-run: ## Run the docker image [Docker]
+	docker run --rm --name app -p 8000:8000 app
