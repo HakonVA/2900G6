@@ -58,6 +58,9 @@ class CreateUserTest(TestCase):
 
         createUser(c, username_login, password_login)
 
+        #logout after creating a user, and logging back in
+        c.get('/logmeout')
+
         response = c.post('/login', {'username': username_login, 'password': password_login})
         
         assert(response.status_code == 302)
@@ -81,4 +84,3 @@ class CreateUserTest(TestCase):
         logout_response = c.get('/logoutpage')
 
         assert(logout_response.url == '/login')
-
