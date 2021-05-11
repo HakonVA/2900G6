@@ -84,3 +84,26 @@ class CreateUserTest(TestCase):
         logout_response = c.get('/logoutpage')
 
         assert(logout_response.url == '/login')
+
+    def test_login_redirect_logoutpage(self):
+        username_login  = "TestUser"
+        password_login  = "Hallo123@"
+
+        c = Client()
+
+        createUser(c, username_login, password_login)
+
+        login_response = c.get('/login')
+        assert(login_response.url == '/logoutpage')
+    
+    def test_signup_redirect_logoutpage(self):
+        username_login  = "TestUser"
+        password_login  = "Hallo123@"
+
+        c = Client()
+
+        createUser(c, username_login, password_login)
+
+        login_response = c.get('/signup')
+        assert(login_response.url == '/logoutpage')
+    

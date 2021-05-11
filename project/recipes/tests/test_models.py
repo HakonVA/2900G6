@@ -32,12 +32,12 @@ class FoodTest(TestCase):
 
 
 class IngredientTest(TestCase):
-    
-    #helper method
     def create_food(self,food_name):
         new_food = Food.objects.create(name=food_name)
         new_food.full_clean()
         return new_food
+    
+    #helper method
 
     def test_food_ingredient(self):
         pass
@@ -88,10 +88,31 @@ class IngredientTest(TestCase):
             pass
 
 class RecipeTest(TestCase):
+    
+    #helper method
+    def create_food(self,food_name):
+        new_food = Food.objects.create(name=food_name)
+        new_food.full_clean()
+        return new_food
+    
+    #helper method
+    def create_ingredient(self, food_name, amount, unit):
+        new_food = self.create_food(food_name)
+        new_ingredient = Ingredient.objects.create(food=new_food, amount = amount, unit = unit)
+        new_ingredient.full_clean()
+        return new_ingredient
+    
     #TODO: test limits
     #test the criterias of the database values
-    pass
     def test_prep_time_negative(self):
         pass
     def test_servings_negative(self):
         pass
+
+    def test_name_recipe(self):
+        #recipe needs food and ingredient
+        abbor = self.create_ingredient("abbor", 100, "g")
+        fiskekaker = Recipe.objects.create(name = "fiskekaker")
+        fiskekaker.ingredients.add(abbor)
+        fiskekaker.full_clean()
+        assert(str(fiskekaker) == "fiskekaker")

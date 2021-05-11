@@ -61,4 +61,6 @@ class ViewRecipiesTest(TestCase):
         # create a recipe without a image and see how it works
         # use setupMissing_image
         # and check if anything else will bonk it
+
+    
         
