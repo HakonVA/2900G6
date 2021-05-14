@@ -50,7 +50,6 @@ class IngredientTest(TestCase):
 
         new_ingredient = Ingredient.objects.create(food=torsk, amount = neg_value)
         new_ingredient.full_clean()
-
         assert(new_ingredient.amount >= 0)        
 
     def test_amount_mixed(self):

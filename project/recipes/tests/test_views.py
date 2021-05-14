@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.test import Client
 from django.contrib.auth.models import User
 
-
 from project.recipes.models import Recipe
 from project.recipes.models import Food
 from project.recipes.models import Ingredient
@@ -44,14 +43,11 @@ class ViewRecipiesTest(TestCase):
         response = c.get('/recipes/')
         assert(response.status_code == 200)
 
-        #issue with non existent database which will result in 404
         response = c.get('/recipes/1/')
-        try: 
-            assert(response.status_code == 200)
-        except AssertionError:
-            raise
+        assert(response.status_code == 200)
 
-        #test add to shopping here
+        response = c.get('/recipes/1/add_to_shopping')
+        assert(response.status_code == 302 or response.status_code == 301)
 
     #a test to view the page if missing image
     #and potenially other faults in recipes
