@@ -24,9 +24,9 @@ APPS_DIR = BASE_DIR / 'project'
 SECRET_KEY = 'wezrwe(2nmj-hbt07r63i3@#-hh+s2u1h$$xam#l2zxnj+aa%h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
 
-ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', '0.0.0.0']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else ['*']
 
 # Application definition
 
@@ -42,10 +42,10 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     # Third party apps here
-    'django_extensions',
     'fontawesome-free',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_extensions',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
                                             
 ROOT_URLCONF = 'config.urls'
@@ -96,13 +97,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# For local deploy 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
- 
+
+# For production deploy, based on a database url
+if not DEBUG:
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config(default=f'sqlite:///{BASE_DIR}/db.sqlite3', conn_max_age=600)
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -156,6 +163,3 @@ STATICFILES_FINDERS = [
 
 MEDIA_ROOT = str(APPS_DIR / 'media')                                    
 MEDIA_URL = '/media/'  
-
-import django_heroku
-django_heroku.settings(locals())
