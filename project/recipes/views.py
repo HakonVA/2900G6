@@ -34,14 +34,12 @@ recipe_list_view = RecipeListView.as_view()
 
 @login_required(login_url='login')
 def recipe_to_shopping_list(request, pk=0):
-    
     recipe = Recipe.objects.get(pk=pk)
     for i in recipe.ingredients.all():
         obj, created = Shopping.objects.get_or_create(
             name=i.food.name,
             user=User.objects.get(pk=request.user.id)
         )
-
         obj.amount += i.amount
         # TODO: Should have a unit check safe
         obj.unit = i.unit 

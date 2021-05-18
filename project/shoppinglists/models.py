@@ -16,4 +16,4 @@ class Shopping(models.Model):
        ordering = ['user',]
 
     def __str__(self):
-        return "{} {}".format(self.name, self.user)
+        return "{} {} {} {}".format(self.name, self.amount, self.unit, self.user)
