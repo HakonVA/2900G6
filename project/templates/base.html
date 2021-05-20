@@ -36,13 +36,19 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li>
-                <a class="nav-link" href="{% url 'recipes:list' %}">Recipes</a>
+                <a class="nav-link" href="{% url 'pantrys:ingredients' %}">My Ingredients</a>
               </li>
               <li>
-                <a class="nav-link" href="{% url 'pantrys:index' %}">My Pantry</a>
+                <a class="nav-link" href="{% url 'pantrys:index' %}">My Recipes</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'shopping:list' %}">My Shoppinglist</a>
+              </li>
+              <li>
+                <a class="nav-link" href="{% url 'recipes:list' %}">All Recipes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'info' %}">Information</a>
+                <a class="nav-link" href="{% url 'info' %}">About</a>
               </li>
             </ul>
           </div>
