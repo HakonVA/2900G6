@@ -25,7 +25,14 @@ class PantryIndexView(LoginRequiredMixin, ListView):
         ingredient_list = context['object_list']
         user_food_id = [obj.food.id for obj in ingredient_list]
         user_food_id_complement = Food.objects.exclude(id__in=user_food_id)
-        context['recipes_list'] = Recipe.objects.exclude(ingredients__food_id__in=user_food_id_complement)
+        recipe_list = Recipe.objects.exclude(ingredients__food_id__in=user_food_id_complement)
+        for recipe in recipe_list:
+            for ingredient in recipe.ingredients.all():
+                user_amount = UserIngredient.objects.filter(food=ingredient.food).first().amount
+                if user_amount < ingredient.amount:
+                    recipe_list = recipe_list.exclude(id=recipe.id)
+                    break
+        context["recipes_list"] = recipe_list
         return context
 
 pantry_index_view = PantryIndexView.as_view()
@@ -83,7 +90,7 @@ class UserIngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = UserIngredient
     login_url = 'login'
     template_name = "pantrys/delete_form.html"
-    success_url = reverse_lazy('pantrys:index')
+    success_url = reverse_lazy('pantrys:ingredients')
 
     def get_queryset(self):
         queryset = super().get_queryset()

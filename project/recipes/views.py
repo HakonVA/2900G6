@@ -1,3 +1,4 @@
+from project.pantrys.models import UserIngredient
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -36,13 +37,24 @@ recipe_list_view = RecipeListView.as_view()
 def recipe_to_shopping_list(request, pk=0):
     recipe = Recipe.objects.get(pk=pk)
     for i in recipe.ingredients.all():
-        obj, created = Shopping.objects.get_or_create(
-            name=i.food.name,
-            user=User.objects.get(pk=request.user.id)
-        )
-        obj.amount += i.amount
-        # TODO: Should have a unit check safe
-        obj.unit = i.unit 
-        obj.save()
+
+        pantry_ingredient = UserIngredient.objects.filter(food=i.food, user=request.user.id)
+        pantry_amount = 0
+        if pantry_ingredient:
+            pantry_amount = pantry_ingredient.first().amount
+
+        # If user does not already have enough of the ingredient, add it
+        if pantry_amount < i.amount:
+            obj, created = Shopping.objects.get_or_create(
+                name=i.food.name,
+                user=User.objects.get(pk=request.user.id)
+            )
+
+            # Only add the difference to shopping list
+            if obj.amount + pantry_amount < i.amount:
+                obj.amount = i.amount - pantry_amount
+
+            obj.unit = i.unit 
+            obj.save()
 
     return redirect("shopping:list")
