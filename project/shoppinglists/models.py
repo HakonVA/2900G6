@@ -8,12 +8,12 @@ class Shopping(models.Model):
     checked = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+       ordering = ['user',]
+
     def save(self, *args, **kwargs):
         self.name = self.name.lower()
         return super(Shopping, self).save(*args, **kwargs)
     
-    class Meta:
-       ordering = ['user',]
-
     def __str__(self):
-        return "{} {} {} {}".format(self.name, self.amount, self.unit, self.user)
+        return "{} {} {} {}".format(self.amount, self.unit, self.name, self.user)

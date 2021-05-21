@@ -6,7 +6,6 @@ from project.users.tests.test_views import createUser
 from project.pantrys.models import UserIngredient
 from django.core.exceptions import ObjectDoesNotExist
 
-
 class PantryModelTest(TestCase):
     def setUp(self):
         c = Client()
@@ -16,13 +15,15 @@ class PantryModelTest(TestCase):
 
         self.user = User.objects.get(username=username)
 
-    def test_user_ingredient(self):
+    def test_user_ingredient_str(self):
         #need food and a user
         food_test = Food.objects.get(name="egg")
+        amount = 10
+        unit = "pcs"
 
-        new_user_ingredient = UserIngredient.objects.create(food=food_test, user=self.user)
+        new_user_ingredient = UserIngredient.objects.create(food=food_test, user=self.user, amount=amount, unit=unit)
 
-        valid_representation = f"{food_test} 0 {None} {self.user}"
+        valid_representation = f"{amount} {unit} {food_test} {self.user}"
 
         assert(str(new_user_ingredient) == valid_representation)        
         

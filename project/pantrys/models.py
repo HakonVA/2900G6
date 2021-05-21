@@ -11,4 +11,4 @@ class UserIngredient(models.Model):
     data_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return "{} {} {} {}".format(self.food, self.amount, self.unit, self.user)
+        return "{} {} {} {}".format(self.amount, self.unit, self.food, self.user)
