@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import query
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .forms import ShoppingForm
@@ -78,27 +79,45 @@ shopping_delete_view = ShoppingDeleteView.as_view()
 
 @login_required(login_url='login')
 def shopping_checkout(request):
-    shopping_list = Shopping.objects.filter(user=request.user)
 
-    # Check shopping list is empty 
-    if shopping_list.exists():
-        food = Food.objects.all()
-        ingredients = shopping_list.filter(name__in=food.values('name'))
+    if request.method == "POST":
+        shopping_id = int(request.POST["shopping_id"][:-1])
 
-        # Check if allowed ingredients exists
-        if ingredients.exists():
-            for i in ingredients:
-                obj, created = UserIngredient.objects.get_or_create(
-                    food=Food.objects.filter(name=i.name).get(),
-                    user=User.objects.get(pk=request.user.id),
-                )
+        ingredient = Shopping.objects.filter(user=request.user, id=shopping_id)
+        if ingredient.exists():
+            ingredient = ingredient.first()
+            _add_shopping_ingredient(request, ingredient)
+        
+        ingredient.delete()
+        return redirect("/shopping")
 
-                obj.amount += i.amount
-                # TODO: Should have a unit check safe
-                obj.unit = i.unit           
-                # Save object changes                
-                obj.save()
+    else:
+        shopping_list = Shopping.objects.filter(user=request.user)
 
-    # Delete users shopping list 
-    shopping_list.delete()
-    return redirect("pantrys:index")
+        # Check shopping list is empty 
+        if shopping_list.exists():
+            food = Food.objects.all()
+            ingredients = shopping_list.filter(name__in=food.values('name'))
+
+            # Check if allowed ingredients exists
+            if ingredients.exists():
+                for ingredient in ingredients:
+                    _add_shopping_ingredient(request, ingredient)
+                    
+
+        # Delete users shopping list 
+        shopping_list.delete()
+        return redirect("pantrys:ingredients")
+
+
+def _add_shopping_ingredient(request, ingredient):
+    obj, created = UserIngredient.objects.get_or_create(
+        food=Food.objects.filter(name=ingredient.name).get(),
+        user=User.objects.get(pk=request.user.id),
+    )
+
+    obj.amount += ingredient.amount
+    # TODO: Should have a unit check safe
+    obj.unit = ingredient.unit           
+    # Save object changes                
+    obj.save()

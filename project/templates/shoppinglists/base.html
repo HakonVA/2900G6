@@ -34,6 +34,11 @@
                                       <li><a class="dropdown-item" href="{% url 'shopping:update' object.id%}"><i class="fas fa-edit p-2"></i>Edit</a></li>
                                       <li><a class="dropdown-item" href="{% url 'shopping:delete' object.id%}"><i class="far fa-trash-alt p-2"></i>Delete</a></li>
                                     </ul>
+                                    <form action="/shopping/checkout/" method="post"> 
+                                        {% csrf_token %}
+                                        <input type="hidden" name="shopping_id" value={{ object.id }}/>
+                                        <button class="btn btn-primary">Add</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -47,9 +52,11 @@
                     {% endif %}
                 {% endfor %}
             </table>
-            <div class="d-flex flex-row-reverse">
-                <a class="btn btn-primary" href="{% url 'shopping:checkout' %}">Checkout</a>
-            </div>
+            {% if object_list %}
+                <div class="d-flex flex-row-reverse">
+                    <a class="btn btn-primary" href="{% url 'shopping:checkout' %}">Add all to pantry</a>
+                </div>
+            {% endif %}
         </div>
         <div class="col-xl-2 d-none d-xl-block"></div>
     </div>
