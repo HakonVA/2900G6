@@ -80,8 +80,8 @@ shopping_delete_view = ShoppingDeleteView.as_view()
 @login_required(login_url='login')
 def shopping_checkout(request):
 
-    if request.method == "POST":
-        shopping_id = int(request.POST["shopping_id"][:-1])
+    if request.method == "POST" and "shopping_id" in request.POST:
+        shopping_id = int(request.POST["shopping_id"])
 
         ingredient = Shopping.objects.filter(user=request.user, id=shopping_id)
         if ingredient.exists():
