@@ -9,12 +9,13 @@ from project.pantrys.models import UserIngredient
 class TestViewsShopping(TestCase):
 
     def test_login(self):
+        #TODO:
         #for all views:
             #should not be accessible
             #without being logged inn
         pass
     
-    def test_list_view(self):
+    def test_shopping_list_view(self):
         #need a user to access shopping list
         #
         c = Client()
@@ -29,7 +30,7 @@ class TestViewsShopping(TestCase):
         #if shopping list empty
         #self.assertQuerysetEqual()
 
-    def test_create_view(self):
+    def test_shopping_create_view(self):
 
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
@@ -42,7 +43,7 @@ class TestViewsShopping(TestCase):
 
         assert(response.status_code == 302)
 
-    def test_update_view(self):
+    def test_shopping_update_view(self):
 
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
@@ -74,7 +75,7 @@ class TestViewsShopping(TestCase):
         assert(shopping_object.unit   == new_unit)
         assert(shopping_object.amount == new_amount)
 
-    def test_delete_view(self):
+    def test_shopping_delete_view(self):
         #post to delete
         #check list if object is non existent
         c = Client()
@@ -100,3 +101,7 @@ class TestViewsShopping(TestCase):
         response = c.get('/shopping/')
 
         assert(len(response.context['object_list']) == 0)
+
+    def test_shopping_checkout(self):
+        #TODO:
+        pass

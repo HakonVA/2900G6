@@ -52,11 +52,20 @@ class ViewRecipiesTest(TestCase):
     #a test to view the page if missing image
     #and potenially other faults in recipes
     def test_missing_image(self):
-        pass
         #TODO:
+        pass
         # create a recipe without a image and see how it works
         # use setupMissing_image
         # and check if anything else will bonk it
 
-    
-        
+    def test_recipe_detail_view(self):
+        #TODO:
+        pass
+
+    def test_recipe_list_view(self):
+        #TODO:
+        pass
+
+    def test_recipe_to_shopping_list(self):
+        #TODO:
+        pass
