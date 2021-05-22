@@ -36,7 +36,7 @@
                                     </ul>
                                     <form action="/shopping/checkout/" method="post"> 
                                         {% csrf_token %}
-                                        <input type="hidden" name="shopping_id" value={{ object.id }}/>
+                                        <input type="hidden" name="shopping_id" value={{ object.id }}>
                                         <button class="btn btn-primary">Add</button>
                                     </form>
                                 </div>
