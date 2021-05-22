@@ -4,7 +4,8 @@ from project.recipes.models import Food
 from django.contrib.auth.models import User
 from project.users.tests.test_views import createUser
 from project.pantrys.models import UserIngredient
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.db import IntegrityError
 
 class PantryModelTest(TestCase):
     def setUp(self):
@@ -40,4 +41,18 @@ class PantryModelTest(TestCase):
         try:
             food_test = Food.objects.get(name=food_name)
         except ObjectDoesNotExist:
+            pass
+
+    def test_user_ingredient_duplicates_entries(self):
+        try:
+            new_user_ingredient = UserIngredient.objects.create(food=Food.objects.get(name="egg"), user=self.user, amount=5)
+            new_user_ingredient_2 = UserIngredient.objects.create(food=Food.objects.get(name="egg"), user=self.user, amount=10)
+        except IntegrityError:
+            pass
+
+    def test_user_ingredient_negative_amount(self):
+        try:
+            new_user_ingredient = UserIngredient.objects.create(food=Food.objects.get(name="egg"), user=self.user, amount=-5)
+            new_user_ingredient.full_clean()
+        except ValidationError:
             pass

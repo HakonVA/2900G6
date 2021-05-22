@@ -16,7 +16,7 @@ class Food(models.Model):
 class Ingredient(models.Model):
 
     food = models.ForeignKey(Food, on_delete=models.RESTRICT)
-    amount = models.DecimalField(default=0, max_digits=8, decimal_places=2, null=True, blank=True)
+    amount = models.DecimalField(default=0, max_digits=8, decimal_places=2, validators=[MinValueValidator(0.0)], null=True, blank=True)
     unit = models.CharField(max_length=8, null=True, blank=True)
 
     def __str__(self):

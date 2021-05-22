@@ -1,5 +1,6 @@
 from django.test import TestCase
 from project.recipes.models import Food, Ingredient, Recipe
+from django.core.exceptions import ValidationError
 
 class FoodTest(TestCase):
 
@@ -43,14 +44,12 @@ class IngredientTest(TestCase):
         pass
     
     def test_amount_negative(self):
-
         torsk = self.create_food("torsk")
-
-        neg_value = -5
-
-        new_ingredient = Ingredient.objects.create(food=torsk, amount = neg_value)
-        new_ingredient.full_clean()
-        assert(new_ingredient.amount >= 0)        
+        try:
+            new_ingredient = Ingredient.objects.create(food=torsk, amount=-5)
+            new_ingredient.full_clean()
+        except ValidationError:
+            pass
 
     def test_amount_mixed(self):
 

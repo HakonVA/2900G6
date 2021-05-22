@@ -1,6 +1,7 @@
 from django.test import TestCase
 from project.shoppinglists.models import Shopping
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 class TestShoppingModel(TestCase):
     def setUp(self):
@@ -35,16 +36,23 @@ class TestShoppingModel(TestCase):
         self.assertEqual(new_shopping.user, self.new_user)        
     
     def test_shopping_str(self):
-        shopping_name = "fiskekake"
-        shopping_amount = 100
-        shopping_unit = 'g'
-        new_shopping = Shopping.objects.create(name=shopping_name, unit=shopping_unit,
-                                               amount=shopping_amount,user=self.new_user)
+        name = "fiskekake"
+        amount = 100
+        unit = 'g'
+
+        new_shopping = Shopping.objects.create(name=name, unit=unit, amount=amount, user=self.new_user)
         new_shopping.full_clean()
         new_shopping.save()   
 
-        valid_representation = f'{shopping_amount} {shopping_unit} {shopping_name} {self.new_user}'
+        valid_representation = f'{amount} {unit} {name} {self.new_user}'
         assert(str(new_shopping) == valid_representation)
+
+    def test_shopping_negative_amount(self):
+        try:
+            new_shopping = Shopping.objects.create(name="fiskekake", amount=-5,user=self.new_user)
+            new_shopping.full_clean()
+        except ValidationError:
+            pass
 
     def test_shopping_name_max_length(self):
         #TODO:

@@ -8,7 +8,6 @@ class PantryUrlTest(TestCase):
         username = "TestUser"
         password = "Hallo123@"
         createUser(self.client, username, password)
-        # self.user = User.objects.get(username=username)
 
     def test_pantrys_index_url(self):
         response = self.client.get(reverse('pantrys:index'))

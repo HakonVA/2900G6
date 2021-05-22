@@ -26,12 +26,12 @@ class LoginFormTests(TestCase):
     
     #these tests might fail, 
     def test_stringlength_username_password(self):
+        # Changed in Django 3.1: The max_length increased from 30 to 150 characters.
+        max_length_username = 150 + 1
+        max_length_password = 4096
 
-        max_length_username = 32
-        max_length_password = 32
-
-        username_max = "TestUserTestUserTestUserTestUser"
-        password_max = "Hallo123@Hallo123@Hallo123@Hallo123@"
+        username_max = "T" * max_length_username
+        password_max = "@" * max_length_password
         
         assert(len(username_max) >= max_length_username)
         assert(len(password_max) >= max_length_password)
