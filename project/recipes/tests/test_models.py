@@ -139,8 +139,11 @@ class RecipeTest(TestCase):
     #TODO: test limits
     #test the criterias of the database values
     def test_recipe_prep_time_negative(self):
+        #TODO:
         pass
+
     def test_recipe_servings_negative(self):
+        #TODO:
         pass
 
     def test_recipe_name(self):

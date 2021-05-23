@@ -37,7 +37,7 @@ class TestViewsPantry(TestCase):
         self.assertTemplateUsed(response, 'pantrys/user_ingredients.html')
         
     def test_user_ingredient_create_view(self):
-        #TODO:
+        #TODO: major
         pass
 
         # c = Client()
@@ -56,10 +56,10 @@ class TestViewsPantry(TestCase):
         # assert(response.context['recipes_list'][0].name == "egg")
 
     def test_user_ingredient_update_view(self):
-        #TODO:
+        #TODO: major
         pass
     
     def test_user_ingredient_delete_view(self):
-        #TODO:
+        #TODO: major
         pass
     

@@ -8,7 +8,7 @@ from project.pantrys.models import UserIngredient
 
 class TestViewsShopping(TestCase):
 
-    def test_login(self):
+    def test_shopping_login(self):
         #TODO:
         #for all views:
             #should not be accessible
@@ -103,5 +103,5 @@ class TestViewsShopping(TestCase):
         assert(len(response.context['object_list']) == 0)
 
     def test_shopping_checkout(self):
-        #TODO:
+        #TODO: major
         pass

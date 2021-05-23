@@ -12,7 +12,7 @@ from project.users.tests.test_views import createUser
 
 class ViewRecipiesTest(TestCase):
 
-    def test_logged_out(self):
+    def test_recipe_logged_out(self):
         c = Client()
         
         #if response == 200:
@@ -32,7 +32,7 @@ class ViewRecipiesTest(TestCase):
         assert(response.status_code != 200)
 
     #same test as not logged in, with assertion of correction
-    def test_logged_in(self):
+    def test_recipe_logged_in(self):
         username_login  = "TestUser"
         password_login  = "Hallo123@"
         
@@ -51,7 +51,7 @@ class ViewRecipiesTest(TestCase):
 
     #a test to view the page if missing image
     #and potenially other faults in recipes
-    def test_missing_image(self):
+    def test_recipe_missing_image(self):
         #TODO:
         pass
         # create a recipe without a image and see how it works

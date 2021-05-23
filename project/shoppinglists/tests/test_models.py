@@ -8,6 +8,18 @@ class TestShoppingModel(TestCase):
         self.new_user = User.objects.create(username="TestUser", password="Hallo123@")
         self.new_user.save()
 
+    def test_shopping_str(self):
+        name = "fiskekake"
+        amount = 100
+        unit = 'g'
+
+        new_shopping = Shopping.objects.create(name=name, unit=unit, amount=amount, user=self.new_user)
+        new_shopping.full_clean()
+        new_shopping.save()   
+
+        valid_representation = f'{amount} {unit} {name} {self.new_user}'
+        assert(str(new_shopping) == valid_representation)
+        
     def test_shopping_lowercase_save(self):
         shopping_name = "fiskekake"
         new_shopping = Shopping.objects.create(name=shopping_name, user=self.new_user)
@@ -35,17 +47,6 @@ class TestShoppingModel(TestCase):
         self.assertEqual(new_shopping.name, shopping_name.lower())
         self.assertEqual(new_shopping.user, self.new_user)        
     
-    def test_shopping_str(self):
-        name = "fiskekake"
-        amount = 100
-        unit = 'g'
-
-        new_shopping = Shopping.objects.create(name=name, unit=unit, amount=amount, user=self.new_user)
-        new_shopping.full_clean()
-        new_shopping.save()   
-
-        valid_representation = f'{amount} {unit} {name} {self.new_user}'
-        assert(str(new_shopping) == valid_representation)
 
     def test_shopping_negative_amount(self):
         try:
