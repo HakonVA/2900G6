@@ -21,35 +21,26 @@
             </div>
             <table class="table table-borderless">
                 {% for object in object_list %}
-                    {% if not object.checked %}
-                        <tr>
-                            <td class="col-sm-1"><input type="checkbox" name="" id=""></td>
-                            <td class="col-sm-1">{{ object.amount }}</td>
-                            <td class="col-sm-1">{{ object.unit }}</td>
-                            <td>{{ object.name }}</td>
-                            <td class="col-sm-1">
-                                <div class="dropdown">
-                                    <button class="btn fas fa-ellipsis-v px-2" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                      <li><a class="dropdown-item" href="{% url 'shopping:update' object.id%}"><i class="fas fa-edit p-2"></i>Edit</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'shopping:delete' object.id%}"><i class="far fa-trash-alt p-2"></i>Delete</a></li>
-                                    </ul>
-                                    <form action="/shopping/checkout/" method="post"> 
-                                        {% csrf_token %}
-                                        <input type="hidden" name="shopping_id" value={{ object.id }}>
-                                        <button class="btn btn-primary">Add</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr class="text-muted">
-                            <td class="col-sm-1"><input type="checkbox" name="" id=""></td>
-                            <td class="col-sm-1">{{ object.amount }}</td>
-                            <td class="col-sm-1">{{ object.unit }}</td>
-                            <td>{{ object.name }}</td>
-                        </tr>
-                    {% endif %}
+                    <tr>
+                        <td class="col-sm-1"><input type="checkbox" name="" id=""></td>
+                        <td class="col-sm-1">{{ object.amount }}</td>
+                        <td class="col-sm-1">{{ object.unit }}</td>
+                        <td>{{ object.name }}</td>
+                        <td class="col-sm-1">
+                            <div class="dropdown">
+                                <button class="btn fas fa-ellipsis-v px-2" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                    <li><a class="dropdown-item" href="{% url 'shopping:update' object.id%}"><i class="fas fa-edit p-2"></i>Edit</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'shopping:delete' object.id%}"><i class="far fa-trash-alt p-2"></i>Delete</a></li>
+                                </ul>
+                                <form action="/shopping/checkout/" method="post"> 
+                                    {% csrf_token %}
+                                    <input type="hidden" name="shopping_id" value={{ object.id }}>
+                                    <button class="btn btn-primary">Add</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
                 {% endfor %}
             </table>
             {% if object_list %}

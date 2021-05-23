@@ -12,5 +12,4 @@ class ShoppingAdmin(admin.ModelAdmin):
         'name',
         'unit',
         'amount',
-        'checked',
     ]

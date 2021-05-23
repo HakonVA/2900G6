@@ -6,7 +6,6 @@ class Shopping(models.Model):
     name = models.CharField(max_length=64)
     unit = models.CharField(max_length=8, null=True, blank=True)
     amount = models.DecimalField(default=0, max_digits=8, decimal_places=2, validators=[MinValueValidator(0.0)], null=True, blank=True)
-    checked = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

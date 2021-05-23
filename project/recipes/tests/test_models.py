@@ -10,6 +10,15 @@ class FoodTest(TestCase):
         new_food.full_clean()
         assert(new_food.name == "fish")
 
+    def test_food_str(self):
+        food_name = "fish"
+        new_food = Food.objects.create(name=food_name)
+        new_food.full_clean()
+
+        valid_representation = f"{new_food}"
+
+        self.assertEqual(str(new_food), valid_representation)
+
     def test_max_length(self):
         
         long_name="fish"*20
@@ -40,8 +49,20 @@ class IngredientTest(TestCase):
     
     #helper method
 
+    def test_ingredient_str(self):
+        food_name = "fish"
+
+        new_food = Food.objects.create(name=food_name)
+        amount = 250
+        unit = 'g'
+        new_ingredient = Ingredient(food=new_food, amount=amount, unit=unit)
+
+        valid_representation = f"{amount} {unit} {new_food}"
+
+        self.assertEqual(str(new_ingredient), valid_representation)
+
     def test_food_ingredient(self):
-        pass
+        pass    
     
     def test_amount_negative(self):
         torsk = self.create_food("torsk")
@@ -93,10 +114,17 @@ class RecipeTest(TestCase):
         new_food.full_clean()
         return new_food
     
+    def test_recipe_str(self):
+        recipe_name = "Recipe name"
+        new_recipe = Recipe(name=recipe_name)
+        valid_representation = f"{recipe_name}"
+
+        self.assertEqual(str(new_recipe), valid_representation)
+
     #helper method
     def create_ingredient(self, food_name, amount, unit):
         new_food = self.create_food(food_name)
-        new_ingredient = Ingredient.objects.create(food=new_food, amount = amount, unit = unit)
+        new_ingredient = Ingredient.objects.create(food=new_food, amount=amount, unit=unit)
         new_ingredient.full_clean()
         return new_ingredient
     
