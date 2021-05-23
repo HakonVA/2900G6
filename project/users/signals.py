@@ -18,7 +18,8 @@ post_save.connect(view_signal, sender=User)
 def populate_foods():
     food_file = open("project/users/populate_food.txt", "r")
     for line in food_file:
-        new_food = Food.objects.create(name = line)
+        line = line[:-1]
+        new_food = Food.objects.create(name=line)
         new_food.save
     food_file.close()
         

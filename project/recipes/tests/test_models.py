@@ -51,7 +51,7 @@ class FoodTest(TestCase):
 
 class IngredientTest(TestCase):
     #helper method
-    def create_ingredient_food(self,food_name):
+    def create_food(self,food_name):
         new_food = Food.objects.create(name=food_name)
         new_food.full_clean()
         return new_food
