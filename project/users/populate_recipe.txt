@@ -1,0 +1,141 @@
+name_1:Curried cauliflower & lentil soup
+description:Take one cauliflower and blend with red lentils, fennel seeds, curry paste and lemon juice to be rewarded with this warming, hearty soup
+rating:3
+prep_time:40
+instruction:    STEP 1
+
+    Remove the outer leaves from the cauliflower, cut off the stalk and roughly chop, then cut the head into small florets. Toss a quarter of the florets in 1 tbsp oil and 1 tsp of the fennel seeds, season well, then tip into a roasting tin and set aside.
+    STEP 2
+
+    Heat oven to 220C/200C fan/gas 7. Heat ½ tbsp oil in a saucepan over a medium heat and add the remaining fennel seeds, toast for 2 mins, then add the lentils and the remaining cauliflower. Stir in the curry paste, then add 1 litre water and bring to the boil. Simmer for 25 mins until the cauliflower is tender and the lentils are cooked through.
+    STEP 3
+
+    Meanwhile, put the roasting tin of cauliflower in the oven and cook for 20 mins until crisp and slightly charred. Tip the soup mixture into a food processor and blitz until smooth, tip back into the pan to warm through, adding the lemon juice and a little water if it’s too thick. Tip into bowls and top with the crispy cauliflower and fennel seeds to serve.    
+servings:4
+image:curried_cauliflower_lentil_soup
+link:https://www.bbcgoodfood.com/recipes/curried-cauliflower-lentil-soup
+ingredients:
+400 g cauliflower
+5 g oil
+5 g fennel seeds
+150 g red lentils
+30 g curry paste 
+20 g lemon juice
+
+name_2:Cheesy mushroom omelette
+description:Whip up a tasty omelette with this recipe
+rating:5
+prep_time:15
+instruction:     STEP 1
+
+    Heat the olive oil in a small non-stick frying pan. Tip in the mushrooms and fry over a high heat, stirring occasionally for 2-3 mins until golden. Lift out of the pan into a bowl and mix with the cheese and parsley.
+    STEP 2
+
+    Place the pan back on the heat and swirl the eggs into it. Cook for 1 min or until set to your liking, swirling with a fork now and again.
+    STEP 3
+
+    Spoon the mushroom mix over one half of the omelette. Using a spatula or palette knife, flip the omelette over to cover the mushrooms. Cook for a few moments more, lift onto a plate and serve with oven chips and salad.
+servings:1
+image:cheesy_mushroom_omelette
+link:https://www.bbcgoodfood.com/recipes/cheesy-mushroom-omelette
+ingredients:
+5 g olive oil
+50 g chestnut mushrooms
+25 g vegetarian cheddar
+10 g parsley leaves
+2 dl egg
+
+name_3:White fish with sesame noodles
+description:Whip up this tasty seabass served with spinach, noodles and sesame seeds in just 20 minutes. It makes a great choice if you're looking for a speedy supper
+rating:5
+prep_time:20
+instruction:    STEP 1
+
+    Use a spice grinder or pestle and mortar to crush the sesame seeds, then stir in the soy sauce, oil, 1 tbsp of water and a splash of rice vinegar, to make a creamy dressing, season and set aside.
+    STEP 2
+
+    Bring a pan of salted water to the boil, add the noodles and cook following pack instructions, then drain and set aside. Using the same pan, tip in all the spinach and cook until reduced down and dark green. Tip in the noodles, along with the sesame dressing and a splash of water and toss well to heat through.
+    STEP 3
+
+    Heat the oil in a non-stick frying pan over a medium to high heat. Season the skin of the seabass, then place in the pan skin-side down, fry until the skin has crisped up and the flesh has nearly all turned opaque, around 3 mins. Flip over and fry for 30 seconds further, until the fish is flaking and cooked through. Divide the noodles and greens between two bowls and place the fish on top. Scatter over the toasted sesame seeds and serve.
+servings:2
+image:white_fish_with_sesame_noodles
+link:https://www.bbcgoodfood.com/recipes/white-fish-sesame-noodles
+ingredients:
+150 g wholemeal noodles 
+25 g sesame seeds
+20 g soy sauce
+5 g oil
+5 g rice vinegar 
+200 g spinach leaves
+400 g seabass
+
+name_4:Caramelised banana & chocolate galette
+description:Impress friends and family with this simple, 5-ingredient galette with caramelised banana and chocolate. This easy dessert goes wonderfully with ice cream
+rating:4
+prep_time:50
+instruction:     STEP 1
+
+    Heat the oven to 200C/180C fan/gas 6. Blitz 50g of the hazelnuts in a small food processor until they resemble fine breadcrumbs, then tip into a bowl with the chocolate. 
+    STEP 2
+
+    Roll the pastry out to a round roughly 30cm in diameter on a sheet of baking parchment. Scatter the chocolate and hazelnut mixture over the pastry circle, leaving a 5cm border. Top with the bananas and most of the remaining hazelnuts, then fold the edges of the pastry over. Transfer the galette to a baking sheet along with the baking parchment, then chill in the fridge for at least 10 mins. 
+    STEP 3
+
+    Remove from the fridge and sprinkle the sugar over the galette, then bake for 25-30 mins, or until golden and puffed up. Scatter over the remaining hazelnuts and serve with a scoop of vanilla ice cream, if you like.
+servings:6
+image:caramelised_banana_chocolate_galette
+link:https://www.bbcgoodfood.com/recipes/caramelised-banana-chocolate-galette
+ingredients:
+70 g hazelnuts
+150 g dark chocolate
+500 g puff pastry
+200 g banana
+50 g light brown sugar
+
+name_5:Smoked salmon & spinach gratin
+description:Make this easy Swedish-inspired smoked salmon and spinach gratin with just four ingredients. Serve with potatoes and roasted beets – perfect for entertaining
+rating:4
+prep_time:50 
+instruction:     STEP 1
+
+    Put the spinach in a really big saucepan (or two saucepans) and add a few tablespoons of water. Cover, set over a medium heat and cook for about 5-8 mins, turning the spinach over every so often, until wilted. Tip it into a colander to drain and allow it to cool (spread it out on a plate to cool it quicker). Take big handfuls of it in your fists and squeeze out the excess water. It’s really important that you do this, otherwise the water will leach out and make the cream watery and green.
+    STEP 2
+
+    Chop the spinach. Melt the butter in a saucepan and gently toss the spinach in it. Season with pepper and a tiny bit of salt (there’s so much salt in the salmon). Heat the oven to 160C/140C fan/gas 3. Lay the spinach in the bottom of a gratin dish (about 30cm x 20cm), then arrange the salmon fillets on top.
+    STEP 3
+
+    Heat the double cream in a small pan, then pour it all over the salmon and spinach. Bake for 35 mins, or until the top is golden and the cream is bubbling.
+servings:6
+image:smoked_salmon_spinach_gratin
+link:https://www.bbcgoodfood.com/recipes/swedish-smoked-salmon-spinach-gratin
+ingredients:
+1200 g spinach
+15 g butter
+840 g smoked raw salmon
+300 g double cream
+
+name_6:Sizzled sausage pasta
+description:Try this recipe for a dish which is smart enough for adults, but not without kid-appeal. It tastes great cold too, so you can pack any leftovers in your lunchbox
+rating:4
+prep_time:30
+instruction:    STEP 1
+
+    Cook the pasta in boiling salted water according to the packet instructions or until tender.
+    STEP 2
+
+    Peel the skins off the sausages and chop the sausage meat into small hazelnut-sized pieces. Chop the sun-dried tomatoes into small chunks. Heat a tablespoon of the sun-dried tomato oil in a large frying pan (big enough to take the pasta later) and sizzle the sausage pieces for 8-10 minutes, stirring occasionally, until they’re crumbly and golden. Stir in the sun-dried tomato chunks and the remaining oil, and heat everything through.
+    STEP 3
+
+    When the pasta is ready, drain it well and toss into the sausage mixture with the parsley. Make sure everything is well mixed and coated with the oil. Season generously with salt and pepper, and serve straight from the pan.
+servings:4
+image:sizzled_sausage_pasta
+link:https://www.bbcgoodfood.com/recipes/sizzled-sausage-pasta
+ingredients:
+400 g pasta
+600 g sausage
+140 g sun-dried tomatoes
+15 g oil
+20 g fresh parsley
+
+end
