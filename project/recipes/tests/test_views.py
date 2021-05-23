@@ -59,13 +59,13 @@ class ViewRecipiesTest(TestCase):
         # and check if anything else will bonk it
 
     def test_recipe_detail_view(self):
-        #TODO:
+        #TODO: major
         pass
 
     def test_recipe_list_view(self):
-        #TODO:
+        #TODO: major
         pass
 
     def test_recipe_to_shopping_list(self):
-        #TODO:
+        #TODO: major
         pass
