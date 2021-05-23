@@ -111,13 +111,16 @@ def shopping_checkout(request):
 
 
 def _add_shopping_ingredient(request, ingredient):
-    obj, created = UserIngredient.objects.get_or_create(
-        food=Food.objects.filter(name=ingredient.name).get(),
-        user=User.objects.get(pk=request.user.id),
-    )
 
-    obj.amount += ingredient.amount
-    # TODO: Should have a unit check safe
-    obj.unit = ingredient.unit           
-    # Save object changes                
-    obj.save()
+    food_query = Food.objects.filter(name=ingredient.name)
+    if food_query.count() > 0:
+        food_obj=food_query.first()
+        obj, created = UserIngredient.objects.get_or_create(
+            food=food_obj,
+            user=request.user,
+        )
+        obj.amount += ingredient.amount
+        obj.unit = ingredient.unit           
+        # Save object changes                
+        obj.save()
+    return

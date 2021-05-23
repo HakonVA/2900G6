@@ -1,5 +1,8 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, request
+from django.shortcuts import redirect
 
 from .forms import PantryForm
 from .models import UserIngredient
@@ -65,6 +68,7 @@ class UserIngredientCreateView(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         form.instance.user = self.request.user
+        print(self.request.POST)
         return super().form_valid(form)
 
 user_ingredient_create_view = UserIngredientCreateView.as_view()
@@ -101,3 +105,35 @@ class UserIngredientDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 user_ingredient_delete_view = UserIngredientDeleteView.as_view()
+
+@login_required(login_url='login')
+def autocomplete(request):
+    print("auto")
+    if "term" in request.GET:
+        query_res = Food.objects.filter(name__istartswith=request.GET.get("term"))
+        ingredient_list = []
+        for i in query_res:
+            ingredient_list.append(i.name)
+        
+        return JsonResponse(ingredient_list, safe=False)
+    
+    return redirect("pantrys:ingredients")
+
+@login_required(login_url='login')
+def submitfood(request):
+
+    if request.method == "POST":
+        try:
+            food_name = request.POST["food"]
+            food_amount = request.POST["amount"]
+            food_unit = request.POST["unit"]
+            food_obj = Food.objects.filter(name=food_name).first()
+        except:
+            return redirect("pantrys:ingredients")
+        
+        useringredient_obj, created = UserIngredient.objects.get_or_create(
+            food=food_obj, user=request.user, 
+            defaults={"amount": food_amount, "unit": food_unit}
+        )
+
+    return redirect("pantrys:ingredients")
