@@ -13,3 +13,6 @@ class UserIngredient(models.Model):
 
     def __str__(self):
         return "{} {} {} {}".format(self.amount, self.unit, self.food, self.user)
+    
+    class Meta:
+        unique_together = [["food", "user"]]
