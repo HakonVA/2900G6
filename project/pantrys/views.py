@@ -65,12 +65,9 @@ class UserIngredientCreateView(LoginRequiredMixin, CreateView):
     login_url = 'login'
     template_name = "pantrys/create_form.html"
     success_url = reverse_lazy('pantrys:index')
-    print("create view")
 
     def form_valid(self, form):
-        print("valid form?")
         form.instance.user = self.request.user
-        print(self.request.POST)
         return super().form_valid(form)
 
 user_ingredient_create_view = UserIngredientCreateView.as_view()
@@ -123,7 +120,6 @@ def autocomplete(request):
 
 @login_required(login_url='login')
 def submitfood(request):
-
     if request.method == "POST":
         try:
             food_name = request.POST["food"]

@@ -104,4 +104,41 @@ class TestViewsShopping(TestCase):
 
     def test_shopping_checkout(self):
         #TODO: major
-        pass
+        
+        c = Client()
+        createUser(c, "TestUser", "Hallo123@")
+
+        #test 1: single object that we know is food
+
+        test_name = "egg"
+        test_unit = "g"
+        test_amount = 100
+
+        c.post('/shopping/create', {'name':test_name, 'unit':test_unit, 'amount':test_amount})
+
+        response = c.post('/shopping/checkout/', {'shopping_id':1})
+        print(response)
+        #test 2: single object that we know is not food
+
+        #test 3: two objects, one food, one not
+
+        #test 4: two objects, two is food
+
+        #test 5: two objects, two is not food
+
+        #test 6: empty shopping
+
+        #test 7: max_amount of items?
+
+
+        #get/post shopping/checkout
+
+        #need to check for food in database
+        #vs food not in database
+
+        #get is all
+        #post is single
+
+
+                
+

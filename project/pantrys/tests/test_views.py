@@ -38,28 +38,56 @@ class TestViewsPantry(TestCase):
         
     def test_user_ingredient_create_view(self):
         #TODO: major
-        pass
 
-        # c = Client()
-        # createUser(c, "TestUser", "Hallo123@")
+        response = self.client.get('/pantrys/ingredients/create/')
+        assert(response.status_code == 200)
 
-        # response = self.client.get('/pantrys/ingredients/create/')
-        # assert(response.status_code == 200)
-
-        # response = c.post( '/pantrys/ingredients/create/' ,{"food":, "amount":2, "unit":"pcs"})
-        #print(response)
-        # response = self.client.get('/pantrys/')
-
-        #print(response.context)
-
-        # assert(len(response.context['recipes_list']) == 1)
-        # assert(response.context['recipes_list'][0].name == "egg")
+        test_object = Food.objects.get(name="egg")
+        
+        #This wont work?
+        response = self.client.post('/pantrys/ingredients/create/' ,{'food':test_object, 'amount':100, 'unit':"g"})
+        assert(response.status_code == 302)
 
     def test_user_ingredient_update_view(self):
-        #TODO: major
-        pass
-    
+        response = self.client.get('/pantrys/')
+        assert(response.status_code == 200)
+
+        #post egg
+        food_item = Food.objects.get(name = "egg")
+
+        response = self.client.post('/pantrys/ingredients/create/submitfood/', {'food':food_item, 'amount':100, 'unit':"g"})
+        
+        response = self.client.get('/pantrys/ingredients/1/update/')
+        assert(response.status_code == 200)
+
+        response = self.client.post('/pantrys/ingredients/1/update/',{'food':Food.objects.get(name="egg"),'amount':500, 'unit':"g"})
+        update_object = response.context['object']
+
+        assert(update_object.food.name == "egg")
+        assert(update_object.unit == "g")
+        assert(update_object.amount == 500)
+
     def test_user_ingredient_delete_view(self):
-        #TODO: major
-        pass
+        
+        response = self.client.get('/pantrys/ingredients/')
+        assert(len(response.context['object_list']) == 0)
+
+        food_item = Food.objects.get(name="egg")
+        self.client.post('/pantrys/ingredients/create/submitfood/', {'food':food_item, 'amount':100, 'unit':"g"})
+
+        response = self.client.get('/pantrys/ingredients/')
+        assert(len(response.context['object_list']) == 1)
+
+        response = self.client.get('/pantrys/ingredients/1/delete/')
+        assert(response.status_code == 200)
+        
+        response = self.client.post('/pantrys/ingredients/1/delete/')
+        assert(response.status_code == 302)
+
+        response = self.client.get('/pantrys/ingredients/')
+        assert(len(response.context['object_list']) == 0)
+
+
+
+
     
