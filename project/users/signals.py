@@ -11,19 +11,18 @@ def view_signal(sender, instance, created, raw, **kwargs):
     users_objects = User.objects.all()
     if created and not raw and len(users_objects) <= 1:
         populate_foods()
-        #create_recipes()
-        more_recipes()
+        populate_recipes()
 post_save.connect(view_signal, sender=User)
 
 def populate_foods():
     food_file = open("project/users/populate_food.txt", "r")
     for line in food_file:
         line = line[:-1]
-        new_food = Food.objects.create(name=line)
-        new_food.save
+        new_food = Food(name=line)
+        new_food.save(force_insert=True)
     food_file.close()
         
-def more_recipes():
+def populate_recipes():
     num_recipes = 6
     text_file = open("project/users/populate_recipe.txt", "r")
     for i in range(1, num_recipes+1): #recipe 1,2,3,4,5,6
@@ -76,21 +75,20 @@ def more_recipes():
             recipe_amount   = ingredient_line[0]
             recipe_unit     = ingredient_line[1]
 
-            for i in range(2, len(ingredient_line)):
-                recipe_food_name += ingredient_line[i]
-                recipe_food_name += " "   
-                                
-            try: 
-                food_type = Food.objects.get(name = recipe_food_name)
-            except:
-                    food_type = Food.objects.create(name=recipe_food_name)
-                    food_type.save()
+            if len(ingredient_line) > 2:
+                for i in range(2, len(ingredient_line)):
+                    recipe_food_name += ingredient_line[i]
+                    recipe_food_name += " "
+                recipe_food_name = recipe_food_name[:-1] #remove last space
+            else:
+                recipe_food_name = ingredient_line[2]
 
-            ingredient_object = Ingredient.objects.create(food = food_type, unit = recipe_unit, amount = recipe_amount)
+            obj, _ = Food.objects.get_or_create(name=recipe_food_name)
+
+            ingredient_object = Ingredient.objects.create(food = obj, unit = recipe_unit, amount = recipe_amount)
             ingredient_object.save()
             new_recipe.ingredients.add(ingredient_object)
             ingredient_line = text_file.readline()
-
 
         new_recipe.save()
 
