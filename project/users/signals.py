@@ -17,7 +17,7 @@ post_save.connect(view_signal, sender=User)
 def populate_foods():
     food_file = open("project/users/populate_food.txt", "r")
     for line in food_file:
-        line = line[:-1]
+        line = line.rstrip() #remove trailing whitespace
         new_food = Food(name=line)
         new_food.save(force_insert=True)
     food_file.close()
@@ -75,7 +75,7 @@ def populate_recipes():
             recipe_amount   = ingredient_line[0]
             recipe_unit     = ingredient_line[1]
 
-            if len(ingredient_line) > 2:
+            if len(ingredient_line) > 3:
                 for i in range(2, len(ingredient_line)):
                     recipe_food_name += ingredient_line[i]
                     recipe_food_name += " "
