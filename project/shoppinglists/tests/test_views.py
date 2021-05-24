@@ -102,6 +102,56 @@ class TestViewsShopping(TestCase):
 
         assert(len(response.context['object_list']) == 0)
 
-    def test_shopping_checkout(self):
-        #TODO: major
-        pass
+    #test 1: single object that we know is food
+    def test_shopping_checkout1(self):
+        c = Client()
+        createUser(c, "TestUser", "Hallo123@")
+
+        test_name = "egg"
+        test_unit = "g"
+        test_amount = 100
+
+        c.post('/shopping/create', {'name':test_name, 'unit':test_unit, 'amount':test_amount})
+
+        response = c.post('/shopping/checkout/', {'shopping_id':1})
+
+        response = c.get('/pantrys/ingredients/')
+        assert(len(response.context['object_list']) == 1)
+
+    #test 2: single object that we know is not food
+    def test_shopping_checkout2(self):
+        c = Client()
+        createUser(c, "TestUser", "Hallo123@")
+        
+        test_name = "gandalf"
+        test_unit = "g"
+        test_amount = 100
+
+        c.post('/shopping/create', {'name':test_name, 'unit':test_unit, 'amount':test_amount})
+
+        response = c.post('/shopping/checkout/', {'shopping_id':1})
+
+        response = c.get('/pantrys/ingredients/')
+        assert(len(response.context['object_list']) == 0)
+
+    #test 3: two objects, one food, one not
+    def test_shopping_checkout3(self):
+        c = Client()
+        createUser(c, "TestUser", "Hallo123@")
+        
+        test_name_fake = "gandalf"
+        test_unit_fake = "g"
+        test_amount_fake = 100
+        c.post('/shopping/create', {'name':test_name_fake, 'unit':test_unit_fake, 'amount':test_amount_fake})
+        
+        test_name_real = "egg"
+        test_unit_real = "g"
+        test_amount_real = 100
+        c.post('/shopping/create', {'name':test_name_real, 'unit':test_unit_real, 'amount':test_amount_real})
+
+        response = c.get('/shopping/checkout/')
+        assert(response.status_code == 302)
+
+        response = c.get('/pantrys/ingredients/')
+        assert(len(response.context['object_list']) == 1)
+
