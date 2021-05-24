@@ -3,7 +3,7 @@ from project.shoppinglists.models import Shopping
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-class TestShoppingModel(TestCase):
+class ShoppingModelTest(TestCase):
     def setUp(self):
         self.new_user = User.objects.create(username="TestUser", password="Hallo123@")
         self.new_user.save()
@@ -47,7 +47,6 @@ class TestShoppingModel(TestCase):
         self.assertEqual(new_shopping.name, shopping_name.lower())
         self.assertEqual(new_shopping.user, self.new_user)        
     
-
     def test_shopping_negative_amount(self):
         try:
             new_shopping = Shopping.objects.create(name="fiskekake", amount=-5,user=self.new_user)

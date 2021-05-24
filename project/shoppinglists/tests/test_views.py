@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from project.recipes.models import Food
 from project.pantrys.models import UserIngredient 
 
-class TestViewsShopping(TestCase):
+class ShoppingViewTest(TestCase):
 
     def test_shopping_login(self):
         #TODO:
@@ -102,8 +102,8 @@ class TestViewsShopping(TestCase):
 
         assert(len(response.context['object_list']) == 0)
 
-    #test 1: single object that we know is food
-    def test_shopping_checkout1(self):
+    def test_shopping_checkout_1(self):
+        #test 1: single object that we know is food
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
 
@@ -118,8 +118,8 @@ class TestViewsShopping(TestCase):
         response = c.get('/pantrys/ingredients/')
         assert(len(response.context['object_list']) == 1)
 
-    #test 2: single object that we know is not food
-    def test_shopping_checkout2(self):
+    def test_shopping_checkout_2(self):
+        #test 2: single object that we know is not food
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
         
@@ -134,8 +134,8 @@ class TestViewsShopping(TestCase):
         response = c.get('/pantrys/ingredients/')
         assert(len(response.context['object_list']) == 0)
 
-    #test 3: two objects, one food, one not
-    def test_shopping_checkout3(self):
+    def test_shopping_checkout_3(self):
+        #test 3: two objects, one food, one not
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
         
@@ -154,4 +154,3 @@ class TestViewsShopping(TestCase):
 
         response = c.get('/pantrys/ingredients/')
         assert(len(response.context['object_list']) == 1)
-

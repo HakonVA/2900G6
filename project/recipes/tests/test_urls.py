@@ -11,3 +11,12 @@ class RecipeUrlTest(TestCase):
     #need
     def test_templates_logged_in(self):
         pass
+
+    def test_recipe_list_url(self):
+        pass
+
+    def test_recipe_detail_url(self):
+        pass
+    
+    def test_recipe_to_shopping_url(self):
+        pass

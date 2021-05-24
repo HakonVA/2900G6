@@ -10,14 +10,6 @@ class FoodTest(TestCase):
         new_food.full_clean()
         assert(new_food.name == "fish")
 
-    def test_food_str(self):
-        food_name = "fish"
-        new_food = Food.objects.create(name=food_name)
-        new_food.full_clean()
-
-        valid_representation = f"{new_food}"
-
-        self.assertEqual(str(new_food), valid_representation)
 
     def test_food_max_length(self):
         
@@ -31,17 +23,26 @@ class FoodTest(TestCase):
         except:
             pass
 
-    def test_food_upper_case(self):
+    def test_food_str(self):
+        food_name = "fish"
+        new_food = Food.objects.create(name=food_name)
+        new_food.full_clean()
+
+        valid_representation = f"{new_food}"
+
+        self.assertEqual(str(new_food), valid_representation)
+
+    def test_food_uppercase_save(self):
         new_food = Food.objects.create(name="FISH")
         new_food.full_clean()
         assert(new_food.name == "fish")
 
-    def test_food_lower_case(self):
+    def test_food_lowercase_save(self):
         new_food = Food.objects.create(name="fish")
         new_food.full_clean()
         self.assertEqual(new_food.name, "fish")
 
-    def test_food_random_case(self):
+    def test_food_randomcase_save(self):
         new_food = Food.objects.create(name="fIsH")
         new_food.full_clean()
         self.assertEqual(new_food.name, "fish")
@@ -67,10 +68,6 @@ class IngredientTest(TestCase):
         valid_representation = f"{amount} {unit} {new_food}"
 
         self.assertEqual(str(new_ingredient), valid_representation)
-
-    def test_ingredient_food(self):
-        #TODO:
-        pass    
     
     def test_ingredient_amount_negative(self):
         torsk = self.create_food("torsk")
@@ -91,7 +88,7 @@ class IngredientTest(TestCase):
         except:
             pass
 
-    def test_ingredient_amount_length(self):
+    def test_ingredient_amount_max_length(self):
         
         makrell = self.create_food("makrell")
         makrell_long = 5555555555
@@ -101,9 +98,10 @@ class IngredientTest(TestCase):
         except:
             pass
 
-    #unit has no real limits in terms of type
-    #should not be number?
     def test_ingredient_unit_length(self):
+        #unit has no real limits in terms of type
+        #should not be number?
+        
         #length
         max_length = 8
         hyse = self.create_food("hyse")
@@ -136,16 +134,42 @@ class RecipeTest(TestCase):
 
         self.assertEqual(str(new_recipe), valid_representation)
 
-    #TODO: test limits
-    #test the criterias of the database values
-    def test_recipe_prep_time_negative(self):
-        #TODO:
-        pass
+    def test_recipe_rating_min(self):
+        # min = 0
+        recipe_name = "Recipe name"
+        try:
+            new_recipe = Recipe(name=recipe_name, rating=-1)
+            new_recipe.full_clean()
+        except ValidationError:
+            pass
 
-    def test_recipe_servings_negative(self):
-        #TODO:
-        pass
+    def test_recipe_rating_max(self):
+        # max = 5
+        recipe_name = "Recipe name"
+        try:
+            new_recipe = Recipe(name=recipe_name, rating=6)
+            new_recipe.full_clean()
+        except ValidationError:
+            pass
 
+    def test_recipe_prep_time_min(self):
+        #test the criterias of the database values
+        recipe_name = "Recipe name"
+        try:
+            new_recipe = Recipe(name=recipe_name, prep_time=-1)
+            new_recipe.full_clean()
+        except ValidationError:
+            pass
+        
+    def test_recipe_servings_min(self):
+        #test the criterias of the database values
+        recipe_name = "Recipe name"
+        try:
+            new_recipe = Recipe(name=recipe_name, prep_time=-1)
+            new_recipe.full_clean()
+        except ValidationError:
+            pass
+   
     def test_recipe_name(self):
         #recipe needs food and ingredient
         abbor = self.create_ingredient("abbor", 100, "g")

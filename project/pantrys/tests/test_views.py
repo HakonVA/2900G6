@@ -5,7 +5,7 @@ from project.recipes.models import Food
 from django.contrib.auth.models import User
 from project.pantrys.models import UserIngredient
 
-class TestViewsPantry(TestCase):
+class PantryViewTest(TestCase):
     def setUp(self):
         self.client = Client()
         username = "TestUser"
@@ -38,7 +38,6 @@ class TestViewsPantry(TestCase):
         
     def test_user_ingredient_create_view(self):
         #TODO: major
-
         response = self.client.get('/pantrys/ingredients/create/')
         assert(response.status_code == 200)
 
@@ -86,8 +85,3 @@ class TestViewsPantry(TestCase):
 
         response = self.client.get('/pantrys/ingredients/')
         assert(len(response.context['object_list']) == 0)
-
-
-
-
-    

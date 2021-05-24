@@ -7,10 +7,7 @@ from project.recipes.models import Food
 from project.recipes.models import Ingredient
 from project.users.tests.test_views import createUser
 
-
-#recipe views:
-
-class ViewRecipiesTest(TestCase):
+class RecipeViewTest(TestCase):
 
     def test_recipe_logged_out(self):
         c = Client()
@@ -52,11 +49,11 @@ class ViewRecipiesTest(TestCase):
     #a test to view the page if missing image
     #and potenially other faults in recipes
     def test_recipe_missing_image(self):
-        #TODO:
-        pass
         # create a recipe without a image and see how it works
         # use setupMissing_image
         # and check if anything else will bonk it
+        #TODO:
+        pass
 
     def test_recipe_detail_view(self):
         #TODO: major
