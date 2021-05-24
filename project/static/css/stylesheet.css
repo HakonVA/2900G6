@@ -1,0 +1,18 @@
+.alert {
+    left: 0;
+    margin: auto; 
+    position: absolute;
+    right: 0;
+    text-align: center; 
+    top: 1em;
+    width: 80%;
+    z-index: 1; 
+}
+
+.alert.hide {
+    position: relative;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: visibility 0s 250ms, opacity 250ms, transform 250ms;
+}

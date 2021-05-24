@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, request
 from django.shortcuts import redirect
+from django.contrib import messages
 
 from .forms import PantryForm
 from .models import UserIngredient
@@ -133,9 +134,13 @@ def submitfood(request):
         except:
             return redirect("pantrys:ingredients")
         
-        useringredient_obj, created = UserIngredient.objects.get_or_create(
-            food=food_obj, user=request.user, 
-            defaults={"amount": food_amount, "unit": food_unit}
-        )
+        try:
+            useringredient_obj, created = UserIngredient.objects.get_or_create(
+                food=food_obj, user=request.user, 
+                defaults={"amount": food_amount, "unit": food_unit}
+            )
+        except:
+            messages.error(request, 'This is not a valid food item')
+            return redirect("pantrys:create")
 
     return redirect("pantrys:ingredients")
