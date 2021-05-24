@@ -127,10 +127,7 @@ def submitfood(request):
             food_amount = request.POST["amount"]
             food_unit = request.POST["unit"]
             food_obj = Food.objects.filter(name=food_name).first()
-        except:
-            return redirect("pantrys:ingredients")
-        
-        try:
+            
             useringredient_obj, created = UserIngredient.objects.get_or_create(
                 food=food_obj, user=request.user, 
                 defaults={"amount": food_amount, "unit": food_unit}

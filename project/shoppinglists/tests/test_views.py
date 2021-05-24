@@ -9,7 +9,7 @@ from project.pantrys.models import UserIngredient
 class ShoppingViewTest(TestCase):
 
     def test_shopping_login(self):
-        #TODO:
+        #TODO: ???
         #for all views:
             #should not be accessible
             #without being logged inn

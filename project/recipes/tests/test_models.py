@@ -10,7 +10,6 @@ class FoodTest(TestCase):
         new_food.full_clean()
         assert(new_food.name == "fish")
 
-
     def test_food_max_length(self):
         
         long_name="fish"*20
@@ -47,12 +46,11 @@ class FoodTest(TestCase):
         new_food.full_clean()
         self.assertEqual(new_food.name, "fish")
 
-    #TODO:
-    #food tests with weird letters?
+    #TODO:food tests with weird letters?
 
 class IngredientTest(TestCase):
-    #helper method
     def create_food(self,food_name):
+        #helper method
         new_food = Food.objects.create(name=food_name)
         new_food.full_clean()
         return new_food
@@ -114,14 +112,14 @@ class IngredientTest(TestCase):
 
 class RecipeTest(TestCase):
     
-    #helper method
     def create_food(self,food_name):
+        #helper method
         new_food = Food.objects.create(name=food_name)
         new_food.full_clean()
         return new_food
     
-    #helper method
     def create_ingredient(self, food_name, amount, unit):
+        #helper method
         new_food = self.create_food(food_name)
         new_ingredient = Ingredient.objects.create(food=new_food, amount=amount, unit=unit)
         new_ingredient.full_clean()

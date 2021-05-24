@@ -20,7 +20,7 @@ def loginpage(request):
         # Login succesful
         if user is not None:
             login(request, user)
-            messages.info(request, "Successfully logged in as {}".format(username)) #TODO: Show this information to user?
+            messages.info(request, "Successfully logged in as {}".format(username))
             return redirect("home")
         
         # Invalid login

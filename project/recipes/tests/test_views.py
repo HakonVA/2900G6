@@ -1,10 +1,7 @@
-from django.test import TestCase
-from django.test import Client
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
-from project.recipes.models import Recipe
-from project.recipes.models import Food
-from project.recipes.models import Ingredient
+from project.recipes.models import Recipe, Food, Ingredient
 from project.users.tests.test_views import createUser
 from project.pantrys.models import UserIngredient
 
@@ -29,8 +26,8 @@ class RecipeViewTest(TestCase):
         response = c.get('/recipes/1/add_to_shopping/')
         assert(response.status_code != 200)
 
-    #same test as not logged in, with assertion of correction
     def test_recipe_logged_in(self):
+        #same test as not logged in, with assertion of correction
         username_login  = "TestUser"
         password_login  = "Hallo123@"
         
@@ -61,11 +58,10 @@ class RecipeViewTest(TestCase):
         response = c.get('/recipes/')
         self.assertTemplateUsed(response, 'recipes/recipes_list.html')
 
-    #test 1:
-    #empty ingredient list
-    #test all added
-    def test_recipe_to_shopping_list1(self):
-        
+    def test_recipe_to_shopping_list_1(self):
+        #test 1:
+        #empty ingredient list
+        #test all added
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
 
@@ -78,11 +74,10 @@ class RecipeViewTest(TestCase):
         response = c.get('/pantrys/ingredients/')
         assert(len(response.context['object_list']) == 6)
 
-    #test 2:
-    #partly full ingredient list
-    #test amount added is correct
-    def test_recipe_to_shopping_list2(self):
-
+    def test_recipe_to_shopping_list_2(self):
+        #test 2:
+        #partly full ingredient list
+        #test amount added is correct
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
         user = User.objects.get(username="TestUser")
@@ -124,12 +119,3 @@ class RecipeViewTest(TestCase):
                 assert(objects.amount == 5)
             if objects.food == "lemon juice":
                 assert(objects.amount == 40)
-
-
-
-
-
-
-
-
-

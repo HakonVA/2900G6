@@ -49,15 +49,25 @@ class ShoppingModelTest(TestCase):
     
     def test_shopping_negative_amount(self):
         try:
-            new_shopping = Shopping.objects.create(name="fiskekake", amount=-5,user=self.new_user)
+            new_shopping = Shopping.objects.create(name="fiskekake", amount=-5, user=self.new_user)
             new_shopping.full_clean()
         except ValidationError:
             pass
 
     def test_shopping_name_max_length(self):
-        #TODO:
-        pass
+        # max name length is 64 
+        name = "a" * 65
+        try:
+            new_shopping = Shopping.objects.create(name=name, user=self.new_user)
+            new_shopping.full_clean()
+        except ValidationError:
+            pass
 
     def test_shopping_unit_max_length(self):
-        #TODO:
-        pass 
+        # max unit length is 8
+        unit = "a" * 9
+        try:
+            new_shopping = Shopping.objects.create(name="fiskekake", unit=unit, user=self.new_user)
+            new_shopping.full_clean()
+        except ValidationError:
+            pass
