@@ -2,22 +2,46 @@
 {% load static %}
 
 {% block content %}
+<div class="container">
+    <h1>Fridge friend</h1>
+    <p>
+        The vision of Fridge Friend is to help users cook recipies based on what is contained in 
+        their fridge/pantry. Fridge Friend will allow the users to flip through a set of recipes and view 
+        the necessary amount, unit and the name of ingredients required to make the recipe. In addition, a few 
+        additional information, such as the steps/instructions to take in order to create the desired recipe. 
+        Fridge Friend offers the users a platfrom to store, maintain, create and/or alter their Fridge Friend
+        ingredients. Additionally there is a assistant tools to make it easier for the user to
+        to maintain and look up their shopping list needs and their fridge/pantry content. Users can 
+        add a desired recipes ingredients into the shopping list, thus resulting in the missing ingredients
+        to be appended to their shopping list.
+    </p>
 
-<h1>
-Fridge friend
-</h1>
-
-<p>
-The vision of fridge friend is to help users cook recipies based on what is contained in 
-their fridge/pantry.
-</p>
-
-<h2>
-How to use it?
-</h2>
-
-<p> 
-Add your ingredients of your fridge/pantry, and view some automatically generated recipies
-</p>
+    <h2>How to use it?</h2>
+    <p> 
+        In order to get started you will first have to create a new user or sign into an existing account.
+        The displayed navigation bar at the top shows some of the features you can look through (Note: rightmost side button is 
+        a dropdown!)
+    </p>
+    <p>
+        [All recipes] tab will display all the current recipes stored in Fridge Friend database, press the image to display
+        further relevent information about the recipe. There is placed a button that allows the user to add recipe ingredients
+        to shopping list denoted with "Add to shopping".
+    </p>
+    <p>
+        [My recipes] tab will display all your ingredients stored in Fridge Friend and recipes you can make based on
+        the content of ingredients. In order to add more ingredients to Fridge Friend storage press the button as
+        <span class="material-icons">add_circle_outline</span> and likewise to edit and/or delete press the 3 vertical dots symbol.
+    </p>
+    <p>
+        [My Ingredients] tab will display only your ingredients stored in Fridge Friend, in order to add press the button as
+        <span class="material-icons">add_circle_outline</span> and likewise to edit and/or delete press the 3 vertical dots symbol.
+    </p>
+    <p>
+        [My Shoppinglist] tab will display your shopping  list, in order to add content to shopping list press the button as
+        <span class="material-icons">add_circle_outline</span> and likewise to edit and/or delete press the 3 vertical dots symbol.
+        To mark single items as complete press the "Add" button, or "Add all to pantry", this will then add all food related items
+        into your ingredients list.
+    </p>
+</div>
 
 {% endblock %}
