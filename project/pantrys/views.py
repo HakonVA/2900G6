@@ -67,10 +67,6 @@ class UserIngredientCreateView(LoginRequiredMixin, CreateView):
     template_name = "pantrys/create_form.html"
     success_url = reverse_lazy('pantrys:index')
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
 user_ingredient_create_view = UserIngredientCreateView.as_view()
 
 class UserIngredientUpdateView(LoginRequiredMixin, UpdateView):

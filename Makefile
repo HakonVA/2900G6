@@ -19,8 +19,9 @@ test: ## Run unit tests
 run: migrate ## Build and deploy to dev server
 	python manage.py runserver
 
-coverage: ## Make a coverage report html
+coverage: ## Make an coverage report html and open the report
 	pytest --cov=project --cov-report=html
+	xdg-open htmlcov/index.html
 
 clean: clean-pyc clean-test clean-db ## Remove test, coverage, db, and Python artifacts
 
