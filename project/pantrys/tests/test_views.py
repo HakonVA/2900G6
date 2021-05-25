@@ -73,15 +73,11 @@ class PantryViewTest(TestCase):
         self.assertTemplateUsed(response, 'pantrys/user_ingredients.html')
         
     def test_user_ingredient_create_view(self):
-        #TODO: major this is not working
         response = self.client.get('/pantrys/ingredients/create/')
         assert(response.status_code == 200)
 
         test_object = Food.objects.get(name="egg")
-        
-        #This wont work?
         response = self.client.post('/pantrys/ingredients/create/' ,{'food':test_object, 'amount':100, 'unit':"g"})
-        # assert(response.status_code == 302)
         assert(response.status_code == 200)
 
     def test_user_ingredient_update_view(self):

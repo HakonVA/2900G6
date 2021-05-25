@@ -104,7 +104,6 @@ user_ingredient_delete_view = UserIngredientDeleteView.as_view()
 
 @login_required(login_url='login')
 def autocomplete(request):
-    print("auto")
     if "term" in request.GET:
         query_res = Food.objects.filter(name__istartswith=request.GET.get("term"))
         ingredient_list = []

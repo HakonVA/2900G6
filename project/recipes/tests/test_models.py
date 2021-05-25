@@ -46,8 +46,6 @@ class FoodTest(TestCase):
         new_food.full_clean()
         self.assertEqual(new_food.name, "fish")
 
-    #TODO:food tests with weird letters?
-
 class IngredientTest(TestCase):
     def create_food(self,food_name):
         #helper method

@@ -98,11 +98,3 @@ class LoginFormTests(TestCase):
 
         response = createUser(c, username_correct, password_blank_spaced)
         assert(response != 302)
-
-    #TODO: Only accept ASCII, if anything else: error        
-    def test_weird_characters_username(self):
-        pass
-
-    #TODO: Only accept ASCII, if anything else: error        
-    def test_weird_characters_password(self):
-        pass

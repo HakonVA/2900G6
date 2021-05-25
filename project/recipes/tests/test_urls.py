@@ -8,14 +8,6 @@ class RecipeUrlTest(TestCase):
         password = "Hallo123@"
         createUser(self.client, username, password)
 
-    def test_templates_logged_out(self):
-        #TODO: ???
-        pass        
-
-    def test_templates_logged_in(self):
-        #TODO: ???
-        pass
-
     def test_recipe_list_url(self):
         response = self.client.get('/recipes/')
         self.assertEqual(response.status_code, 200)

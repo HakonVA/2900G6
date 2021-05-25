@@ -8,27 +8,14 @@ from project.pantrys.models import UserIngredient
 
 class ShoppingViewTest(TestCase):
 
-    def test_shopping_login(self):
-        #TODO: ???
-        #for all views:
-            #should not be accessible
-            #without being logged inn
-        pass
-    
     def test_shopping_list_view(self):
         #need a user to access shopping list
-        #
         c = Client()
         createUser(c, "TestUser", "Hallo123@")
 
         response = c.get('/recipes/1/add_to_shopping/')
-        #print(response.context)
         response = c.get('/shopping/')
-        #print(response.context['object_list'])
-        
-        #could fetch the list we have in signals?
-        #if shopping list empty
-        #self.assertQuerysetEqual()
+        self.assertEqual(response.status_code, 200)
 
     def test_shopping_create_view(self):
 

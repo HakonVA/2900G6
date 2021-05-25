@@ -44,11 +44,3 @@ class PantryUrlTest(TestCase):
 
         response = self.client.post('/pantrys/ingredients/1/delete/')
         self.assertEqual(response.status_code, 302)
-
-    def test_ingredients_autocomplete_url(self):
-        #TODO:
-        pass
-
-    def test_ingredients_sumbitfood_url(self):
-        #TODO:
-        pass
