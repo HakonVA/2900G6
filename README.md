@@ -1,7 +1,7 @@
 # 2900G6
 
 ## Introduction
-Fridge Friend is a Django web application that makes it easy for an user to create, mantain and view their stored ingredients. With Fridge Friend, the user will be given recipe suggestions based on their stored ingredients. In addition, Fridge Friend offers the feature for the user to create and matain their own shopping list. Recipes ingredients can be added automatically with a simple button push into the users shopping list, meaning the missing ingredients that the users doesn't have yet! 
+Fridge Friend is a Django web application that makes it easy for an user to create, mantain and view their stored ingredients. The vision of Fridge Friend is to help users cook recipies based on what is contained in their fridge/pantry. Fridge Friend will allow the users to flip through a set of recipes and view the necessary amount, unit and the name of ingredients required to make the recipe. In addition, a few additional information, such as the steps/instructions to take in order to create the desired recipe. Fridge Friend offers the users a platfrom to store, maintain, create and/or alter their Fridge Friend ingredients. Additionally there is a assistant tools to make it easier for the user to maintain and look up their shopping list needs and their fridge/pantry content. Users can add a desired recipes ingredients into the shopping list, thus resulting in the missing ingredients to be appended to their shopping list.
 
 ## Requirements
 ### Runtime
